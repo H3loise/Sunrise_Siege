@@ -149,6 +149,7 @@ public  class Obstacle {
             case Average ->{
                 Size = Taille.Big;
                 ressource = many;
+
             }
         }
     }

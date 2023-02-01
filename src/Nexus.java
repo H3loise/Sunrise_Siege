@@ -9,11 +9,10 @@ public class Nexus extends Batiment {
 
     /**
      * Création d'un Nexus, appel au super constructeur
-     * @param pv
      * @param x
      * @param y
      */
-    public Nexus(int pv, int x, int y) {
+    public Nexus(int x, int y) {
         super( x, y);
         this.setPv(100);
         this.attack = 50;

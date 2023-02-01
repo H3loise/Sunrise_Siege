@@ -1,3 +1,5 @@
+import Personnages.Personnage;
+
 import java.util.ArrayList;
 
 public class Map {

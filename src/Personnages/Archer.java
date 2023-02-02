@@ -1,5 +1,4 @@
 package Personnages;
-
 public class Archer extends Personnage {
     private static final String name = "Personnages.Archer";        // apparemment faut mettre static pour que ça rentre dans le super
     private static final int health_points = 150;       // apparemment faut mettre static pour que ça rentre dans le super
@@ -18,4 +17,5 @@ public class Archer extends Personnage {
     public void attack(Personnage p) {
         p.attackedPersonnage(this.attack_points);
     }
+
 }

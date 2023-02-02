@@ -1,5 +1,6 @@
 package Personnages;
 
+
 public abstract class Personnage {
     private int health_points;
     private boolean isAlive = true;

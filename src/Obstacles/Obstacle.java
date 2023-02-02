@@ -1,3 +1,5 @@
+package Obstacles;
+
 import java.awt.*;
 import java.util.Random;
 /**
@@ -9,7 +11,7 @@ import java.util.Random;
 
 public  class Obstacle {
     private int ressource;
-    private Taille Size;
+    private Taille size;
     private int x;
     private int y;
     private final int few = 3;
@@ -30,7 +32,7 @@ public  class Obstacle {
     public Obstacle(int ressource, Taille taille, int x, int y,Type type) {
         this.ressource = ressource;
         this.type = type;
-        this.Size = taille;
+        this.size = taille;
         this.x = x;
         this.y = y;
     }
@@ -45,12 +47,12 @@ public  class Obstacle {
         Random r = new Random();
         int nb = r.nextInt(3);
         switch (nb) {
-            case 0 -> Size = Taille.Small;
-            case 1 -> Size = Taille.Average;
-            case 2 -> Size = Taille.Big;
-            case default -> Size = Taille.Big;
+            case 0 -> size = Taille.Small;
+            case 1 -> size = Taille.Average;
+            case 2 -> size = Taille.Big;
+            case default -> size = Taille.Big;
         }
-        switch (Size){
+        switch (size){
             case Small -> ressource = few;
             case Average -> ressource = medium;
             case Big -> ressource = many;
@@ -85,7 +87,7 @@ public  class Obstacle {
      * @return int
      */
     public Taille getSize() {
-        return Size;
+        return size;
     }
 
     /**
@@ -93,7 +95,7 @@ public  class Obstacle {
      * @param size
      */
     private void setSize(Taille size) {
-        this.Size = size;
+        this.size = size;
     }
 
     public int getX() {
@@ -140,13 +142,13 @@ public  class Obstacle {
      * Permet d'augmenter la taille de l'obstacle, pourra être utile prochainement
      */
     public void upgrade(){
-        switch (Size){
+        switch (size){
             case Small -> {
-                Size = Taille.Average;
+                size = Taille.Average;
                 ressource =medium;
             }
             case Average ->{
-                Size = Taille.Big;
+                size = Taille.Big;
                 ressource = many;
 
             }
@@ -159,7 +161,7 @@ public  class Obstacle {
     @Override
     public String toString() {
         return "Cest un " +  type +
-                " , de taille " + Size +
+                " , de taille " + size +
                 " et qui rapporte " + ressource +
                 "à sa destruction";
     }

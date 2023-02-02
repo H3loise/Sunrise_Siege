@@ -4,7 +4,7 @@ public abstract class Personnage {
     private int health_points;
     private boolean isAlive = true;
 
-    public Personnage(int health_points, String name){
+    public Personnage(int health_points){
         this.health_points = health_points;
     }
 
@@ -15,6 +15,8 @@ public abstract class Personnage {
     public boolean getIsAlive(){
         return this.isAlive;
     }
+
+    public int getHealth_points(){return this.health_points;}
 
     /**
      * perso qui se fait attaquer
@@ -28,6 +30,4 @@ public abstract class Personnage {
             this.health_points -= damage;
         }
     }
-
-    public void extractRessources(){}
 }

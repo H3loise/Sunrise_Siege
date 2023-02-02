@@ -1,7 +1,7 @@
-/**
- * SuperClasse abstract Batiment, vous ne pouvez pas manipuler directement des objets de cette classe /!\,
+package Batiments; /**
+ * SuperClasse abstract Batiments.Batiment, vous ne pouvez pas manipuler directement des objets de cette classe /!\,
  * un batiment a toujours des pv, une position, une image de nuit et de jour, et un niveau.
- * un batiment est un Nexus pour l'instant, mais pas un obstacle attention.
+ * un batiment est un Batiments.Nexus pour l'instant, mais pas un obstacle attention.
  */
 import java.awt.*;
 public abstract class Batiment {
@@ -16,7 +16,7 @@ public abstract class Batiment {
      * Le niveau d'un batiment est à 1 lors de sa création, on peut l'augmenter avec la sous_fonction cheat.
      * @param x
      * @param y
-     * @return Batiment
+     * @return Batiments.Batiment
      */
     public Batiment(int x, int y) {
         this.x = x;

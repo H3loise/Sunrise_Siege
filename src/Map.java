@@ -1,3 +1,5 @@
+import Batiments.Batiment;
+import Obstacles.Obstacle;
 import Personnages.Personnage;
 
 import java.util.ArrayList;

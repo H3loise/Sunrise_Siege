@@ -1,5 +1,7 @@
+package Batiments;
+
 /**
- * Nexus est le batiment principal, le chateau, le coeur de notre base. La destruction du Nexus entraînera le défaite du
+ * Batiments.Nexus est le batiment principal, le chateau, le coeur de notre base. La destruction du Batiments.Nexus entraînera le défaite du
  * joueur immédiatement.Un nexus a de l'attaque et peut donc se défendre.
  */
 
@@ -8,7 +10,7 @@ public class Nexus extends Batiment {
     private int attack;
 
     /**
-     * Création d'un Nexus, appel au super constructeur
+     * Création d'un Batiments.Nexus, appel au super constructeur
      * @param pv
      * @param x
      * @param y
@@ -36,7 +38,7 @@ public class Nexus extends Batiment {
     }
 
     /**
-     * permet d'améliorer le Nexus, pour l'instant on met 50 en attaque et 100 en pv pour chaque niveau obtenu.
+     * permet d'améliorer le Batiments.Nexus, pour l'instant on met 50 en attaque et 100 en pv pour chaque niveau obtenu.
      * l'amélioration du nexus se fera pas matériaux, que l'on gèrera dans le modèle.
      *
      */
@@ -58,7 +60,7 @@ public class Nexus extends Batiment {
 
 
     /**
-     * Affichage des informations sur le Nexus, nous sera utile pour l'affichage sur swing aussi
+     * Affichage des informations sur le Batiments.Nexus, nous sera utile pour l'affichage sur swing aussi
      * @return String
      */
     @Override

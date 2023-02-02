@@ -1,4 +1,7 @@
+package Batiments;
+
 import java.awt.*;
+
 
 /**
  * SuperClasse abstract Batiment, vous ne pouvez pas manipuler directement des objets de cette classe /!\,

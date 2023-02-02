@@ -1,3 +1,4 @@
+package Batiments;
 /**
  * Nexus est le batiment principal, le chateau, le coeur de notre base. La destruction du Nexus entraînera le défaite du
  * joueur immédiatement.Un nexus a de l'attaque et peut donc se défendre.

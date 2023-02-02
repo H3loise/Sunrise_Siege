@@ -2,6 +2,7 @@ package Obstacles;
 
 import java.awt.*;
 import java.util.Random;
+
 /**
  * Super classe obstacle, permettant d'encoder les rochers, arbres et blé
  * Le type de la ressource est un enum class, son image en dépendra, mais aussi du moment de la journée ( nuit/jour)

@@ -1,20 +1,31 @@
+import Batiments.Batiment;
 import Batiments.Nexus;
+import Obstacles.Obstacle;
+import Personnages.Personnage;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class Affichage extends JPanel {
-    public int windowWidth = 1480;
-    public int windowHeight = 920;
-    public Nexus nexus;
-    public Affichage(){
-        nexus = new Nexus(50,windowHeight-50);
-        setPreferredSize(new Dimension(windowWidth,windowHeight));
+    public Map map;
+    public Affichage(Map map){
+        this.map = map;
+        setPreferredSize(new Dimension(map.windowWidth,map.windowHeight));
         setBackground(Color.LIGHT_GRAY);
     }
 
     public void paint(Graphics g){
         g.setColor(Color.GRAY);
-        g.drawRect(nexus.getX(),nexus.getY(),100 ,-100);
+        for(Batiment b : map.getBatiments()){
+            g.drawRect(b.getX(), b.getY(), 100, -100);
+        }
+        g.setColor(Color.RED);
+        for(Obstacle o : map.getObstacles()){
+            g.drawRect(o.getX(), o.getY(), 10, -10);
+        }
+        g.setColor(Color.BLUE);
+        for(Personnage p : map.getPersonnages()){
+            g.drawRect(p.getX(),p.getY(),10,-10);
+        }
     }
 }

@@ -8,11 +8,19 @@ import java.awt.*;
 
 public class Affichage extends JPanel {
     public Map map;
+    /**
+     * Création d'un Affichage
+     * @param map de type Map
+     */
     public Affichage(Map map){
         this.map = map;
         setPreferredSize(new Dimension(map.windowWidth,map.windowHeight));
-        setBackground(Color.LIGHT_GRAY);
+        setBackground(Color.GREEN);
     }
+    /**
+     * Méthode pour dessiner la map, les obstacles, les personnages et les batiments.
+     * @param g Instance de la classe Graphics
+     */
 
     public void paint(Graphics g){
         g.setColor(Color.GRAY);

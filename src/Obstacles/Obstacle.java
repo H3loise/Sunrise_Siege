@@ -45,12 +45,13 @@ public  class Obstacle {
      * @param y
      */
     public Obstacle(int x, int y){
+        this.x = x;
+        this.y = y;
         Random r = new Random();
         int nb = r.nextInt(3);
         switch (nb) {
             case 0 -> size = Taille.Small;
             case 1 -> size = Taille.Average;
-            case 2 -> size = Taille.Big;
             case default -> size = Taille.Big;
         }
         switch (size){
@@ -134,6 +135,7 @@ public  class Obstacle {
     public Image getImageNuit() {
         return imageNuit;
     }
+
 
     public Type getType() {
         return type;

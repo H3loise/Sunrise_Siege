@@ -1,22 +1,16 @@
 package Personnages;
 
 public abstract class Personnage {
+    private int x;
+    private int y;
     private int health_points;
     private boolean isAlive = true;
 
-    public Personnage(int health_points){
+    public Personnage(int health_points, int x, int y){
         this.health_points = health_points;
+        this.x = x;
+        this.y = y;
     }
-
-    /**
-     * get si en vie pour retirer perso du jeu
-     * @return
-     */
-    public boolean getIsAlive(){
-        return this.isAlive;
-    }
-
-    public int getHealth_points(){return this.health_points;}
 
     /**
      * perso qui se fait attaquer
@@ -30,4 +24,23 @@ public abstract class Personnage {
             this.health_points -= damage;
         }
     }
+
+    /**
+     * get si en vie pour retirer perso du jeu
+     * @return
+     */
+    public boolean getIsAlive(){
+        return this.isAlive;
+    }
+
+    public int getHealth_points(){return this.health_points;}
+
+    public int getX(){return this.x;}
+
+    public int getY(){return this.y;}
+
+    public void setX(int new_x){this.x = new_x;}
+
+    public void setY(int new_y){this.y = new_y;}
+
 }

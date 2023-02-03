@@ -9,7 +9,7 @@ import java.util.Random;
  *
  */
 
-public  class Obstacle {
+public class Obstacle {
     private int ressource;
     private Taille size;
     private int x;

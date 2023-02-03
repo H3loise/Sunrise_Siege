@@ -45,6 +45,8 @@ public class Obstacle {
      * @param y
      */
     public Obstacle(int x, int y){
+        this.x = x;
+        this.y = y;
         Random r = new Random();
         int nb = r.nextInt(3);
         switch (nb) {

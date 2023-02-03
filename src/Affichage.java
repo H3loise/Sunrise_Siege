@@ -19,9 +19,13 @@ public class Affichage extends JPanel {
         for(Batiment b : map.getBatiments()){
             g.drawRect(b.getX(), b.getY(), 100, -100);
         }
-        g.setColor(Color.RED);
+        g.setColor(Color.YELLOW);
         for(Obstacle o : map.getObstacles()){
             g.drawRect(o.getX(), o.getY(), 10, -10);
+        }
+        g.setColor(Color.BLUE);
+        for(Personnage p: map.getPersonnages()){
+            g.drawRect(p.getX(), p.getY(), 10, -10);
         }
     }
 }

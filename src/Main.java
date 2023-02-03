@@ -8,7 +8,7 @@ import javax.swing.*;
 public class Main {
     public static void main(String[] args) {
         JFrame fenetre = new JFrame("Sunrise Siege");
-        //Map map = new Map(map.getObstacles(),map.getPersonnages(),map.getBatiments());
+        //Map map = new Map();
         //Affichage aff = new Affichage(map);
         //fenetre.add(aff);
         fenetre.pack();

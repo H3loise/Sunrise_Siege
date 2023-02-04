@@ -1,4 +1,8 @@
+
 package Obstacles;
+
+
+
 
 import java.awt.*;
 import java.util.Random;

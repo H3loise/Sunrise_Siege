@@ -1,5 +1,4 @@
 import Batiments.Batiment;
-import Batiments.Nexus;
 import Obstacles.Obstacle;
 import Personnages.Personnage;
 
@@ -14,7 +13,7 @@ public class Affichage extends JPanel {
      */
     public Affichage(Map map){
         this.map = map;
-        setPreferredSize(new Dimension(map.windowWidth,map.windowHeight));
+        setPreferredSize(new Dimension(Map.taille,Map.taille));
         setBackground(Color.GREEN);
     }
     /**
@@ -23,14 +22,24 @@ public class Affichage extends JPanel {
      */
 
     public void paint(Graphics g){
+       paintBatiments(g);
+       paintObstacles(g);
+       paintPersonnages(g);
+    }
+    private void paintBatiments(Graphics g){
         g.setColor(Color.GRAY);
         for(Batiment b : map.getBatiments()){
             g.drawRect(b.getX(), b.getY(), 100, -100);
         }
+    }
+    private void paintObstacles(Graphics g){
         g.setColor(Color.YELLOW);
         for(Obstacle o : map.getObstacles()){
             g.drawRect(o.getX(), o.getY(), 10, -10);
         }
+    }
+
+    private void paintPersonnages(Graphics g){
         g.setColor(Color.BLUE);
         for(Personnage p: map.getPersonnages()){
             g.drawRect(p.getX(), p.getY(), 10, -10);

@@ -2,10 +2,8 @@ import Batiments.Batiment;
 import Batiments.Nexus;
 import Obstacles.Obstacle;
 import Personnages.Archer;
-import Personnages.Guerrier;
 import Personnages.Personnage;
 
-import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
 public class Main {
@@ -17,7 +15,7 @@ public class Main {
         per.add(new Archer(50,50));
         obs.add(new Obstacle(70,70));
         bat.add(new Nexus(50,870));
-        Map map = new Map(obs,per,bat);
+        Map map = new Map();
         System.out.println(map.getObstacles());
         Affichage aff = new Affichage(map);
         window.add(aff);

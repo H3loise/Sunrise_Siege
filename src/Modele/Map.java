@@ -1,7 +1,9 @@
 package Modele;
 
-import Modele.Obstacle;
-import Modele.Personnage;
+import Modele.Personnages.Archer;
+import Modele.Personnages.Guerrier;
+import Modele.Personnages.Personnage;
+import Modele.Personnages.Villageois;
 
 import java.util.ArrayList;
 
@@ -13,6 +15,7 @@ public class Map {
     private int food;
     private int stone;
     private int wood;
+    private boolean day;
 
 
     public ArrayList<Obstacle> getObstacles() {
@@ -39,6 +42,14 @@ public class Map {
         return wood;
     }
 
+    public boolean getDay(){
+        return day;
+    }
+
+    public void setDay(boolean d){
+        this.day=d;
+    }
+
     //Food a 0 mais pourrait etre set a une autre valeur au début
     public Map(){
         this.batiments = new ArrayList<>();
@@ -49,5 +60,11 @@ public class Map {
         this.food=0;
         this.wood=0;
         this.stone=0;
+        this.characters.add(new Villageois(300, 300));
+        this.characters.add(new Guerrier( 350, 300));
+        this.characters.add(new Archer(400,300));
+        this.obstacles.add(new Obstacle(300, 350));
+        this.obstacles.add(new Obstacle(350, 350));
+        this.obstacles.add(new Obstacle(400,350));
     }
 }

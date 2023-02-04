@@ -1,3 +1,5 @@
+package Modele;
+
 import java.awt.*;
 
 /**

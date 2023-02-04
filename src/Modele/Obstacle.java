@@ -1,3 +1,8 @@
+package Modele;
+
+import Modele.Taille;
+import Modele.Type;
+
 import java.awt.*;
 import java.util.Random;
 

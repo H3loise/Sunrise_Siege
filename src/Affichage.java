@@ -5,16 +5,27 @@ import Personnages.Personnage;
 import javax.swing.*;
 import java.awt.*;
 
-public class Affichage extends JPanel {
-    public Map map;
+public class Affichage extends JFrame {
+    private Map map;
+    private VueRessources vueRessources;
+    private VueJeu vueJeu;
     /**
      * Création d'un Affichage
      * @param map de type Map
      */
     public Affichage(Map map){
         this.map = map;
+        JFrame window = new JFrame("Sunrise Siege");
         setPreferredSize(new Dimension(Map.taille,Map.taille));
+         this.vueRessources = new VueRessources(map);
+         this.vueJeu = new VueJeu(map);
         setBackground(Color.GREEN);
+        window.setLayout(new FlowLayout());
+        window.add(vueRessources);
+        window.add(vueJeu);
+        window.pack();
+        window.setVisible(true);
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     /**
      * Méthode pour dessiner la map, les obstacles, les personnages et les batiments.
@@ -22,27 +33,9 @@ public class Affichage extends JPanel {
      */
 
     public void paint(Graphics g){
-       paintBatiments(g);
-       paintObstacles(g);
-       paintPersonnages(g);
-    }
-    private void paintBatiments(Graphics g){
-        g.setColor(Color.GRAY);
-        for(Batiment b : map.getBatiments()){
-            g.drawRect(b.getX(), b.getY(), 100, -100);
-        }
-    }
-    private void paintObstacles(Graphics g){
-        g.setColor(Color.YELLOW);
-        for(Obstacle o : map.getObstacles()){
-            g.drawRect(o.getX(), o.getY(), 10, -10);
-        }
+       vueJeu.paint(g);
+       vueRessources.paint(g);
     }
 
-    private void paintPersonnages(Graphics g){
-        g.setColor(Color.BLUE);
-        for(Personnage p: map.getPersonnages()){
-            g.drawRect(p.getX(), p.getY(), 10, -10);
-        }
-    }
+
 }

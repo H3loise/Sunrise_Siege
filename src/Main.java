@@ -1,9 +1,10 @@
-import Batiments.Batiment;
-import Batiments.Nexus;
-import Obstacles.Obstacle;
-import Personnages.Archer;
-import Personnages.Guerrier;
-import Personnages.Personnage;
+import Model.Batiments.Batiment;
+import Model.Batiments.Nexus;
+import Model.Map;
+import Model.Obstacles.Obstacle;
+import Model.Personnages.Archer;
+import Model.Personnages.Personnage;
+import Vue.Affichage;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -17,12 +18,7 @@ public class Main {
         per.add(new Archer(50,50));
         obs.add(new Obstacle(70,70));
         bat.add(new Nexus(50,870));
-        Map map = new Map(obs,per,bat);
-        System.out.println(map.getObstacles());
+        Map map = new Map();
         Affichage aff = new Affichage(map);
-        window.add(aff);
-        window.pack();
-        window.setVisible(true);
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }

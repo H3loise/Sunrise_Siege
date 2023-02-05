@@ -1,4 +1,4 @@
-package Personnages;
+package Model.Personnages;
 
 public class Guerrier extends Personnage {
     private static final int health_points = 150;           // apparemment faut mettre static pour que ça rentre dans le super

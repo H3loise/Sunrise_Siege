@@ -1,6 +1,8 @@
-import Batiments.Batiment;
-import Obstacles.Obstacle;
-import Personnages.Personnage;
+package Model;
+
+import Model.Batiments.Batiment;
+import Model.Obstacles.Obstacle;
+import Model.Personnages.Personnage;
 
 import java.util.ArrayList;
 

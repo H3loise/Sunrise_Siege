@@ -1,4 +1,4 @@
-package Obstacles;
+package Model.Obstacles;
 
 import java.awt.*;
 import java.util.Random;

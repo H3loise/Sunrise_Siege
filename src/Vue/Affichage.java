@@ -1,7 +1,9 @@
-import Batiments.Batiment;
-import Batiments.Nexus;
-import Obstacles.Obstacle;
-import Personnages.Personnage;
+package Vue;
+
+import Model.Batiments.Batiment;
+import Model.Map;
+import Model.Obstacles.Obstacle;
+import Model.Personnages.Personnage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,8 +11,8 @@ import java.awt.*;
 public class Affichage extends JPanel {
     public Map map;
     /**
-     * Création d'un Affichage
-     * @param map de type Map
+     * Création d'un Vue.Affichage
+     * @param map de type Model.Map
      */
     public Affichage(Map map){
         this.map = map;

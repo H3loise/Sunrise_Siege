@@ -1,7 +1,6 @@
-import Batiments.Batiment;
-import Obstacles.Obstacle;
-import Personnages.Personnage;
+package Vue;
 
+import Model.Map;
 import javax.swing.*;
 import java.awt.*;
 
@@ -10,13 +9,13 @@ public class Affichage extends JFrame {
     private VueRessources vueRessources;
     private VueJeu vueJeu;
     /**
-     * Création d'un Affichage
-     * @param map de type Map
+     * Création d'un Vue.Affichage
+     * @param map de type Modele.Map
      */
     public Affichage(Map map){
         this.map = map;
         JFrame window = new JFrame("Sunrise Siege");
-        setPreferredSize(new Dimension(Map.taille,Map.taille));
+        setPreferredSize(new Dimension(Map.taille, Map.taille));
          this.vueRessources = new VueRessources(map);
          this.vueJeu = new VueJeu(map);
         setBackground(Color.GREEN);

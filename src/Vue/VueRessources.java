@@ -1,3 +1,7 @@
+package Vue;
+
+import Model.Map;
+
 import javax.swing.*;
 import java.awt.*;
 

@@ -1,4 +1,4 @@
-package Personnages;
+package Model.Personnages;
 
 
 public abstract class Personnage {

@@ -1,4 +1,4 @@
-
+import Model.Map;
 
 public class TimeChanger extends Thread{
     Map m;

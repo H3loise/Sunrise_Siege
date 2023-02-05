@@ -1,10 +1,12 @@
-import Batiments.Batiment;
-import Batiments.Nexus;
-import Obstacles.Obstacle;
-import Personnages.Archer;
-import Personnages.Guerrier;
-import Personnages.Personnage;
-import Personnages.Villageois;
+package Model;
+
+import Model.Batiments.Batiment;
+import Model.Batiments.Nexus;
+import Model.Obstacles.Obstacle;
+import Model.Personnages.Archer;
+import Model.Personnages.Guerrier;
+import Model.Personnages.Personnage;
+import Model.Personnages.Villageois;
 
 import java.util.ArrayList;
 

@@ -1,6 +1,9 @@
-import Batiments.Batiment;
-import Obstacles.Obstacle;
-import Personnages.Personnage;
+package Vue;
+
+import Model.Batiments.Batiment;
+import Model.Map;
+import Model.Obstacles.Obstacle;
+import Model.Personnages.Personnage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,12 +12,12 @@ public class VueJeu extends JPanel {
     private Map map;
     private VueRessources vueRessources;
     /**
-     * Création d'un Affichage
-     * @param map de type Map
+     * Création d'un Vue.Affichage
+     * @param map de type Modele.Map
      */
     public VueJeu(Map map){
         this.map = map;
-        setPreferredSize(new Dimension(Map.taille,Map.taille));
+        setPreferredSize(new Dimension(Map.taille, Map.taille));
         this.vueRessources = new VueRessources(map);
         setBackground(Color.GREEN);
     }

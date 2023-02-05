@@ -1,5 +1,7 @@
-package Personnages;
-import Obstacles.Obstacle;
+package Model.Personnages;
+
+import Model.Obstacles.Obstacle;
+import Model.Personnages.Personnage;
 
 public class Villageois extends Personnage {
     private static final int health_points = 1;

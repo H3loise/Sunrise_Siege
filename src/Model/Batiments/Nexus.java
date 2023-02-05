@@ -1,5 +1,7 @@
 
-package Batiments;
+package Model.Batiments;
+
+import Model.Batiments.Batiment;
 
 /**
  * Nexus est le batiment principal, le chateau, le coeur de notre base. La destruction du Nexus entraînera le défaite du
@@ -64,7 +66,7 @@ public class Nexus extends Batiment {
 
 
     /**
-     * Affichage des informations sur le Nexus, nous sera utile pour l'affichage sur swing aussi
+     * Vue.Affichage des informations sur le Nexus, nous sera utile pour l'affichage sur swing aussi
      * @return String
      */
     @Override

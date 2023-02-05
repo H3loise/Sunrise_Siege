@@ -1,11 +1,13 @@
-import Batiments.Batiment;
-import Batiments.Nexus;
-import Obstacles.Obstacle;
-import Personnages.Archer;
-import Personnages.Personnage;
+import Model.Batiments.Batiment;
+import Model.Batiments.Nexus;
+import Model.Map;
+import Model.Obstacles.Obstacle;
+import Model.Personnages.Archer;
+import Model.Personnages.Personnage;
+import Vue.Affichage;
 
 import java.util.ArrayList;
-import javax.swing.*;
+
 public class Main {
     public static void main(String[] args) {
         ArrayList<Personnage> per = new ArrayList<>();
@@ -15,7 +17,6 @@ public class Main {
         obs.add(new Obstacle(70,70));
         bat.add(new Nexus(50,870));
         Map map = new Map();
-        System.out.println(map.getObstacles());
         Affichage aff = new Affichage(map);
 
     }

@@ -1,5 +1,5 @@
 
-package Obstacles;
+package Model.Obstacles;
 
 
 /**

@@ -1,12 +1,8 @@
 package Model;
+import Model.Batiments.*;
 
-import Model.Batiments.Batiment;
-import Model.Batiments.Nexus;
-import Model.Obstacles.Obstacle;
-import Model.Personnages.Archer;
-import Model.Personnages.Guerrier;
-import Model.Personnages.Personnage;
-import Model.Personnages.Villageois;
+import Model.Obstacles.*;
+import Model.Personnages.*;
 
 import java.util.ArrayList;
 
@@ -14,7 +10,7 @@ public class Map {
     private ArrayList<Obstacle> obstacles;
     private ArrayList<Personnage> characters;
     private ArrayList<Batiment> batiments;
-    public static final int taille=600;
+    public static final int taille=1000;
     private int food;
     private int stone;
     private int wood;

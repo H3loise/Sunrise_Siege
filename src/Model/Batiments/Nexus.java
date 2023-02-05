@@ -1,8 +1,4 @@
-
 package Model.Batiments;
-
-import Model.Batiments.Batiment;
-
 /**
  * Nexus est le batiment principal, le chateau, le coeur de notre base. La destruction du Nexus entraînera le défaite du
  * joueur immédiatement.Un nexus a de l'attaque et peut donc se défendre.
@@ -11,20 +7,16 @@ import Model.Batiments.Batiment;
 public class Nexus extends Batiment {
     //Canon qui attaque
     private int attack;
-    private final int pvBase = 100;
-    private final int attackBase = 50;
-    private final int upAttackPerLevel = 50;
-    private final int upHpPerLevel = 100;
 
     /**
-     * Création d'une Nexus, appel au super constructeur
+     * Création d'un Nexus, appel au super constructeur
      * @param x
      * @param y
      */
     public Nexus(int x, int y) {
         super( x, y);
-        this.setPv(pvBase);
-        this.attack = attackBase;
+        this.setPv(100);
+        this.attack = 50;
     }
 
     /**
@@ -50,8 +42,8 @@ public class Nexus extends Batiment {
      */
     public void upgrade(){
         setPv(getLevel()+1);
-        this.attack+=upAttackPerLevel;
-        setPv(getPv()+upHpPerLevel);
+        this.attack+=50;
+        setPv(getPv()+100);
     }
 
     /**
@@ -59,8 +51,8 @@ public class Nexus extends Batiment {
      * @param level
      */
     public void cheat(int level){
-        setPv(level * pvBase);
-        setAttack(attackBase*level);
+        setPv(level * 100);
+        setAttack(50*level);
         setLevel(level);
     }
 

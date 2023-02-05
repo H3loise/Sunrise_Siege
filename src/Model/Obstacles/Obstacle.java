@@ -1,7 +1,4 @@
-
 package Model.Obstacles;
-
-
 
 import java.awt.*;
 import java.util.Random;
@@ -55,6 +52,7 @@ public class Obstacle {
         switch (nb) {
             case 0 -> size = Taille.Small;
             case 1 -> size = Taille.Average;
+            case 2 -> size = Taille.Big;
             case default -> size = Taille.Big;
         }
         switch (size){
@@ -138,7 +136,6 @@ public class Obstacle {
     public Image getImageNuit() {
         return imageNuit;
     }
-
 
     public Type getType() {
         return type;

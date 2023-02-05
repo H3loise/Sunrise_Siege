@@ -1,8 +1,6 @@
 package Vue;
 
 import Model.Map;
-
-import javax.print.attribute.standard.PrinterName;
 import javax.swing.*;
 import java.awt.*;
 
@@ -18,14 +16,17 @@ public class Affichage extends JFrame {
         this.map = map;
         JFrame window = new JFrame("Sunrise Siege");
         setPreferredSize(new Dimension(Map.taille, Map.taille));
-         this.vueRessources = new VueRessources(map);
-         this.vueJeu = new VueJeu(map);
-         vueJeu.setLayout(new GridLayout(1,1));
-        vueJeu.setBackground(Color.BLUE);
-        vueRessources.setLayout(new GridLayout(1,1));
-        window.add(vueRessources);
+        this.vueRessources = new VueRessources(map);
+        //this.vueRessources.setBackground(Color.blue);
+        this.vueJeu = new VueJeu(map);
 
+        JPanel j = new VueRessources(map);
+
+        //j.setBackground(Color.blue);
+        //window.setBackground(Color.GREEN);
+        //this.vueRessources.setBackground(Color.blue);
         window.add(vueJeu);
+        window.add(j, BorderLayout.SOUTH);
         window.pack();
         window.setVisible(true);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,8 +37,9 @@ public class Affichage extends JFrame {
      */
 
     public void paint(Graphics g){
-       vueJeu.paint(g);
-       //vueRessources.paint(g);
+        super.repaint();
+        vueRessources.paint(g);
+        vueJeu.paint(g);
     }
 
 

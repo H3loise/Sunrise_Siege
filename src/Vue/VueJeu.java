@@ -11,7 +11,6 @@ import java.awt.*;
 
 public class VueJeu extends JPanel {
     private Map map;
-    private VueRessources vueRessources;
     /**
      * Création d'un Vue.Affichage
      * @param map de type Modele.Map
@@ -19,8 +18,6 @@ public class VueJeu extends JPanel {
     public VueJeu(Map map){
         this.map = map;
         setPreferredSize(new Dimension(Map.taille, Map.taille));
-        //this.vueRessources = new VueRessources(map);
-        setBackground(Color.GREEN);
     }
     /**
      * Méthode pour dessiner la map, les obstacles, les personnages et les batiments.

@@ -7,8 +7,9 @@ import java.awt.*;
 
 public class VueRessources extends JPanel {
     private final Map map;
-    private final int hauteur = 50;
+    private final int hauteur = 30;
     private final int longueur = Map.taille;
+
     public VueRessources(Map map){
         this.map = map;
         setPreferredSize(new Dimension(longueur,hauteur));
@@ -16,6 +17,12 @@ public class VueRessources extends JPanel {
 
     @Override
     public void paint(Graphics g) {
-        g.drawString("Nombre de nourriture : " + map.getFood(),10,10);
+        g.setColor(Color.yellow);
+        g.fillRect(0,0,longueur,hauteur);
+        g.setColor(Color.black);
+        g.drawString("Nombre de nourriture : " + map.getFood(),10,20);
+        g.setColor(Color.black);
+        g.drawRect(0,0,longueur,hauteur);
+
     }
 }

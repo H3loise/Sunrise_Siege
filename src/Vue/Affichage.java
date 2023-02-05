@@ -5,28 +5,29 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Affichage extends JFrame {
-    private Map map;
-    private VueRessources vueRessources;
-    private VueJeu vueJeu;
+    private final VueRessources vueRessources;
+    private final VueJeu vueJeu;
+    private final VueInfo vueInfo;
+
     /**
      * Création d'un Vue.Affichage
      * @param map de type Modele.Map
      */
     public Affichage(Map map){
-        this.map = map;
         JFrame window = new JFrame("Sunrise Siege");
-        setPreferredSize(new Dimension(Map.taille, Map.taille));
+        window.setPreferredSize(new Dimension(Map.taille, Map.taille));
+        window.getContentPane().setLayout(new BorderLayout());
+        //this.setBackground(Color.GREEN);
+
         this.vueRessources = new VueRessources(map);
-        //this.vueRessources.setBackground(Color.blue);
         this.vueJeu = new VueJeu(map);
+        this.vueInfo = new VueInfo(map);
+        this.vueRessources.setBorder(BorderFactory.createLineBorder(Color.black));
 
-        JPanel j = new VueRessources(map);
+        window.add(this.vueInfo, BorderLayout.EAST);
+        window.add(this.vueJeu);
+        window.add(this.vueRessources, BorderLayout.SOUTH);
 
-        //j.setBackground(Color.blue);
-        //window.setBackground(Color.GREEN);
-        //this.vueRessources.setBackground(Color.blue);
-        window.add(vueJeu);
-        window.add(j, BorderLayout.SOUTH);
         window.pack();
         window.setVisible(true);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -38,9 +39,9 @@ public class Affichage extends JFrame {
 
     public void paint(Graphics g){
         super.repaint();
+        vueInfo.paint(g);
         vueRessources.paint(g);
         vueJeu.paint(g);
     }
-
 
 }

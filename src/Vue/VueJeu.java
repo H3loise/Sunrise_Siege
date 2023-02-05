@@ -12,13 +12,16 @@ import java.awt.*;
 public class VueJeu extends JPanel {
     private Map map;
     private VueRessources vueRessources;
+    private final int largeur = Map.taille - 200;
+    private final int hauteur = Map.taille - 200;
+
     /**
      * Création d'un Vue.Affichage
      * @param map de type Modele.Map
      */
     public VueJeu(Map map){
         this.map = map;
-        setPreferredSize(new Dimension(Map.taille, Map.taille));
+        setPreferredSize(new Dimension(largeur, hauteur));
         //this.vueRessources = new VueRessources(map);
         setBackground(Color.GREEN);
     }

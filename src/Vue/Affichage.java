@@ -33,6 +33,7 @@ public class Affichage extends JFrame {
     }
     /**
      * Méthode pour dessiner la map, les obstacles, les personnages et les batiments.
+     * On appelle les sous-classes VueRessources et vueJeu, chargées chacun d'afficher le jeu ou les ressources
      * @param g Instance de la classe Graphics
      */
 

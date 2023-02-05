@@ -12,8 +12,6 @@ public abstract class Batiment {
     private int pv;
     private int x;
     private int y;
-    private final Image imageJour = null;
-    private final Image imageNuit = null;
     private int level;
 
     /**
@@ -52,13 +50,6 @@ public abstract class Batiment {
         this.y = y;
     }
 
-    public Image getImageJour() {
-        return imageJour;
-    }
-
-    public Image getImageNuit() {
-        return imageNuit;
-    }
 
     public int getLevel() {
         return level;

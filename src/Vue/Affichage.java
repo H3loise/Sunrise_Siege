@@ -1,6 +1,8 @@
 package Vue;
 
 import Model.Map;
+
+import javax.print.attribute.standard.PrinterName;
 import javax.swing.*;
 import java.awt.*;
 
@@ -18,9 +20,11 @@ public class Affichage extends JFrame {
         setPreferredSize(new Dimension(Map.taille, Map.taille));
          this.vueRessources = new VueRessources(map);
          this.vueJeu = new VueJeu(map);
-        setBackground(Color.GREEN);
-        window.setLayout(new FlowLayout());
+         vueJeu.setLayout(new GridLayout(1,1));
+        vueJeu.setBackground(Color.BLUE);
+        vueRessources.setLayout(new GridLayout(1,1));
         window.add(vueRessources);
+
         window.add(vueJeu);
         window.pack();
         window.setVisible(true);
@@ -33,7 +37,7 @@ public class Affichage extends JFrame {
 
     public void paint(Graphics g){
        vueJeu.paint(g);
-       vueRessources.paint(g);
+       //vueRessources.paint(g);
     }
 
 

@@ -1,41 +1,47 @@
 package Vue;
 
-import Model.Batiments.Batiment;
 import Model.Map;
-import Model.Obstacles.Obstacle;
-import Model.Personnages.Personnage;
-
 import javax.swing.*;
 import java.awt.*;
 
-public class Affichage extends JPanel {
-    public Map map;
+public class Affichage extends JFrame {
+    private Map map;
+    private VueRessources vueRessources;
+    private VueJeu vueJeu;
     /**
      * Création d'un Vue.Affichage
-     * @param map de type Model.Map
+     * @param map de type Modele.Map
      */
     public Affichage(Map map){
         this.map = map;
-        setPreferredSize(new Dimension(map.windowWidth,map.windowHeight));
-        setBackground(Color.GREEN);
+        JFrame window = new JFrame("Sunrise Siege");
+        setPreferredSize(new Dimension(Map.taille, Map.taille));
+        this.vueRessources = new VueRessources(map);
+        //this.vueRessources.setBackground(Color.blue);
+        this.vueJeu = new VueJeu(map);
+
+        JPanel j = new VueRessources(map);
+
+        //j.setBackground(Color.blue);
+        //window.setBackground(Color.GREEN);
+        //this.vueRessources.setBackground(Color.blue);
+        window.add(vueJeu);
+        window.add(j, BorderLayout.SOUTH);
+        window.pack();
+        window.setVisible(true);
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     /**
      * Méthode pour dessiner la map, les obstacles, les personnages et les batiments.
+     * On appelle les sous-classes VueRessources et vueJeu, chargées chacun d'afficher le jeu ou les ressources
      * @param g Instance de la classe Graphics
      */
 
     public void paint(Graphics g){
-        g.setColor(Color.GRAY);
-        for(Batiment b : map.getBatiments()){
-            g.drawRect(b.getX(), b.getY(), 100, -100);
-        }
-        g.setColor(Color.YELLOW);
-        for(Obstacle o : map.getObstacles()){
-            g.drawRect(o.getX(), o.getY(), 10, -10);
-        }
-        g.setColor(Color.BLUE);
-        for(Personnage p: map.getPersonnages()){
-            g.drawRect(p.getX(), p.getY(), 10, -10);
-        }
+        super.repaint();
+        vueRessources.paint(g);
+        vueJeu.paint(g);
     }
+
+
 }

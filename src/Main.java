@@ -17,12 +17,7 @@ public class Main {
         per.add(new Archer(50,50));
         obs.add(new Obstacle(70,70));
         bat.add(new Nexus(50,870));
-        Map map = new Map(obs,per,bat);
-        System.out.println(map.getObstacles());
+        Map map = new Map();
         Affichage aff = new Affichage(map);
-        window.add(aff);
-        window.pack();
-        window.setVisible(true);
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }

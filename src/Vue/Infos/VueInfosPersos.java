@@ -9,10 +9,15 @@ import java.io.IOException;
 
 public class VueInfosPersos extends JPanel {
 
-    Personnage personnage;
+    private Personnage personnage;
 
     public VueInfosPersos(Personnage personnage){
         this.personnage = personnage;
+    }
+
+    private void drawString(Graphics g, String text, int x, int y) {
+        for (String line : text.split("\n"))
+            g.drawString(line, x, y += g.getFontMetrics().getHeight());
     }
 
     @Override
@@ -22,7 +27,7 @@ public class VueInfosPersos extends JPanel {
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(customFont);
             g.setFont(customFont);
-            g.drawString(this.personnage.toString(),10,10);
+            drawString(g,this.personnage.toString(),50,20);
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
         }

@@ -2,6 +2,7 @@ package Vue;
 
 import Model.Map;
 import Model.Personnages.Guerrier;
+import Vue.Infos.VueBouttons;
 import Vue.Infos.VueInfosPersos;
 
 import javax.imageio.ImageIO;
@@ -23,11 +24,12 @@ public class VueInfo extends JPanel {
         this.setPreferredSize(new Dimension(longueur,hauteur));
         this.setLayout(new GridLayout(3,1,0,20));
         JPanel haut = new JPanel();
-        JPanel milieu = new JPanel();
+        JPanel milieu = new VueBouttons();
         JPanel bas = new JPanel();
-        haut.setBorder(BorderFactory.createEmptyBorder(0,10,10,10));
+        //haut.setBorder(BorderFactory.createEmptyBorder(0,10,10,10));
         this.add(haut);
-        this.setBorder(BorderFactory.createLineBorder(Color.GREEN,50));
+        this.add(milieu);
+        //this.setBorder(BorderFactory.createLineBorder(Color.GREEN,50));
     }
 
     @Override

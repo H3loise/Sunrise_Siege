@@ -1,9 +1,7 @@
 package Model.Personnages;
-
-
 import Model.Obstacles.Obstacle;
 
-public class Villageois extends Personnage {
+public class Villageois extends Personnage{
     private static final int health_points = 1;
 
     public Villageois(int x, int y){
@@ -15,7 +13,7 @@ public class Villageois extends Personnage {
      * @param obs
      */
     public void extractRessource(Obstacle obs){
-
+        
     }
 
 }

@@ -1,5 +1,6 @@
 package Model.Personnages;
 
+
 public abstract class Personnage {
     private int x;
     private int y;

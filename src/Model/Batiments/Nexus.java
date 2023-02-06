@@ -1,7 +1,4 @@
 package Model.Batiments;
-
-import Model.Batiments.Batiment;
-
 /**
  * Nexus est le batiment principal, le chateau, le coeur de notre base. La destruction du Nexus entraînera le défaite du
  * joueur immédiatement.Un nexus a de l'attaque et peut donc se défendre.
@@ -13,11 +10,10 @@ public class Nexus extends Batiment {
 
     /**
      * Création d'un Nexus, appel au super constructeur
-     * @param pv
      * @param x
      * @param y
      */
-    public Nexus(int pv, int x, int y) {
+    public Nexus(int x, int y) {
         super( x, y);
         this.setPv(100);
         this.attack = 50;
@@ -62,7 +58,7 @@ public class Nexus extends Batiment {
 
 
     /**
-     * Affichage des informations sur le Nexus, nous sera utile pour l'affichage sur swing aussi
+     * Vue.Affichage des informations sur le Nexus, nous sera utile pour l'affichage sur swing aussi
      * @return String
      */
     @Override

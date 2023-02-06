@@ -54,7 +54,7 @@ public class Map {
         this.batiments = new ArrayList<Batiment>();
         this.characters = new ArrayList<>();
         this.obstacles = new ArrayList<>();
-        Nexus chateau = new Nexus(0, 600);
+        Nexus chateau = new Nexus(50, taille-400);
         batiments.add(chateau);
         this.food=0;
         this.wood=0;

@@ -44,8 +44,9 @@ public class VueRessources extends JPanel {
     private void paintWood(Graphics g){
         g.setColor(Color.decode("#A52A2A"));
        //g.fillRect(10,0,20,20);
-        g.drawImage(BanqueImage.imgWood,50,0,20,20,null);
-        g.drawString("" + map.getWood(),70,15);
+        g.setColor(Color.BLACK);
+        g.drawImage(BanqueImage.imgWood,50,-1,30,30,null);
+        g.drawString("" + map.getWood(),80,18);
 
     }
     /**
@@ -55,8 +56,9 @@ public class VueRessources extends JPanel {
     private void paintFood(Graphics g){
        // g.setColor(Color.GREEN);
         //g.fillRect(10,10,10,10);
-        g.drawImage(BanqueImage.imgWheat,100,0,20,20,null);
-        g.drawString("" + map.getFood(),120,15);
+        g.setColor(Color.BLACK);
+        g.drawImage(BanqueImage.imgWheat,100,-1,30,30,null);
+        g.drawString("" + map.getFood(),130,18);
     }
 
     /**
@@ -64,9 +66,9 @@ public class VueRessources extends JPanel {
      * @param g
      */
     private void paintRocks(Graphics g){
-        g.setColor(Color.GRAY);
+        g.setColor(Color.BLACK);
         //g.fillRect(110,0,20,20);
-        g.drawImage(BanqueImage.imgStone,150,0,20,20,null);
-        g.drawString("" + map.getStone(),170,15);
+        g.drawImage(BanqueImage.imgStone,150,1,30,30,null);
+        g.drawString("" + map.getStone(),180,18);
     }
 }

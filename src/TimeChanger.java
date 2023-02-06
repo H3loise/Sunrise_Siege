@@ -10,15 +10,20 @@ public class TimeChanger extends Thread{
     @Override
     public void run() {
         super.run();
-        if(this.m.getDay()){
-            m.setDay(false);
-        }else{
-            m.setDay(true);
+        while (!m.testLoose()) {
+            if (this.m.getDay()) {
+                m.setDay(false);
+            } else {
+                m.update();
+                m.upScore();
+
+                m.setDay(true);
+            }
+            try {
+                sleep(delai);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-        try {
-            sleep(delai);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }                                      
+    }
 }

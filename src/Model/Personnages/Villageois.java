@@ -1,9 +1,9 @@
-package Modele.Personnages;
+package Model.Personnages;
 
 
-import Modele.Obstacle;
+import Model.Obstacles.Obstacle;
 
-public class Villageois extends Personnage{
+public class Villageois extends Personnage {
     private static final int health_points = 1;
 
     public Villageois(int x, int y){

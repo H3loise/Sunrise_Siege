@@ -1,4 +1,4 @@
-package Modele;
+package Model.Batiments;
 
 import java.awt.*;
 

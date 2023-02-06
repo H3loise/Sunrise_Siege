@@ -1,4 +1,6 @@
-package Modele;
+package Model.Batiments;
+
+import Model.Batiments.Batiment;
 
 /**
  * Nexus est le batiment principal, le chateau, le coeur de notre base. La destruction du Nexus entraînera le défaite du

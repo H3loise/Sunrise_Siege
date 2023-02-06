@@ -1,4 +1,4 @@
-package Modele.Personnages;
+package Model.Personnages;
 
 public abstract class Personnage {
     private int x;

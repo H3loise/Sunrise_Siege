@@ -34,6 +34,7 @@ public class VueJeu extends JPanel {
      */
 
     public void paint(Graphics g){
+        super.repaint();
         g.drawImage(BanqueImage.imgBackground,0,0,map.taille/2,map.taille/2,null);
         g.drawImage(BanqueImage.imgBackground,0,map.taille/2,map.taille/2,map.taille/2,null);
         g.drawImage(BanqueImage.imgBackground,map.taille/2,0,map.taille/2,map.taille/2,null);

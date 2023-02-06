@@ -14,7 +14,7 @@ public class Map {
     private int food;
     private int stone;
     private int wood;
-    private boolean day = true;
+    private boolean day = false;
 
 
     public ArrayList<Obstacle> getObstacles() {

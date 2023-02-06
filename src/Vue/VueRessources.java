@@ -32,10 +32,12 @@ public class VueRessources extends JPanel {
      */
     @Override
     public void paint(Graphics g) {
+        super.repaint();
         g.drawImage(BanqueImage.imgFondRessources,0,0,longueur,hauteur,null);
         paintFood(g);
         paintWood(g);
         paintRocks(g);
+        paintAstre(g);
 
     }
 
@@ -72,5 +74,19 @@ public class VueRessources extends JPanel {
         g.setColor(Color.BLACK);
         g.drawImage(BanqueImage.imgStone,150,1,30,30,null);
         g.drawString("" + map.getStone(),180,18);
+    }
+
+    /**
+     * Méthode pour dessiner le soleil ou la lune en fonction du jour ou de la nuit.
+     * Récupération des images depuis BanqueImage.
+     * @param g Instance de la classe Graphics
+     */
+    private void paintAstre(Graphics g){
+        if(map.getDay()) {
+            g.drawImage(BanqueImage.imgSoleil, 965, 0, 30, 30, null);
+        }
+        if(!map.getDay()) {
+            g.drawImage(BanqueImage.imgLune, 965, 0, 30, 30, null);
+        }
     }
 }

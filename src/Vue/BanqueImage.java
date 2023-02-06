@@ -234,4 +234,28 @@ public abstract class BanqueImage {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Image du Soleil et de la Lune
+     */
+
+    public final  static BufferedImage imgSoleil;
+
+    static {
+        try {
+            imgSoleil = ImageIO.read(new File("src/Images/soleil.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public final  static BufferedImage imgLune;
+
+    static {
+        try {
+            imgLune = ImageIO.read(new File("src/Images/lune.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

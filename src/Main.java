@@ -6,7 +6,6 @@ import Model.Personnages.Archer;
 import Model.Personnages.Personnage;
 import Vue.Affichage;
 
-import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
 public class Main {

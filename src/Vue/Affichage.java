@@ -3,6 +3,7 @@ package Vue;
 import Model.Map;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class Affichage extends JFrame {
     private final VueRessources vueRessources;
@@ -13,7 +14,7 @@ public class Affichage extends JFrame {
      * Création d'un Vue.Affichage
      * @param map de type Modele.Map
      */
-    public Affichage(Map map){
+    public Affichage(Map map) throws IOException {
         JFrame window = new JFrame("Sunrise Siege");
         window.setPreferredSize(new Dimension(Map.taille, Map.taille));
         window.getContentPane().setLayout(new BorderLayout());

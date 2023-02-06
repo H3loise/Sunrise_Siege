@@ -7,11 +7,11 @@ import Model.Personnages.Personnage;
 import Vue.Affichage;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.*;
 public class Main {
-    public static void main(String[] args) {
-        JFrame window = new JFrame("Sunrise Siege");
+    public static void main(String[] args) throws IOException {
         ArrayList<Personnage> per = new ArrayList<>();
         ArrayList<Obstacle> obs = new ArrayList<>();
         ArrayList<Batiment> bat = new ArrayList<>();
@@ -19,6 +19,6 @@ public class Main {
         obs.add(new Obstacle(70,70));
         bat.add(new Nexus(50,870));
         Map map = new Map();
-        Affichage aff = new Affichage(map);
+        new Affichage(map);
     }
 }

@@ -14,7 +14,7 @@ public class Map {
     private int food;
     private int stone;
     private int wood;
-    private boolean day = false;
+    private boolean day = true;
 
 
     public ArrayList<Obstacle> getObstacles() {
@@ -55,7 +55,7 @@ public class Map {
         this.characters = new ArrayList<>();
         this.obstacles = new ArrayList<>();
         Nexus chateau = new Nexus(50, taille-400);
-        chateau.setLevel(3);
+        chateau.setLevel(1);
         batiments.add(chateau);
         this.food=0;
         this.wood=0;

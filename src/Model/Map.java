@@ -90,6 +90,11 @@ public class Map {
         this.characters=c;
     }
 
+    /**
+     * Procédure permettant de miner une ressource, le matériau est récupéré et le minerai est détruit.
+     * @param v
+     * @param o
+     */
     public void mining(Villageois v,Obstacle o){
         if(voisin(v.getX(),v.getY(),o.getX(),o.getY())) {
             switch (o.getType()) {
@@ -102,17 +107,30 @@ public class Map {
         }
     }
 
-    public void uPNexus(Nexus nexus){
-        nexus.upgrade();
-    }
+
+    /**
+     * Procédure permettant d'incrémenter le score, ici on a choisi 150, mais on changera
+     */
     public void upScore(){
         this.score +=150;
     }
 
+    /**
+     * Fonction permettant de calculer si le point a et b sont voisins à près, on pourra la modifier jusqu'a n proche
+     * pour les archers par exemple
+     * @param x
+     * @param y
+     * @param x2
+     * @param y2
+     * @return boolean
+     */
     private boolean voisin(int x, int y,int x2, int y2){
         return (x2>= x-1 || x2<= x+1) && (y2>=y-1 || y2<=y +1);
     }
 
+    /**
+     * Procédure qui se lance au moment de l'update, elle permet de vider l'ArrayList characters des personnages morts
+     */
     private void eraseDeadPeople(){
         for(Personnage p : characters){
             if (!p.getIsAlive()){
@@ -120,7 +138,9 @@ public class Map {
             }
         }
     }
-
+    /**
+     * Procédure qui se lance au moment de l'update, elle permet de vider l'ArrayList batiments des batiments détruits
+     */
     private void eraseDestroyedBuildings(){
         for(Batiment b : batiments){
             if(b.getPv() <= 0 ){
@@ -129,13 +149,18 @@ public class Map {
         }
     }
 
+    /**
+     * Fonction calculant si la partie est perdu, autrement dit si le nexus a été détruit.
+     * @return boolean
+     */
     public boolean testLoose(){
-        if(nexus.getPv() <=0 ){
-            return true;
-        }
-        return false;
+        return nexus.getPv() <= 0;
     }
 
+    /**
+     * On génère de nouveaux obstacles aléatoires, bien sûr leur nombre varie selon la nuit à laquelle nous sommes
+     * puisque le jeu est sensé devenir de plus en plus dur
+     */
     private void generateNewObstacles(){
         Random random = new Random();
         int n = random.nextInt((score%150) + 4);
@@ -143,6 +168,11 @@ public class Map {
             this.obstacles.add(new Obstacle(random.nextInt(0,taille),random.nextInt(0,taille)));
         }
     }
+
+    /**
+     * Procédure permettant d'améliorer le nexus, on vérifie que la personne a les matériaux necessaire, on
+     * les déduis puis on l'upgrade, le score est alors augmenté de 400
+     */
 
     public void upgradeNexus(){
         int n = nexus.getMinimumOfEach();
@@ -157,8 +187,11 @@ public class Map {
         }else{
             System.out.println("t'as pas assez clochard va, au travail !!!!!");
         }
-
     }
+
+    /**
+     * Procédure permettant l'update du modèle, on lance les fonctions créees pour cela.
+     */
     public void update(){
         eraseDeadPeople();
         eraseDestroyedBuildings();

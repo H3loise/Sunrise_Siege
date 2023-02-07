@@ -19,7 +19,11 @@ public class Main {
         bat.add(new Nexus(50,870));
         Map map = new Map();
         new TimeChanger(map).start();
+
         Affichage aff = new Affichage(map);
-        new RepaintThread(aff).start();
+        new RepaintThread(aff,map).start();
+        for(Personnage p : map.getPersonnages()){
+            System.out.println(p.getClass().getSimpleName());
+        }
     }
 }

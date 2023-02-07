@@ -1,21 +1,18 @@
+import Model.Map;
 import Vue.Affichage;
 
 public class RepaintThread extends Thread{
-    Affichage aff;
+    private Affichage aff;
+    private Map m;
     private final int delai = 20;
-    /**
-     * Constructeur de la classe RepaintThread.
-     * @param aff de type Vue.Affichage
-     */
-    public RepaintThread(Affichage aff){
-        this.aff = aff;
+    public RepaintThread(Affichage affichage,Map m){
+        this.aff = affichage;
+        this.m = m;
     }
-    /**
-     * La méthode run permet l'actualisation du jeu en permanence ce qui donne une impression de fluidité.
-     */
+
     @Override
     public void run() {
-        while (true) {
+        while(!m.testLoose()) {
             super.run();
             aff.repaint();
             try {

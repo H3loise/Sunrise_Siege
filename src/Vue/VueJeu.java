@@ -42,7 +42,7 @@ public class VueJeu extends JPanel {
         paintBatiments(g);
         paintObstacles(g);
         paintPersonnages(g);
-        Color color = new Color(25,25,112,120);
+        Color color = new Color(25,25,112,100);
         g.setColor(color);
         if(!map.getDay()) {
             g.fillRect(0, 0, map.taille, map.taille);
@@ -77,38 +77,62 @@ public class VueJeu extends JPanel {
         g.setColor(Color.YELLOW);
         for(Obstacle o : map.getObstacles()){
             if(o.getType() == Type.Wheat){
-                if(o.getSize() == Taille.Small){
-                    g.drawImage(BanqueImage.imgWheat_Field1,o.getX(),o.getY(),60,60,null);
-                }
-                if(o.getSize() == Taille.Average){
-                    g.drawImage(BanqueImage.imgWheat_Field2,o.getX(),o.getY(),60,60,null);
-                }
-                if(o.getSize() == Taille.Big){
-                    g.drawImage(BanqueImage.imgWheat_Field3,o.getX(),o.getY(),60,60,null);
-                }
+                paintWheat(g,o);
             }
             if(o.getType() == Type.Rock){
-                if(o.getSize() == Taille.Small){
-                    g.drawImage(BanqueImage.imgRock1,o.getX(),o.getY(),60,60,null);
-                }
-                if(o.getSize() == Taille.Average){
-                    g.drawImage(BanqueImage.imgRock2,o.getX(),o.getY(),60,60,null);
-                }
-                if(o.getSize() == Taille.Big){
-                    g.drawImage(BanqueImage.imgRock3,o.getX(),o.getY(),60,60,null);
-                }
+                paintRock(g,o);
             }
             if(o.getType() == Type.Tree){
-                if(o.getSize() == Taille.Small){
-                    g.drawImage(BanqueImage.imgTree1,o.getX(),o.getY(),60,60,null);
-                }
-                if(o.getSize() == Taille.Average){
-                    g.drawImage(BanqueImage.imgTree2,o.getX(),o.getY(),60,60,null);
-                }
-                if(o.getSize() == Taille.Big){
-                    g.drawImage(BanqueImage.imgTree3,o.getX(),o.getY(),60,60,null);
-                }
+                paintTree(g,o);
             }
+        }
+    }
+    /**
+     * Méthode pour dessiner les rochers.
+     * Récupération des images depuis BanqueImage.
+     * @param g Instance de la classe Graphics
+     */
+    private void paintRock(Graphics g,Obstacle o){
+        if(o.getSize() == Taille.Small){
+            g.drawImage(BanqueImage.imgRock1,o.getX(),o.getY(),60,60,null);
+        }
+        if(o.getSize() == Taille.Average){
+            g.drawImage(BanqueImage.imgRock2,o.getX(),o.getY(),60,60,null);
+        }
+        if(o.getSize() == Taille.Big){
+            g.drawImage(BanqueImage.imgRock3,o.getX(),o.getY(),60,60,null);
+        }
+    }
+    /**
+     * Méthode pour dessiner les champs de blés.
+     * Récupération des images depuis BanqueImage.
+     * @param g Instance de la classe Graphics
+     */
+    private void paintWheat(Graphics g,Obstacle o){
+        if(o.getSize() == Taille.Small){
+            g.drawImage(BanqueImage.imgWheat_Field1,o.getX(),o.getY(),60,60,null);
+        }
+        if(o.getSize() == Taille.Average){
+            g.drawImage(BanqueImage.imgWheat_Field2,o.getX(),o.getY(),60,60,null);
+        }
+        if(o.getSize() == Taille.Big){
+            g.drawImage(BanqueImage.imgWheat_Field3,o.getX(),o.getY(),60,60,null);
+        }
+    }
+    /**
+     * Méthode pour dessiner les arbres.
+     * Récupération des images depuis BanqueImage.
+     * @param g Instance de la classe Graphics
+     */
+    private void paintTree(Graphics g,Obstacle o){
+        if(o.getSize() == Taille.Small){
+            g.drawImage(BanqueImage.imgTree1,o.getX(),o.getY(),60,60,null);
+        }
+        if(o.getSize() == Taille.Average){
+            g.drawImage(BanqueImage.imgTree2,o.getX(),o.getY(),60,60,null);
+        }
+        if(o.getSize() == Taille.Big){
+            g.drawImage(BanqueImage.imgTree3,o.getX(),o.getY(),60,60,null);
         }
     }
     /**

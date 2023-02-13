@@ -15,8 +15,8 @@ public abstract class BanqueImage {
 
 
 
-    /**Image du layout ressource
-     *
+    /**
+     * Image du layout ressource
      */
 
     public final  static BufferedImage imgFondRessources;
@@ -29,8 +29,8 @@ public abstract class BanqueImage {
         }
     }
 
-    /**Image des ressources
-     *
+    /**
+     * Image des ressources
      */
     public  final static BufferedImage imgWheat;
 
@@ -60,8 +60,8 @@ public abstract class BanqueImage {
         }
     }
 
-    /**Image d'arbre de différente tailles
-     *
+    /**
+     * Image d'arbre de différente tailles
      */
     public final  static BufferedImage imgTree1;
 
@@ -91,8 +91,8 @@ public abstract class BanqueImage {
         }
     }
 
-    /**Image de rocher de différente tailles
-     *
+    /**
+     * Image de rocher de différente tailles
      */
     public final  static BufferedImage imgRock1;
 
@@ -122,8 +122,8 @@ public abstract class BanqueImage {
         }
     }
 
-    /**Image de champs de blé de différente tailles
-     *
+    /**
+     * Image de champs de blé de différente tailles
      */
 
     public  final static BufferedImage imgWheat_Field1;
@@ -158,8 +158,8 @@ public abstract class BanqueImage {
 
 
 
-    /**Image du chateau de différente tailles
-     *
+    /**
+     * Image du chateau de différente tailles
      */
     public final  static BufferedImage imgNexus1;
 
@@ -188,14 +188,72 @@ public abstract class BanqueImage {
             throw new RuntimeException(e);
         }
     }
-    /**Image du background
-     *
+    /**
+     * Image du background
      */
-    public final  static BufferedImage imgBackGround;
+    public final  static BufferedImage imgBackground;
 
     static {
         try {
-            imgBackGround = ImageIO.read(new File("src/Images/background.jpg"));
+            imgBackground = ImageIO.read(new File("src/Images/background.jpg"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Image des personnages
+     */
+
+    public final  static BufferedImage imgVillageois;
+
+    static {
+        try {
+            imgVillageois = ImageIO.read(new File("src/Images/villageois.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public final  static BufferedImage imgArcher;
+
+    static {
+        try {
+            imgArcher = ImageIO.read(new File("src/Images/archer.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public final  static BufferedImage imgGuerrier;
+
+    static {
+        try {
+            imgGuerrier = ImageIO.read(new File("src/Images/guerrier.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Image du Soleil et de la Lune
+     */
+
+    public final  static BufferedImage imgSoleil;
+
+    static {
+        try {
+            imgSoleil = ImageIO.read(new File("src/Images/soleil.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public final  static BufferedImage imgLune;
+
+    static {
+        try {
+            imgLune = ImageIO.read(new File("src/Images/lune.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

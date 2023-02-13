@@ -15,7 +15,7 @@ public class Affichage extends JFrame {
     public Affichage(Map map){
         this.map = map;
         JFrame window = new JFrame("Sunrise Siege");
-        setPreferredSize(new Dimension(Map.taille, Map.taille));
+        setPreferredSize(new Dimension(map.taille, map.taille));
         this.vueRessources = new VueRessources(map);
         //this.vueRessources.setBackground(Color.blue);
         this.vueJeu = new VueJeu(map);

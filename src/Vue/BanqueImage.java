@@ -12,11 +12,31 @@ import java.io.IOException;
  * Le path est depuis le src.
  */
 public abstract class BanqueImage {
+
+
+
+    /**Image du layout ressource
+     *
+     */
+
+    public final  static BufferedImage imgFondRessources;
+
+    static {
+        try {
+            imgFondRessources = ImageIO.read(new File("src/Images/fond_jeu.jpg"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**Image des ressources
+     *
+     */
     public  final static BufferedImage imgWheat;
 
     static {
         try {
-            imgWheat = ImageIO.read(new File("src/Images/wheat.png"));
+            imgWheat = ImageIO.read(new File("src/Images/wheat.jpg"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -39,11 +59,143 @@ public abstract class BanqueImage {
             throw new RuntimeException(e);
         }
     }
-    public final  static BufferedImage imgFondRessources;
+
+    /**Image d'arbre de différente tailles
+     *
+     */
+    public final  static BufferedImage imgTree1;
 
     static {
         try {
-            imgFondRessources = ImageIO.read(new File("src/Images/fond_jeu.jpg"));
+            imgTree1 = ImageIO.read(new File("src/Images/tree1.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public final  static BufferedImage imgTree2;
+
+    static {
+        try {
+            imgTree2 = ImageIO.read(new File("src/Images/tree2.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public final  static BufferedImage imgTree3;
+
+    static {
+        try {
+            imgTree3 = ImageIO.read(new File("src/Images/tree3.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**Image de rocher de différente tailles
+     *
+     */
+    public final  static BufferedImage imgRock1;
+
+    static {
+        try {
+            imgRock1 = ImageIO.read(new File("src/Images/rock1.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public final  static BufferedImage imgRock2;
+
+    static {
+        try {
+            imgRock2 = ImageIO.read(new File("src/Images/rock2.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public final  static BufferedImage imgRock3;
+
+    static {
+        try {
+            imgRock3 = ImageIO.read(new File("src/Images/rock3.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**Image de champs de blé de différente tailles
+     *
+     */
+
+    public  final static BufferedImage imgWheat_Field1;
+
+    static {
+        try {
+            imgWheat_Field1 = ImageIO.read(new File("src/Images/wheatfield1.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public  final static BufferedImage imgWheat_Field2;
+
+    static {
+        try {
+            imgWheat_Field2 = ImageIO.read(new File("src/Images/wheatfield2.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public  final static BufferedImage imgWheat_Field3;
+
+    static {
+        try {
+            imgWheat_Field3 = ImageIO.read(new File("src/Images/wheatfield3.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+    /**Image du chateau de différente tailles
+     *
+     */
+    public final  static BufferedImage imgNexus1;
+
+    static {
+        try {
+            imgNexus1 = ImageIO.read(new File("src/Images/nexus1.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public final  static BufferedImage imgNexus2;
+
+    static {
+        try {
+            imgNexus2 = ImageIO.read(new File("src/Images/nexus2.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public final  static BufferedImage imgNexus3;
+
+    static {
+        try {
+            imgNexus3 = ImageIO.read(new File("src/Images/nexus3.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    /**Image du background
+     *
+     */
+    public final  static BufferedImage imgBackGround;
+
+    static {
+        try {
+            imgBackGround = ImageIO.read(new File("src/Images/background.jpg"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

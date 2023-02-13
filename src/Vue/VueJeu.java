@@ -1,6 +1,7 @@
 package Vue;
 
-import Model.Batiments.Batiment;
+
+import Model.Batiments.*;
 import Model.Map;
 import Model.Obstacles.Obstacle;
 import Model.Obstacles.Taille;

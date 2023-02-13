@@ -2,7 +2,7 @@ package Model;
 
 //import Model.Batiments.Batiment;
 //import Model.Batiments.Nexus;
-import Model.Batiments.Batiment;
+import Model.Batiments.*;
 import Model.Batiments.Nexus;
 import Model.Obstacles.Obstacle;
 import Model.Personnages.Archer;

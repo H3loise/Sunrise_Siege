@@ -12,8 +12,8 @@ import java.awt.*;
 public class VueJeu extends JPanel {
     private Map map;
     private VueRessources vueRessources;
-    private final int largeur = Map.taille - 200;
-    private final int hauteur = Map.taille - 200;
+    private final int largeur = map.taille;
+    private final int hauteur = map.taille;
 
     /**
      * Création d'un Vue.Affichage
@@ -30,6 +30,7 @@ public class VueJeu extends JPanel {
      * @param g Instance de la classe Graphics
      */
 
+    @Override
     public void paint(Graphics g){
         paintBatiments(g);
         paintObstacles(g);

@@ -26,7 +26,7 @@ public class Affichage extends JFrame {
         //window.setBackground(Color.GREEN);
         //this.vueRessources.setBackground(Color.blue);
         window.add(vueJeu);
-        window.add(j, BorderLayout.SOUTH);
+        //window.add(j, BorderLayout.SOUTH);
         window.pack();
         window.setVisible(true);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,10 +36,10 @@ public class Affichage extends JFrame {
      * On appelle les sous-classes VueRessources et vueJeu, chargées chacun d'afficher le jeu ou les ressources
      * @param g Instance de la classe Graphics
      */
-
+    @Override
     public void paint(Graphics g){
         super.repaint();
-        vueRessources.paint(g);
+        //vueRessources.paint(g);
         vueJeu.paint(g);
     }
 

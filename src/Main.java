@@ -20,6 +20,6 @@ public class Main {
         Map map = new Map();
         new TimeChanger(map).start();
         Affichage aff = new Affichage(map);
-        new RepaintThread(aff).start();
+        new RepaintThread(aff,map).start();
     }
 }

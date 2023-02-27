@@ -20,7 +20,7 @@ public class Map {
     private ArrayList<Obstacle> obstacles;
     private ArrayList<Personnage> characters;
     private ArrayList<Batiment> batiments;
-    public static final int taille=600;
+    public static final int taille=1000;
     //a enlever
     private Nexus nexus;
     private int score = 0;

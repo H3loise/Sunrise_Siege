@@ -20,7 +20,7 @@ public class Affichage extends JFrame {
         this.vueJeu = new VueJeu(map);
         JPanel j = new VueRessources(map);
         window.add(vueJeu);
-        //window.add(j, BorderLayout.SOUTH);
+        window.add(j, BorderLayout.SOUTH);
         window.pack();
         window.setVisible(true);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

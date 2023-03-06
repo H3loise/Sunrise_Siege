@@ -4,6 +4,7 @@ import Model.Map;
 import Model.Personnages.Guerrier;
 import Vue.Infos.VueBouttons;
 import Vue.Infos.VueInfosPersos;
+import Vue.Infos.VueMessages;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -17,7 +18,8 @@ public class VueInfo extends JPanel {
     private final Map map;
     private final int hauteur = Map.taille;
     private final int longueur = 300;
-    private final BufferedImage image = ImageIO.read(new File("src/parchemin.png"));
+    private final BufferedImage image = ImageIO.read(new File("src/parchemin1.png"));
+    private JPanel lowerVue = new VueMessages();
 
     public VueInfo(Map map) throws IOException {
         this.map = map;
@@ -26,15 +28,19 @@ public class VueInfo extends JPanel {
         JPanel haut = new JPanel();
         JPanel milieu = new VueBouttons();
         JPanel bas = new JPanel();
-        //haut.setBorder(BorderFactory.createEmptyBorder(0,10,10,10));
         this.add(haut);
         this.add(milieu);
-        //this.setBorder(BorderFactory.createLineBorder(Color.GREEN,50));
+        //JPanel lowerJpanel = new VueMessages();
+        this.add(lowerVue);
     }
 
     @Override
     public void paint(Graphics g) {
+        //super.paint(g);
+        //new VueMessages().paint(g);
         g.drawImage(image,0,-40,longueur,hauteur,null);
-        new VueInfosPersos(new Guerrier(0,0)).paint(g);
+        lowerVue.paint(g);
+        //new VueInfosPersos(new Guerrier(0,0)).paint(g);
+
     }
 }

@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class VueInfosPersos extends JPanel {
 
-    private Personnage personnage;
+    private final Personnage personnage;
 
     public VueInfosPersos(Personnage personnage){
         this.personnage = personnage;

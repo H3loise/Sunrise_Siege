@@ -40,7 +40,7 @@ public class VueInfo extends JPanel {
         //new VueMessages().paint(g);
         g.drawImage(image,0,-40,longueur,hauteur,null);
         lowerVue.paint(g);
-        //new VueInfosPersos(new Guerrier(0,0)).paint(g);
+        new VueInfosPersos(new Guerrier(0,0)).paint(g);
 
     }
 }

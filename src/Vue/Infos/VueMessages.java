@@ -26,6 +26,6 @@ public class VueMessages extends JPanel {
 
     @Override
     public void paint(Graphics g) {
-        this.drawBackground(g);
+        //this.drawBackground(g);
     }
 }

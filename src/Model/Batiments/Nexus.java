@@ -7,6 +7,7 @@ package Model.Batiments;
 public class Nexus extends Batiment {
     //Canon qui attaque
     private int attack;
+    private final int minimumOfEach = 5;
 
     /**
      * Création d'un Nexus, appel au super constructeur
@@ -56,6 +57,9 @@ public class Nexus extends Batiment {
         setLevel(level);
     }
 
+    public int getMinimumOfEach() {
+        return minimumOfEach;
+    }
 
     /**
      * Vue.Affichage des informations sur le Nexus, nous sera utile pour l'affichage sur swing aussi
@@ -67,4 +71,7 @@ public class Nexus extends Batiment {
                 " d'attaque, " + getPv() +
                 " points de vie, niveau :" + getLevel();
     }
+
+
+
 }

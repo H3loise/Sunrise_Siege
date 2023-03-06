@@ -6,10 +6,8 @@ import Model.Personnages.Archer;
 import Model.Personnages.Personnage;
 import Vue.Affichage;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import javax.swing.*;
 public class Main {
     public static void main(String[] args) throws IOException {
         ArrayList<Personnage> per = new ArrayList<>();

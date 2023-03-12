@@ -53,6 +53,7 @@ public class Obstacle {
             case 0 -> size = Taille.Small;
             case 1 -> size = Taille.Average;
             case 2 -> size = Taille.Big;
+            default -> size = Taille.Big;
         }
         switch (size){
             case Small -> ressource = few;

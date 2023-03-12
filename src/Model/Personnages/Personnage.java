@@ -44,4 +44,11 @@ public abstract class Personnage {
 
     public void setY(int new_y){this.y = new_y;}
 
+    @Override
+    public String toString() {
+        return getClass().getSimpleName()+"\n" +
+                "x = " + x +
+                "\ny = " + y +
+                "\nhealth_points = " + health_points;
+    }
 }

@@ -3,41 +3,46 @@ package Vue;
 import Model.Map;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class Affichage extends JFrame {
-    private Map map;
-    private VueRessources vueRessources;
-    private VueJeu vueJeu;
+    private final VueRessources vueRessources;
+    private final VueJeu vueJeu;
+    private final VueInfo vueInfo;
+
     /**
      * Création d'un Vue.Affichage
      * @param map de type Modele.Map
      */
-    public Affichage(Map map){
-        this.map = map;
+    public Affichage(Map map) throws IOException {
         JFrame window = new JFrame("Sunrise Siege");
-        setPreferredSize(new Dimension(map.taille, map.taille+VueController.largeur));
+        window.setPreferredSize(new Dimension(Map.taille, Map.taille));
+        window.getContentPane().setLayout(new BorderLayout());
+        //this.setBackground(Color.GREEN);
+
         this.vueRessources = new VueRessources(map);
         this.vueJeu = new VueJeu(map);
-        JPanel j = new VueRessources(map);
-        JPanel commandes = new VueController(map);
-        window.add(vueJeu);
-        window.add(j, BorderLayout.SOUTH);
-        window.add(commandes, BorderLayout.EAST);
+        this.vueInfo = new VueInfo(map);
+        this.vueRessources.setBorder(BorderFactory.createLineBorder(Color.black));
+
+        window.add(this.vueInfo, BorderLayout.EAST);
+        window.add(this.vueJeu);
+        window.add(this.vueRessources, BorderLayout.SOUTH);
+
         window.pack();
         window.setVisible(true);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     /**
      * Méthode pour dessiner la map, les obstacles, les personnages et les batiments.
-     * On appelle les sous-classes VueRessources et vueJeu, chargées chacun d'afficher le jeu ou les ressources
      * @param g Instance de la classe Graphics
      */
-    @Override
+
     public void paint(Graphics g){
         super.repaint();
-        //vueRessources.paint(g);
+        vueInfo.paint(g);
+        vueRessources.paint(g);
         vueJeu.paint(g);
     }
-
 
 }

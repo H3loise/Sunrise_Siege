@@ -224,7 +224,6 @@ public class Map {
      * @return
      */
     public Object objectClicked(int x, int y){
-        System.out.println("zebi");
         for (Items item : this.items){
             if(item.getX() <= x && item.getY() >= y && (item.getX()+10) >= x && (item.getY()-10) <= y ){
                 return item;

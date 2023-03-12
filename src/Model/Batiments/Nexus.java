@@ -44,7 +44,8 @@ public class Nexus extends Batiment {
     public void upgrade(){
         setPv(getLevel()+1);
         this.attack+=50;
-        setPv(getPv()+100);
+        setPvMax(getPvMax()+100);
+        setPv(getPvMax());
     }
 
     /**
@@ -71,6 +72,7 @@ public class Nexus extends Batiment {
                 " d'attaque, " + getPv() +
                 " points de vie, niveau :" + getLevel();
     }
+
 
 
 

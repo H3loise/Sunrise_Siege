@@ -1,5 +1,9 @@
 package Model.Personnages;
 
+import java.awt.event.*;
+
+import javax.swing.*;
+import java.awt.event.ActionListener;
 
 public abstract class Personnage {
     private int x;
@@ -39,6 +43,11 @@ public abstract class Personnage {
     public int getX(){return this.x;}
 
     public int getY(){return this.y;}
+
+    public void setPosition(int x , int y){
+        setX(x);
+        setY(y);
+    }
 
     public void setX(int new_x){this.x = new_x;}
 

@@ -189,6 +189,25 @@ public class Map {
         }
     }
 
+
+
+    public void deplacement(Personnage p,int x,int y){
+        if((x<0 || x>taille) || (y<0 || y>taille)){
+            return;
+        }
+        p.setPosition(x,y);
+        System.out.println(p.toString());
+    }
+
+    public void healingNexus() {
+        int n = nexus.getMinimumOfEach();
+        if (wood >= n * (nexus.getLevel()-1) && food >= n * (nexus.getLevel()-1) && stone >= n * (nexus.getLevel()-1)) {
+             nexus.setPv(nexus.getPvMax());
+        }
+        else{
+            System.out.println("Pas assez d'argent pour réparer le Nexus");
+        }
+    }
     /**
      * Procédure permettant l'update du modèle, on lance les fonctions créees pour cela.
      */

@@ -10,6 +10,7 @@ import java.awt.*;
  */
 public abstract class Batiment {
     private int pv;
+    private int pvMax;
     private int x;
     private int y;
     private int level;
@@ -34,6 +35,14 @@ public abstract class Batiment {
         this.pv = pv;
     }
 
+
+    public int getPvMax() {
+        return pvMax;
+    }
+
+    public void setPvMax(int pv) {
+        this.pv = pvMax;
+    }
     public int getX() {
         return x;
     }
@@ -49,6 +58,8 @@ public abstract class Batiment {
     public void setY(int y) {
         this.y = y;
     }
+
+
 
 
     public int getLevel() {

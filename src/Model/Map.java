@@ -24,13 +24,14 @@ public class Map {
     //a enlever
     private Nexus nexus;
     private int score = 0;
-    public static final int windowWidth = 1480;
-    public static final int windowHeight = 920;
+    //public static final int windowWidth = 1480;
+    //public static final int windowHeight = 920;
     //
     private int food;
     private int stone;
     private int wood;
     private boolean day;
+    private Personnage click;
 
 
     public ArrayList<Obstacle> getObstacles() {

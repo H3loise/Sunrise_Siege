@@ -15,12 +15,14 @@ public class Affichage extends JFrame {
     public Affichage(Map map){
         this.map = map;
         JFrame window = new JFrame("Sunrise Siege");
-        setPreferredSize(new Dimension(map.taille, map.taille));
+        setPreferredSize(new Dimension(map.taille, map.taille+VueController.largeur));
         this.vueRessources = new VueRessources(map);
         this.vueJeu = new VueJeu(map);
         JPanel j = new VueRessources(map);
+        JPanel commandes = new VueController(map);
         window.add(vueJeu);
         window.add(j, BorderLayout.SOUTH);
+        window.add(commandes, BorderLayout.EAST);
         window.pack();
         window.setVisible(true);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

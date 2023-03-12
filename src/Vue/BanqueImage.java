@@ -258,4 +258,14 @@ public abstract class BanqueImage {
             throw new RuntimeException(e);
         }
     }
+
+    public  final static BufferedImage imgBackCommande;
+
+    static{
+        try{
+            imgBackCommande=ImageIO.read(new File("src/Images/fond_Commande.png"));
+        }catch(IOException e){
+            throw new RuntimeException(e);
+        }
+    }
 }

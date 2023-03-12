@@ -22,7 +22,7 @@ public class VueRessources extends JPanel {
      */
     public VueRessources(Map map){
         this.map = map;
-        setBackground(Color.RED);
+        //setBackground(Color.RED);
         setPreferredSize(new Dimension(longueur,hauteur));
     }
 

@@ -203,6 +203,11 @@ public class Map {
         int n = nexus.getMinimumOfEach();
         if (wood >= n * (nexus.getLevel()-1) && food >= n * (nexus.getLevel()-1) && stone >= n * (nexus.getLevel()-1)) {
              nexus.setPv(nexus.getPvMax());
+            wood -= n * (nexus.getLevel()-1);
+            food -= n * (nexus.getLevel()-1);
+            stone -= n * (nexus.getLevel()-1);
+            System.out.println(nexus.toString());
+
         }
         else{
             System.out.println("Pas assez d'argent pour réparer le Nexus");
@@ -211,6 +216,7 @@ public class Map {
     /**
      * Procédure permettant l'update du modèle, on lance les fonctions créees pour cela.
      */
+
     public void update(){
         eraseDeadPeople();
         eraseDestroyedBuildings();

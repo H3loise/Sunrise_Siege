@@ -11,6 +11,7 @@ public class VueController extends JPanel {
     public static final int largeur = 300;
 
     public VueController(Map map){
+
         this.map=map;
         setPreferredSize(new Dimension(largeur,hauteur));
     }

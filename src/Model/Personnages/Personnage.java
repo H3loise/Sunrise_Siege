@@ -1,10 +1,17 @@
 package Model.Personnages;
 
+import Model.Items;
 
-public abstract class Personnage {
+import java.awt.event.*;
+
+import javax.swing.*;
+import java.awt.event.ActionListener;
+
+public abstract class Personnage implements Items {
     private int x;
     private int y;
     private int health_points;
+    private boolean isSelected = false;
     private boolean isAlive = true;
 
     public Personnage(int health_points, int x, int y){
@@ -34,21 +41,27 @@ public abstract class Personnage {
         return this.isAlive;
     }
 
+    public boolean getIsSelected(){
+        return this.isSelected;
+    }
+
+    public void setisSelected(boolean bool){
+        this.isSelected = bool;
+    }
+
     public int getHealth_points(){return this.health_points;}
 
     public int getX(){return this.x;}
 
     public int getY(){return this.y;}
 
+    public void setPosition(int x , int y){
+        setX(x);
+        setY(y);
+    }
+
     public void setX(int new_x){this.x = new_x;}
 
     public void setY(int new_y){this.y = new_y;}
 
-    @Override
-    public String toString() {
-        return getClass().getSimpleName()+"\n" +
-                "x = " + x +
-                "\ny = " + y +
-                "\nhealth_points = " + health_points;
-    }
 }

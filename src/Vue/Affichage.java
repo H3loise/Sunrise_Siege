@@ -1,5 +1,6 @@
 package Vue;
 
+import Control.Control;
 import Model.Map;
 import javax.swing.*;
 import java.awt.*;
@@ -16,21 +17,38 @@ public class Affichage extends JFrame {
      */
     public Affichage(Map map) throws IOException {
         JFrame window = new JFrame("Sunrise Siege");
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
         window.setPreferredSize(new Dimension(Map.taille, Map.taille));
-        window.getContentPane().setLayout(new BorderLayout());
-        //this.setBackground(Color.GREEN);
+//        this.setPreferredSize(new Dimension(Map.taille,Map.taille));
+//        this.getContentPane().setLayout(new BorderLayout());
+
+        //window.getContentPane().setLayout(new BorderLayout());
+        //window.getContentPane().setLayout(new BorderLayout());
+        panel.addMouseListener(new Control());
+        window.add(panel);
 
         this.vueRessources = new VueRessources(map);
         this.vueJeu = new VueJeu(map);
         this.vueInfo = new VueInfo(map);
         this.vueRessources.setBorder(BorderFactory.createLineBorder(Color.black));
 
-        window.add(this.vueInfo, BorderLayout.EAST);
-        window.add(this.vueJeu);
-        window.add(this.vueRessources, BorderLayout.SOUTH);
+//        window.add(this.vueInfo, BorderLayout.EAST);
+//        window.add(this.vueJeu);
+//        window.add(this.vueRessources, BorderLayout.SOUTH);
 
+        panel.add(this.vueInfo, BorderLayout.EAST);
+        panel.add(this.vueJeu);
+        panel.add(this.vueRessources, BorderLayout.SOUTH);
+
+//        this.add(this.vueInfo, BorderLayout.EAST);
+//        this.add(this.vueJeu);
+//        this.add(this.vueRessources, BorderLayout.SOUTH);
         window.pack();
         window.setVisible(true);
+//        this.pack();
+//        this.setVisible(true);
+//        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     /**

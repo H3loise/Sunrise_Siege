@@ -1,5 +1,7 @@
 package Model.Obstacles;
 
+import Model.Items;
+
 import java.awt.*;
 import java.util.Random;
 
@@ -10,7 +12,7 @@ import java.util.Random;
  *
  */
 
-public class Obstacle {
+public class Obstacle implements Items {
     private int ressource;
     private Taille size;
     private int x;

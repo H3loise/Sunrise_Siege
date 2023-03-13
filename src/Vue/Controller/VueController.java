@@ -21,4 +21,16 @@ public abstract class VueController extends JPanel {
     public void paint(Graphics g) {
         super.paint(g);
     }
+
+    public void type(){
+        if (this instanceof GuerrierController){
+            System.out.println("controller guerrier");
+        }else{
+            if(this instanceof ArcherController){
+                System.out.println("controller archer");
+            }else{
+                System.out.println("controller none");
+            }
+        }
+    }
 }

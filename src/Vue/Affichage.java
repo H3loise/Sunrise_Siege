@@ -12,6 +12,7 @@ import java.awt.*;
 
 public class Affichage extends JFrame {
     private Map map;
+    private JFrame window;
     private VueRessources vueRessources;
     private VueJeu vueJeu;
     private VueController controller;
@@ -26,8 +27,8 @@ public class Affichage extends JFrame {
      */
     public Affichage(Map map){
         this.map = map;
-        JFrame window = new JFrame("Sunrise Siege");
-        setPreferredSize(new Dimension(map.taille+300, map.taille));
+        JFrame w = new JFrame("Sunrise Siege");
+        w.setPreferredSize(new Dimension(map.taille+300, map.taille));
         this.vueRessources = new VueRessources(map);
         this.vueJeu = new VueJeu(map);
         JPanel j = new VueRessources(map);
@@ -38,14 +39,15 @@ public class Affichage extends JFrame {
         ArcherController archerController= new ArcherController(map);
         ac=archerController;
         controller=noneController;
-        ActionControl actionControl = new ActionControl(map);
-        window.addMouseListener(actionControl);
-        window.add(controller,BorderLayout.EAST);
-        window.add(vueJeu, BorderLayout.CENTER);
-        window.add(j, BorderLayout.SOUTH);
-        window.pack();
-        window.setVisible(true);
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //ActionControl actionControl = new ActionControl(map);
+        w.addMouseListener(actionControl);
+        w.add(controller,BorderLayout.EAST);
+        w.add(vueJeu, BorderLayout.CENTER);
+        w.add(j, BorderLayout.SOUTH);
+        w.pack();
+        w.setVisible(true);
+        w.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.window=w;
     }
     /**
      * Méthode pour dessiner la map, les obstacles, les personnages et les batiments.

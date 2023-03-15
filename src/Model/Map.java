@@ -13,8 +13,9 @@ import Model.Personnages.Villageois;
 //import Model.Personnages.Personnage;
 //import Model.Personnages.Villageois;
 
-import java.util.ArrayList;
-import java.util.Random;
+import javax.swing.plaf.synth.SynthTextAreaUI;
+import java.awt.*;
+import java.util.*;
 
 public class Map {
     private ArrayList<Obstacle> obstacles;
@@ -65,7 +66,16 @@ public class Map {
         this.day=d;
     }
 
-    //Food a 0 mais pourrait etre set a une autre valeur au dÃ©but
+    //Pour le calcul des chemins:
+    private int maxCol = taille;
+    private int maxRow = taille;
+    private Node[][] nodes = new Node[maxCol][maxRow];
+    private Node startNode,goalNode,currentNode;
+    private ArrayList<Node> openList = new ArrayList<>();
+    private ArrayList<Node> checkedList = new ArrayList<>();
+    boolean goalReached = false;
+
+
     public Map(){
         this.batiments = new ArrayList<>();
         this.characters = new ArrayList<>();
@@ -76,6 +86,7 @@ public class Map {
         this.food=0;
         this.wood=0;
         this.stone=0;
+
         //this.characters.add(new Villageois(300, 300));
         //this.characters.add(new Guerrier( 350, 300));
         //this.characters.add(new Archer(400,300));
@@ -83,13 +94,25 @@ public class Map {
         this.obstacles.add(new Obstacle(300, 350));
         this.obstacles.add(new Obstacle(350, 350));
         this.obstacles.add(new Obstacle(400,350));
+        initializeNodes();
     }
     public Map(ArrayList<Obstacle> o, ArrayList<Personnage> c, ArrayList<Batiment> b){
         this.batiments=b;
         this.obstacles=o;
         this.characters=c;
     }
-
+    private void initializeNodes() {
+        int col = 0;
+        int row =0;
+        while (col < maxCol && row < maxRow) {
+            nodes[col][row] = new Node(col, row);
+            col++;
+            if (col == maxCol) {
+                col = 0;
+                row++;
+            }
+        }
+    }
     /**
      * Procédure permettant de miner une ressource, le matériau est récupéré et le minerai est détruit.
      * @param v
@@ -191,13 +214,6 @@ public class Map {
 
 
 
-    public void deplacement(Personnage p,int x,int y){
-        if((x<0 || x>taille) || (y<0 || y>taille)){
-            return;
-        }
-        p.setPosition(x,y);
-        System.out.println(p.toString());
-    }
 
     public void healingNexus() {
         int n = nexus.getMinimumOfEach();
@@ -213,14 +229,142 @@ public class Map {
             System.out.println("Pas assez d'argent pour réparer le Nexus");
         }
     }
+
+
+    public void setCharacters(ArrayList<Personnage> characters) {
+        this.characters = characters;
+    }
+
+    public void addCharacter(Personnage p ){
+        characters.add(p);
+    }
+
+    public void deplacementPerso(Personnage p ,int x,int y){
+        new ThreadDeplacement(this,p,x,y).start();
+        System.out.println("coucou");
+
+    }
+    public ArrayList<Point> cheminLePluscourt(Personnage p, int x, int y){
+        if(p.getY() == y && p.getX() == x){
+            System.out.println("Vous êtes déjà sur cette case");
+            return null;
+        }
+        ArrayList<Point>res = new ArrayList<>();
+        ArrayList<Node> chemin = recherche(p,x,y);
+        for (Node n : chemin){
+            res.add(new Point(n.getCol(),n.getRow()));
+        }
+        currentNode = null;
+        goalNode = null;
+        startNode = null;
+        checkedList = new ArrayList<>();
+        openList = new ArrayList<>();
+        return res;
+    }
+
+    private void getCost(Node node){
+
+        //Gcost = distance depuis le point de depart
+        int xDistance = Math.abs(node.getCol() - startNode.getCol());
+        int yDistance = Math.abs(node.getRow()  -startNode.getRow());
+        node.setgCost(xDistance + yDistance) ;
+
+        xDistance = Math.abs(node.getCol() - goalNode.getCol());
+        yDistance = Math.abs(node.getRow()  -goalNode.getRow());
+        node.sethCost( xDistance + yDistance);
+        node.setfCost(node.getgCost() + node.gethCost());
+    }
+
+    private void setCostOnNodes(){
+        for (Node[] n:
+                nodes) {
+            for (Node res:
+                    n) {
+                getCost(res);
+            }
+        }
+    }
+    public ArrayList<Node> recherche(Personnage p,int x,int y){
+        startNode = nodes[p.getX()][p.getY()];
+        nodes[p.getX()][p.getY()].setAsStart();
+        currentNode = startNode;
+        goalNode = nodes[x][y];
+        nodes[x][y].setAsGoal();
+
+        ArrayList<Node> res = new ArrayList<>();
+        while(!goalReached){
+            int col = currentNode.getCol();
+            int row = currentNode.getRow();
+            currentNode.setChecked();
+            checkedList.add(currentNode);
+            openList.remove(currentNode);
+
+            //Ouvre les voisins
+            if(col-1>=0) {
+                openNode(nodes[col - 1][row]);
+            }
+            if(row+1<maxRow) {
+                openNode(nodes[col][row + 1]);
+            }
+            if(row-1>=0) {
+                openNode(nodes[col][row - 1]);
+            }
+            if(col+1<maxCol) {
+                openNode(nodes[col + 1][row]);
+            }
+            int bestNodeIndex = 0;
+            int bestNodefCost = 1100000000;
+            for(int i =0;i<openList.size(); i++){
+                //On vérifie si on a pas un meilleur chemin
+                if(openList.get(i).getfCost() < bestNodefCost){
+                    bestNodeIndex = i;
+                    bestNodefCost = openList.get(i).getfCost();
+                }
+                else if(openList.get(i).getfCost() == bestNodefCost)
+                    if(openList.get(i).getgCost() < openList.get(bestNodeIndex).getgCost()){
+                        bestNodeIndex = i;
+                    }
+            }
+
+            currentNode = openList.get(bestNodeIndex);
+            if(currentNode == goalNode){
+                goalReached = true;
+               res = trackThePath();
+            }
+        }
+        return res;
+    }
+
+    private void openNode(Node node){
+        if(!node.isOpen() && !node.isChecked() && !node.isSolid()){
+            node.setAsOpen();
+            node.parent = currentNode;
+            openList.add(node);
+
+        }
+    }
+
+    private ArrayList<Node> trackThePath(){
+        ArrayList<Node> res =new ArrayList<>();
+        Node current = goalNode;
+        while(current != startNode){
+            current = current.parent;
+            if(current != startNode){
+                res.add(current);
+            }
+        }
+        Collections.reverse(res);
+        return res;
+    }
+
     /**
      * Procédure permettant l'update du modèle, on lance les fonctions créees pour cela.
      */
-
     public void update(){
         eraseDeadPeople();
         eraseDestroyedBuildings();
         generateNewObstacles();
+        upScore();
 
     }
 }

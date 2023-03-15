@@ -47,6 +47,8 @@ public class VueJeu extends JPanel {
         if(!map.getDay()) {
             g.fillRect(0, 0, map.taille, map.taille);
         }
+        paintCaseImpossible(g);
+        paintHeadCharacter(g);
     }
 
     /**
@@ -103,7 +105,27 @@ public class VueJeu extends JPanel {
             g.drawImage(BanqueImage.imgRock3,o.getX(),o.getY(),60,60,null);
         }
     }
+
+    public void paintCaseImpossible(Graphics g){
+        g.setColor(Color.black);
+        for(int i = 0;i <Map.taille;i ++){
+            for (int j = 0; j <Map.taille ; j++) {
+                if(map.getNodes()[i][j].isSolid()){
+                    g.drawRect(i,j,1,1);
+                }
+            }
+        }
+    }
+
+    public void paintHeadCharacter(Graphics g){
+        g.setColor(Color.black);
+        for (Personnage p :
+             map.getPersonnages()) {
+            g.drawRect(p.getX(),p.getY(),10,10);
+        }
+    }
     /**
+     *
      * Méthode pour dessiner les champs de blés.
      * Récupération des images depuis BanqueImage.
      * @param g Instance de la classe Graphics

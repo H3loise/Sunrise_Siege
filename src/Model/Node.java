@@ -79,6 +79,9 @@ public class Node {
         return checked;
     }
 
+    public void setAsFree(){
+        this.solid =false;
+    }
     public void sethCost(int hCost) {
         this.hCost = hCost;
     }

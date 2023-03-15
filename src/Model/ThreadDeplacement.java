@@ -22,6 +22,11 @@ public class ThreadDeplacement extends Thread {
 
     @Override
     public void run() {
+        try {
+            sleep(300);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         ArrayList<Point> chemin = m.cheminLePluscourt(p, finalX, finalY);
         for (Point point :
                 chemin) {

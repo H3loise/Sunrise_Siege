@@ -15,11 +15,10 @@ public class Main {
         new TimeChanger(map).start();
         Affichage aff = new Affichage(map);
         new RepaintThread(aff,map).start();
-        Guerrier TestDeplacement1 = new Guerrier(70,70);
+        Guerrier TestDeplacement1 = new Guerrier(400,401);
         map.addCharacter(TestDeplacement1);
-        map.deplacementPerso(TestDeplacement1,300,300);
-        System.out.println(TestDeplacement1.getX());
-        System.out.println(TestDeplacement1.getY());
+        map.deplacementPerso(TestDeplacement1,350,300);
+       // map.deplacementPerso(TestDeplacement1,400,401);
 
     }
 }

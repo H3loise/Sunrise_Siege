@@ -140,6 +140,7 @@ public class Obstacle {
     public Type getType() {
         return type;
     }
+    private final int taille = 50;
 
     /**
      * Permet d'augmenter la taille de l'obstacle, pourra être utile prochainement
@@ -167,5 +168,9 @@ public class Obstacle {
                 " , de taille " + size +
                 " et qui rapporte " + ressource +
                 "à sa destruction";
+    }
+
+    public int getTaille() {
+        return taille;
     }
 }

@@ -94,7 +94,13 @@ public class Map {
         this.obstacles.add(new Obstacle(300, 350));
         this.obstacles.add(new Obstacle(350, 350));
         this.obstacles.add(new Obstacle(400,350));
+
         initializeNodes();
+        rendreCasesImpossibleBats(nexus);
+        for (Obstacle b:
+            obstacles ) {
+            rendreCaseImpossibleObstacles(b);
+        }
     }
     public Map(ArrayList<Obstacle> o, ArrayList<Personnage> c, ArrayList<Batiment> b){
         this.batiments=b;
@@ -125,7 +131,9 @@ public class Map {
                 case Tree -> wood += o.getRessource();
                 case Wheat -> food += o.getRessource();
             }
+            rendreCasePossibleObstacles(o);
             obstacles.remove(o);
+
             System.out.println("Vous avez récupéré " + o.getRessource() + " " + o.getType());
         }
     }
@@ -188,7 +196,9 @@ public class Map {
         Random random = new Random();
         int n = random.nextInt((score%150) + 4);
         for (int i = 0; i < n; i++) {
-            this.obstacles.add(new Obstacle(random.nextInt(0,taille),random.nextInt(0,taille)));
+            Obstacle o = new Obstacle(random.nextInt(0,taille),random.nextInt(0,taille));
+            this.obstacles.add(o);
+            rendreCaseImpossibleObstacles(o);
         }
     }
 
@@ -233,6 +243,57 @@ public class Map {
 
     public void setCharacters(ArrayList<Personnage> characters) {
         this.characters = characters;
+    }
+
+    private void rendreCasesImpossibleBats(Batiment b){
+        int x = b.getX();
+        int y = b.getY();
+        int taille = b.getTaille();
+        for(int i = x;i<x+taille;i++) {
+            if (i < Map.taille) {
+                for (int j = y; j < y + taille; j++) {
+                    if (j < Map.taille) {
+                        nodes[i][j].setAsSolid();
+                    }
+                }
+            }
+        }
+    }
+
+    private void rendreCaseImpossibleObstacles(Obstacle b ){
+        int x = b.getX();
+        int y = b.getY();
+        int taille = b.getTaille();
+        for(int i = x;i<x+taille;i++) {
+            if (i < Map.taille) {
+                for (int j = y; j < y + taille; j++) {
+                    if (j < Map.taille) {
+                        nodes[i][j].setAsSolid();
+                    }
+                }
+            }
+        }
+    }
+
+    private void rendreCasePossibleObstacles(Obstacle b ){
+        int x = b.getX();
+        int y = b.getY();
+        int taille = b.getTaille();
+        for(int i = x;i<x+taille;i++) {
+            if (i < Map.taille) {
+                for (int j = y; j < y + taille; j++) {
+                    if (j < Map.taille) {
+                        nodes[i][j].setAsFree();
+                    }
+                }
+            }
+        }
+    }
+
+    private void testCaseImpossible(){
+        for(int i = 0;i<taille-200;i++){
+            nodes[i][400].setAsSolid();
+        }
     }
 
     public void addCharacter(Personnage p ){
@@ -325,7 +386,6 @@ public class Map {
                         bestNodeIndex = i;
                     }
             }
-
             currentNode = openList.get(bestNodeIndex);
             if(currentNode == goalNode){
                 goalReached = true;
@@ -342,6 +402,10 @@ public class Map {
             openList.add(node);
 
         }
+    }
+
+    public Node[][] getNodes() {
+        return nodes;
     }
 
     private ArrayList<Node> trackThePath(){

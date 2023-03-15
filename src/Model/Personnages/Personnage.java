@@ -17,6 +17,8 @@ public abstract class Personnage {
         this.y = y;
     }
 
+    private final int taille = 50;
+
     /**
      * perso qui se fait attaquer
      * @param damage
@@ -53,4 +55,7 @@ public abstract class Personnage {
 
     public void setY(int new_y){this.y = new_y;}
 
+    public int getTaille() {
+        return taille;
+    }
 }

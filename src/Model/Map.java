@@ -33,6 +33,7 @@ public class Map {
     private int wood;
     private boolean day;
 
+    private ArrayList<Personnage> ennemies = new ArrayList<>();
 
     public ArrayList<Obstacle> getObstacles() {
         return obstacles;
@@ -45,6 +46,7 @@ public class Map {
     public ArrayList<Personnage> getPersonnages() {
         return characters;
     }
+
 
     public int getFood() {
         return food;
@@ -64,6 +66,10 @@ public class Map {
 
     public void setDay(boolean d){
         this.day=d;
+    }
+
+    public Nexus getNexus() {
+        return nexus;
     }
 
     //Pour le calcul des chemins:
@@ -101,6 +107,7 @@ public class Map {
             obstacles ) {
             rendreCaseImpossibleObstacles(b);
         }
+        new ThreadAttackNexusAuto(this).start();
     }
     public Map(ArrayList<Obstacle> o, ArrayList<Personnage> c, ArrayList<Batiment> b){
         this.batiments=b;
@@ -452,5 +459,9 @@ public class Map {
         generateNewObstacles();
         upScore();
 
+    }
+
+    public ArrayList<Personnage> getEnnemies() {
+        return ennemies;
     }
 }

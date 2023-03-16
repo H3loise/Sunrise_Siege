@@ -11,6 +11,7 @@ public abstract class Personnage {
     private int health_points;
     private boolean isAlive = true;
 
+
     public static final int taille = 50;
     public Personnage(int health_points, int x, int y){
         this.health_points = health_points;

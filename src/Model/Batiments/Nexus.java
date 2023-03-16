@@ -9,6 +9,8 @@ public class Nexus extends Batiment {
     private int attack;
     private final int minimumOfEach = 5;
 
+    private final double range = 100;
+
     /**
      * Création d'un Nexus, appel au super constructeur
      * @param x
@@ -26,6 +28,10 @@ public class Nexus extends Batiment {
      */
     public int getAttack() {
         return attack;
+    }
+
+    public double getRange() {
+        return range;
     }
 
     /**

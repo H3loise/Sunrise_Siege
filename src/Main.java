@@ -5,6 +5,7 @@ import Model.Obstacles.Obstacle;
 import Model.Personnages.Archer;
 import Model.Personnages.Guerrier;
 import Model.Personnages.Personnage;
+import Model.Personnages.Villageois;
 import Vue.Affichage;
 
 import java.util.ArrayList;
@@ -15,9 +16,11 @@ public class Main {
         new TimeChanger(map).start();
         Affichage aff = new Affichage(map);
         new RepaintThread(aff,map).start();
-        Guerrier TestDeplacement1 = new Guerrier(400,401);
+        Villageois TestDeplacement1 = new Villageois(50,50);
         map.addCharacter(TestDeplacement1);
-        map.deplacementPerso(TestDeplacement1,350,300);
+        Obstacle v = new Obstacle(700,700);
+        map.addObstacle(v);
+        map.mining(TestDeplacement1,v);
        // map.deplacementPerso(TestDeplacement1,400,401);
 
     }

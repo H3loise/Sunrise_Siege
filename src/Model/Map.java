@@ -125,19 +125,19 @@ public class Map {
      * @param o
      */
     public void mining(Villageois v,Obstacle o){
-        if(voisin(v.getX(),v.getY(),o.getX(),o.getY())) {
+        rendreCasePossibleObstacles(o);
+        deplacementPersoMiner(v,o.getX(),o.getY(),o);
+        }
+
+        public void obstacleMined(Obstacle o){
             switch (o.getType()) {
                 case Rock -> stone += o.getRessource();
                 case Tree -> wood += o.getRessource();
                 case Wheat -> food += o.getRessource();
             }
-            rendreCasePossibleObstacles(o);
             obstacles.remove(o);
-
             System.out.println("Vous avez récupéré " + o.getRessource() + " " + o.getType());
         }
-    }
-
 
     /**
      * Procédure permettant d'incrémenter le score, ici on a choisi 150, mais on changera
@@ -248,11 +248,11 @@ public class Map {
     private void rendreCasesImpossibleBats(Batiment b){
         int x = b.getX();
         int y = b.getY();
-        int taille = b.getTaille();
-        for(int i = x;i<x+taille;i++) {
-            if (i < Map.taille) {
-                for (int j = y; j < y + taille; j++) {
-                    if (j < Map.taille) {
+        int taille = b.getTaille() + Personnage.taille ;
+        for(int i = x- Personnage.taille ;i<x + b.getTaille();i++) {
+            if (i < Map.taille && i>=0) {
+                for (int j = y - Personnage.taille; j < y + b.getTaille() ; j++) {
+                    if (j < Map.taille && j>=0) {
                         nodes[i][j].setAsSolid();
                     }
                 }
@@ -263,11 +263,11 @@ public class Map {
     private void rendreCaseImpossibleObstacles(Obstacle b ){
         int x = b.getX();
         int y = b.getY();
-        int taille = b.getTaille();
-        for(int i = x;i<x+taille;i++) {
-            if (i < Map.taille) {
-                for (int j = y; j < y + taille; j++) {
-                    if (j < Map.taille) {
+        int taille = b.getTaille() + Personnage.taille ;
+        for(int i = x- Personnage.taille ;i<x + b.getTaille();i++) {
+            if (i < Map.taille && i>=0) {
+                for (int j = y - Personnage.taille; j < y + b.getTaille() ; j++) {
+                    if (j < Map.taille && j>=0) {
                         nodes[i][j].setAsSolid();
                     }
                 }
@@ -278,7 +278,7 @@ public class Map {
     private void rendreCasePossibleObstacles(Obstacle b ){
         int x = b.getX();
         int y = b.getY();
-        int taille = b.getTaille();
+        int taille = b.getTaille()  + Personnage.taille ;
         for(int i = x;i<x+taille;i++) {
             if (i < Map.taille) {
                 for (int j = y; j < y + taille; j++) {
@@ -300,15 +300,25 @@ public class Map {
         characters.add(p);
     }
 
+    public void addObstacle(Obstacle o){
+        obstacles.add(o);
+    }
     public void deplacementPerso(Personnage p ,int x,int y){
         new ThreadDeplacement(this,p,x,y).start();
         System.out.println("coucou");
+    }
 
+    public void deplacementPersoMiner(Personnage p ,int x,int y,Obstacle o ){
+        new ThreadMining(this,p,x,y,o).start();
+        System.out.println("coucou");
     }
     public ArrayList<Point> cheminLePluscourt(Personnage p, int x, int y){
+        if(nodes[x][y].isSolid()){
+            return new ArrayList<>();
+        }
         if(p.getY() == y && p.getX() == x){
             System.out.println("Vous êtes déjà sur cette case");
-            return null;
+            return new ArrayList<>();
         }
         ArrayList<Point>res = new ArrayList<>();
         ArrayList<Node> chemin = recherche(p,x,y);
@@ -419,6 +429,18 @@ public class Map {
         }
         Collections.reverse(res);
         return res;
+    }
+
+    public void setFood(int food) {
+        this.food += food;
+    }
+
+    public void setStone(int stone) {
+        this.stone += stone;
+    }
+
+    public void setWood(int wood) {
+        this.wood += wood;
     }
 
     /**

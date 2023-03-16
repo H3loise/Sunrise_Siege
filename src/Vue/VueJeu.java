@@ -47,8 +47,8 @@ public class VueJeu extends JPanel {
         if(!map.getDay()) {
             g.fillRect(0, 0, map.taille, map.taille);
         }
-        paintCaseImpossible(g);
-        paintHeadCharacter(g);
+       // paintCaseImpossible(g);
+        //paintHeadCharacter(g);
     }
 
     /**

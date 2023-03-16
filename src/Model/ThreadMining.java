@@ -1,23 +1,26 @@
 package Model;
 
+import Model.Obstacles.Obstacle;
 import Model.Personnages.Personnage;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-public class ThreadDeplacement extends Thread {
+public class ThreadMining extends Thread {
 
-    Map m;
-    Personnage p;
-    int finalX;
-    int finalY;
+    private Map m;
+    private Personnage p;
+    private int finalX;
+    private int finalY;
+    private Obstacle o;
     private final int delai = 20;
 
-    public ThreadDeplacement(Map m, Personnage p, int finalX, int finalY) {
+    public ThreadMining(Map m, Personnage p, int finalX, int finalY,Obstacle o) {
         this.m = m;
         this.p = p;
         this.finalX = finalX;
         this.finalY = finalY;
+        this.o = o;
     }
 
     @Override
@@ -39,6 +42,7 @@ public class ThreadDeplacement extends Thread {
                 throw new RuntimeException(e);
             }
         }
+        m.obstacleMined(o);
     }
 }
 

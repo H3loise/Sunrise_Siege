@@ -6,6 +6,7 @@ import java.awt.*;
 
 public class Affichage extends JFrame {
     private Map map;
+
     private VueRessources vueRessources;
     private VueJeu vueJeu;
     /**

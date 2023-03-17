@@ -10,9 +10,11 @@ import java.awt.*;
  */
 public abstract class Batiment {
     private int pv;
+    private int pvMax;
     private int x;
     private int y;
     private int level;
+    private final int taille = 150;
 
     /**
      * Le niveau d'un batiment est à 1 lors de sa création, on peut l'augmenter avec la sous_fonction cheat.
@@ -34,6 +36,14 @@ public abstract class Batiment {
         this.pv = pv;
     }
 
+
+    public int getPvMax() {
+        return pvMax;
+    }
+
+    public void setPvMax(int pv) {
+        this.pv = pvMax;
+    }
     public int getX() {
         return x;
     }
@@ -51,11 +61,17 @@ public abstract class Batiment {
     }
 
 
+
+
     public int getLevel() {
         return level;
     }
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public int getTaille() {
+        return taille;
     }
 }

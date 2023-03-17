@@ -13,8 +13,9 @@ import Model.Personnages.Villageois;
 //import Model.Personnages.Personnage;
 //import Model.Personnages.Villageois;
 
-import java.util.ArrayList;
-import java.util.Random;
+import javax.swing.plaf.synth.SynthTextAreaUI;
+import java.awt.*;
+import java.util.*;
 
 public class Map {
     private ArrayList<Obstacle> obstacles;
@@ -32,6 +33,7 @@ public class Map {
     private int wood;
     private boolean day;
 
+    private ArrayList<Personnage> ennemies = new ArrayList<>();
 
     public ArrayList<Obstacle> getObstacles() {
         return obstacles;
@@ -44,6 +46,7 @@ public class Map {
     public ArrayList<Personnage> getPersonnages() {
         return characters;
     }
+
 
     public int getFood() {
         return food;
@@ -65,17 +68,31 @@ public class Map {
         this.day=d;
     }
 
-    //Food a 0 mais pourrait etre set a une autre valeur au dÃ©but
+    public Nexus getNexus() {
+        return nexus;
+    }
+
+    //Pour le calcul des chemins:
+    private int maxCol = taille;
+    private int maxRow = taille;
+    private Node[][] nodes = new Node[maxCol][maxRow];
+    private Node startNode,goalNode,currentNode;
+    private ArrayList<Node> openList = new ArrayList<>();
+    private ArrayList<Node> checkedList = new ArrayList<>();
+    boolean goalReached = false;
+
+
     public Map(){
         this.batiments = new ArrayList<>();
         this.characters = new ArrayList<>();
         this.obstacles = new ArrayList<>();
-        Nexus chateau = new Nexus( 50, taille-400);
+        Nexus chateau = new Nexus( 50,400);
         this.nexus = chateau;
         batiments.add(chateau);
         this.food=0;
         this.wood=0;
         this.stone=0;
+
         //this.characters.add(new Villageois(300, 300));
         //this.characters.add(new Guerrier( 350, 300));
         //this.characters.add(new Archer(400,300));
@@ -83,20 +100,43 @@ public class Map {
         this.obstacles.add(new Obstacle(300, 350));
         this.obstacles.add(new Obstacle(350, 350));
         this.obstacles.add(new Obstacle(400,350));
+
+        initializeNodes();
+        rendreCasesImpossibleBats(nexus);
+        for (Obstacle b:
+            obstacles ) {
+            rendreCaseImpossibleObstacles(b);
+        }
+        new ThreadAttackNexusAuto(this).start();
     }
     public Map(ArrayList<Obstacle> o, ArrayList<Personnage> c, ArrayList<Batiment> b){
         this.batiments=b;
         this.obstacles=o;
         this.characters=c;
     }
-
+    private void initializeNodes() {
+        int col = 0;
+        int row =0;
+        while (col < maxCol && row < maxRow) {
+            nodes[col][row] = new Node(col, row);
+            col++;
+            if (col == maxCol) {
+                col = 0;
+                row++;
+            }
+        }
+    }
     /**
      * Procédure permettant de miner une ressource, le matériau est récupéré et le minerai est détruit.
      * @param v
      * @param o
      */
     public void mining(Villageois v,Obstacle o){
-        if(voisin(v.getX(),v.getY(),o.getX(),o.getY())) {
+        rendreCasePossibleObstacles(o);
+        deplacementPersoMiner(v,o.getX(),o.getY(),o);
+        }
+
+        public void obstacleMined(Obstacle o){
             switch (o.getType()) {
                 case Rock -> stone += o.getRessource();
                 case Tree -> wood += o.getRessource();
@@ -105,8 +145,6 @@ public class Map {
             obstacles.remove(o);
             System.out.println("Vous avez récupéré " + o.getRessource() + " " + o.getType());
         }
-    }
-
 
     /**
      * Procédure permettant d'incrémenter le score, ici on a choisi 150, mais on changera
@@ -165,7 +203,9 @@ public class Map {
         Random random = new Random();
         int n = random.nextInt((score%150) + 4);
         for (int i = 0; i < n; i++) {
-            this.obstacles.add(new Obstacle(random.nextInt(100,taille-100),random.nextInt(100,taille-100)));
+            Obstacle o = new Obstacle(random.nextInt(0,taille),random.nextInt(0,taille));
+            this.obstacles.add(o);
+            rendreCaseImpossibleObstacles(o);
         }
     }
 
@@ -189,6 +229,227 @@ public class Map {
         }
     }
 
+
+
+
+    public void healingNexus() {
+        int n = nexus.getMinimumOfEach();
+        if (wood >= n * (nexus.getLevel()-1) && food >= n * (nexus.getLevel()-1) && stone >= n * (nexus.getLevel()-1)) {
+             nexus.setPv(nexus.getPvMax());
+            wood -= n * (nexus.getLevel()-1);
+            food -= n * (nexus.getLevel()-1);
+            stone -= n * (nexus.getLevel()-1);
+            System.out.println(nexus.toString());
+
+        }
+        else{
+            System.out.println("Pas assez d'argent pour réparer le Nexus");
+        }
+    }
+
+
+    public void setCharacters(ArrayList<Personnage> characters) {
+        this.characters = characters;
+    }
+
+    private void rendreCasesImpossibleBats(Batiment b){
+        int x = b.getX();
+        int y = b.getY();
+        int taille = b.getTaille() + Personnage.taille ;
+        for(int i = x- Personnage.taille ;i<x + b.getTaille();i++) {
+            if (i < Map.taille && i>=0) {
+                for (int j = y - Personnage.taille; j < y + b.getTaille() ; j++) {
+                    if (j < Map.taille && j>=0) {
+                        nodes[i][j].setAsSolid();
+                    }
+                }
+            }
+        }
+    }
+
+    private void rendreCaseImpossibleObstacles(Obstacle b ){
+        int x = b.getX();
+        int y = b.getY();
+        int taille = b.getTaille() + Personnage.taille ;
+        for(int i = x- Personnage.taille ;i<x + b.getTaille();i++) {
+            if (i < Map.taille && i>=0) {
+                for (int j = y - Personnage.taille; j < y + b.getTaille() ; j++) {
+                    if (j < Map.taille && j>=0) {
+                        nodes[i][j].setAsSolid();
+                    }
+                }
+            }
+        }
+    }
+
+    private void rendreCasePossibleObstacles(Obstacle b ){
+        int x = b.getX();
+        int y = b.getY();
+        int taille = b.getTaille()  + Personnage.taille ;
+        for(int i = x;i<x+taille;i++) {
+            if (i < Map.taille) {
+                for (int j = y; j < y + taille; j++) {
+                    if (j < Map.taille) {
+                        nodes[i][j].setAsFree();
+                    }
+                }
+            }
+        }
+    }
+
+    private void testCaseImpossible(){
+        for(int i = 0;i<taille-200;i++){
+            nodes[i][400].setAsSolid();
+        }
+    }
+
+    public void addCharacter(Personnage p ){
+        characters.add(p);
+    }
+
+    public void addObstacle(Obstacle o){
+        obstacles.add(o);
+    }
+    public void deplacementPerso(Personnage p ,int x,int y){
+        new ThreadDeplacement(this,p,x,y).start();
+        System.out.println("coucou");
+    }
+
+    public void deplacementPersoMiner(Personnage p ,int x,int y,Obstacle o ){
+        new ThreadMining(this,p,x,y,o).start();
+        System.out.println("coucou");
+    }
+    public ArrayList<Point> cheminLePluscourt(Personnage p, int x, int y){
+        if(nodes[x][y].isSolid()){
+            return new ArrayList<>();
+        }
+        if(p.getY() == y && p.getX() == x){
+            System.out.println("Vous êtes déjà sur cette case");
+            return new ArrayList<>();
+        }
+        ArrayList<Point>res = new ArrayList<>();
+        ArrayList<Node> chemin = recherche(p,x,y);
+        for (Node n : chemin){
+            res.add(new Point(n.getCol(),n.getRow()));
+        }
+        currentNode = null;
+        goalNode = null;
+        startNode = null;
+        checkedList = new ArrayList<>();
+        openList = new ArrayList<>();
+        return res;
+    }
+
+    private void getCost(Node node){
+
+        //Gcost = distance depuis le point de depart
+        int xDistance = Math.abs(node.getCol() - startNode.getCol());
+        int yDistance = Math.abs(node.getRow()  -startNode.getRow());
+        node.setgCost(xDistance + yDistance) ;
+
+        xDistance = Math.abs(node.getCol() - goalNode.getCol());
+        yDistance = Math.abs(node.getRow()  -goalNode.getRow());
+        node.sethCost( xDistance + yDistance);
+        node.setfCost(node.getgCost() + node.gethCost());
+    }
+
+    private void setCostOnNodes(){
+        for (Node[] n:
+                nodes) {
+            for (Node res:
+                    n) {
+                getCost(res);
+            }
+        }
+    }
+    public ArrayList<Node> recherche(Personnage p,int x,int y){
+        startNode = nodes[p.getX()][p.getY()];
+        nodes[p.getX()][p.getY()].setAsStart();
+        currentNode = startNode;
+        goalNode = nodes[x][y];
+        nodes[x][y].setAsGoal();
+
+        ArrayList<Node> res = new ArrayList<>();
+        while(!goalReached){
+            int col = currentNode.getCol();
+            int row = currentNode.getRow();
+            currentNode.setChecked();
+            checkedList.add(currentNode);
+            openList.remove(currentNode);
+
+            //Ouvre les voisins
+            if(col-1>=0) {
+                openNode(nodes[col - 1][row]);
+            }
+            if(row+1<maxRow) {
+                openNode(nodes[col][row + 1]);
+            }
+            if(row-1>=0) {
+                openNode(nodes[col][row - 1]);
+            }
+            if(col+1<maxCol) {
+                openNode(nodes[col + 1][row]);
+            }
+            int bestNodeIndex = 0;
+            int bestNodefCost = 1100000000;
+            for(int i =0;i<openList.size(); i++){
+                //On vérifie si on a pas un meilleur chemin
+                if(openList.get(i).getfCost() < bestNodefCost){
+                    bestNodeIndex = i;
+                    bestNodefCost = openList.get(i).getfCost();
+                }
+                else if(openList.get(i).getfCost() == bestNodefCost)
+                    if(openList.get(i).getgCost() < openList.get(bestNodeIndex).getgCost()){
+                        bestNodeIndex = i;
+                    }
+            }
+            currentNode = openList.get(bestNodeIndex);
+            if(currentNode == goalNode){
+                goalReached = true;
+               res = trackThePath();
+            }
+        }
+        return res;
+    }
+
+    private void openNode(Node node){
+        if(!node.isOpen() && !node.isChecked() && !node.isSolid()){
+            node.setAsOpen();
+            node.parent = currentNode;
+            openList.add(node);
+
+        }
+    }
+
+    public Node[][] getNodes() {
+        return nodes;
+    }
+
+    private ArrayList<Node> trackThePath(){
+        ArrayList<Node> res =new ArrayList<>();
+        Node current = goalNode;
+        while(current != startNode){
+            current = current.parent;
+            if(current != startNode){
+                res.add(current);
+            }
+        }
+        Collections.reverse(res);
+        return res;
+    }
+
+    public void setFood(int food) {
+        this.food += food;
+    }
+
+    public void setStone(int stone) {
+        this.stone += stone;
+    }
+
+    public void setWood(int wood) {
+        this.wood += wood;
+    }
+
     /**
      * Procédure permettant l'update du modèle, on lance les fonctions créees pour cela.
      */
@@ -196,6 +457,11 @@ public class Map {
         eraseDeadPeople();
         eraseDestroyedBuildings();
         generateNewObstacles();
+        upScore();
 
+    }
+
+    public ArrayList<Personnage> getEnnemies() {
+        return ennemies;
     }
 }

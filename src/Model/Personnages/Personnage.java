@@ -1,5 +1,9 @@
 package Model.Personnages;
 
+import java.awt.event.*;
+
+import javax.swing.*;
+import java.awt.event.ActionListener;
 
 public abstract class Personnage {
     private int x;
@@ -7,11 +11,14 @@ public abstract class Personnage {
     private int health_points;
     private boolean isAlive = true;
 
+
+    public static final int taille = 50;
     public Personnage(int health_points, int x, int y){
         this.health_points = health_points;
         this.x = x;
         this.y = y;
     }
+
 
     /**
      * perso qui se fait attaquer
@@ -40,8 +47,14 @@ public abstract class Personnage {
 
     public int getY(){return this.y;}
 
+    public void setPosition(int x , int y){
+        setX(x);
+        setY(y);
+    }
+
     public void setX(int new_x){this.x = new_x;}
 
     public void setY(int new_y){this.y = new_y;}
+
 
 }

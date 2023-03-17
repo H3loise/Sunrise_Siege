@@ -2,7 +2,7 @@ import Model.Map;
 
 public class TimeChanger extends Thread{
     Map m;
-    private final int delai = 5000;
+    private final int delai = 60000;
     public TimeChanger(Map m){
         this.m=m;
     }
@@ -15,7 +15,6 @@ public class TimeChanger extends Thread{
                 m.setDay(false);
             } else {
                 m.update();
-                m.upScore();
 
                 m.setDay(true);
             }

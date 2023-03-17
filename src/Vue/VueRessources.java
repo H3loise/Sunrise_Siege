@@ -83,10 +83,10 @@ public class VueRessources extends JPanel {
      */
     private void paintAstre(Graphics g){
         if(map.getDay()) {
-            g.drawImage(BanqueImage.imgSoleil, 965, 0, 30, 30, null);
+            g.drawImage(BanqueImage.imgSoleil, map.taille/2, 0, 30, 30, null);
         }
         if(!map.getDay()) {
-            g.drawImage(BanqueImage.imgLune, 965, 0, 30, 30, null);
+            g.drawImage(BanqueImage.imgLune, map.taille/2, 0, 30, 30, null);
         }
     }
 }

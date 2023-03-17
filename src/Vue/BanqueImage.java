@@ -23,7 +23,7 @@ public abstract class BanqueImage {
 
     static {
         try {
-            imgFondRessources = ImageIO.read(new File("src/Images/fond_jeu.jpg"));
+            imgFondRessources = ImageIO.read(new File("src/Images/fond_jeu.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

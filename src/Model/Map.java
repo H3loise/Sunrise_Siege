@@ -20,7 +20,7 @@ public class Map {
     private ArrayList<Obstacle> obstacles;
     private ArrayList<Personnage> characters;
     private ArrayList<Batiment> batiments;
-    public static final int taille=600;
+    public static final int taille=1000;
     //a enlever
     private Nexus nexus;
     private int score = 0;
@@ -70,7 +70,7 @@ public class Map {
         this.batiments = new ArrayList<>();
         this.characters = new ArrayList<>();
         this.obstacles = new ArrayList<>();
-        Nexus chateau = new Nexus( 50,400);
+        Nexus chateau = new Nexus( 50, taille-400);
         this.nexus = chateau;
         batiments.add(chateau);
         this.food=0;
@@ -165,7 +165,7 @@ public class Map {
         Random random = new Random();
         int n = random.nextInt((score%150) + 4);
         for (int i = 0; i < n; i++) {
-            this.obstacles.add(new Obstacle(random.nextInt(0,taille),random.nextInt(0,taille)));
+            this.obstacles.add(new Obstacle(random.nextInt(100,taille-100),random.nextInt(100,taille-100)));
         }
     }
 

@@ -2,7 +2,7 @@ import Model.Map;
 
 public class TimeChanger extends Thread{
     Map m;
-    private final int delai = 60000;
+    private final int delai = 5000;
     public TimeChanger(Map m){
         this.m=m;
     }

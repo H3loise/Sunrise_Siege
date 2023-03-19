@@ -8,8 +8,7 @@ public class Ennemy extends Personnage {
         super(health_points,x,y);
     }
 
-    public void attack(Personnage p) {
+    public void attack(Personnage p){
         p.attackedPersonnage(this.attack_points);
     }
-
 }

@@ -21,7 +21,8 @@ public class ThreadAttackNexusAuto extends Thread{
         while (map.getNexus().getPv()>0) {
 
             double min = map.getNexus().getRange();
-            for (Ennemy p : map.getEnnemies()) {
+            for (Ennemy p :
+                    map.getEnnemies()) {
                 if (Math.abs(p.getX() - x) + Math.abs(p.getY() - y)<= min) {
                     target = p;
                 }

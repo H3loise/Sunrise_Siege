@@ -22,7 +22,7 @@ public class VueRessources extends JPanel {
      */
     public VueRessources(Map map){
         this.map = map;
-        setBackground(Color.RED);
+        setBackground(Color.GRAY);
         setPreferredSize(new Dimension(longueur,hauteur));
     }
 
@@ -48,7 +48,7 @@ public class VueRessources extends JPanel {
      */
     private void paintWood(Graphics g){
         g.setColor(Color.decode("#A52A2A"));
-       //g.fillRect(10,0,20,20);
+        //g.fillRect(10,0,20,20);
         g.setColor(Color.BLACK);
         g.drawImage(BanqueImage.imgWood,50,-1,30,30,null);
         g.drawString("" + map.getWood(),80,18);

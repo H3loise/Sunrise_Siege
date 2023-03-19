@@ -102,7 +102,7 @@ public class Map {
         initializeNodes();
         rendreCasesImpossibleBats(nexus);
         for (Obstacle b:
-            obstacles ) {
+                obstacles ) {
             rendreCaseImpossibleObstacles(b);
         }
         new ThreadAttackNexusAuto(this).start();
@@ -135,17 +135,17 @@ public class Map {
     public void mining(Villageois v,Obstacle o){
         rendreCasePossibleObstacles(o);
         deplacementPersoMiner(v,o.getX(),o.getY(),o);
-        }
+    }
 
-        public void obstacleMined(Obstacle o){
-            switch (o.getType()) {
-                case Rock -> stone += o.getRessource();
-                case Tree -> wood += o.getRessource();
-                case Wheat -> food += o.getRessource();
-            }
-            obstacles.remove(o);
-            System.out.println("Vous avez récupéré " + o.getRessource() + " " + o.getType());
+    public void obstacleMined(Obstacle o){
+        switch (o.getType()) {
+            case Rock -> stone += o.getRessource();
+            case Tree -> wood += o.getRessource();
+            case Wheat -> food += o.getRessource();
         }
+        obstacles.remove(o);
+        System.out.println("Vous avez récupéré " + o.getRessource() + " " + o.getType());
+    }
 
     /**
      * Procédure permettant d'incrémenter le score, ici on a choisi 150, mais on changera
@@ -236,7 +236,7 @@ public class Map {
     public void healingNexus() {
         int n = nexus.getMinimumOfEach();
         if (wood >= n * (nexus.getLevel()-1) && food >= n * (nexus.getLevel()-1) && stone >= n * (nexus.getLevel()-1)) {
-             nexus.setPv(nexus.getPvMax());
+            nexus.setPv(nexus.getPvMax());
             wood -= n * (nexus.getLevel()-1);
             food -= n * (nexus.getLevel()-1);
             stone -= n * (nexus.getLevel()-1);
@@ -450,7 +450,7 @@ public class Map {
             currentNode = openList.get(bestNodeIndex);
             if(currentNode == goalNode){
                 goalReached = true;
-               res = trackThePath();
+                res = trackThePath();
             }
         }
         goalReached =false;
@@ -522,7 +522,7 @@ public class Map {
             resetPositionWarriors();
             rendreCasesImpossibleBats(caserne);
             eraseDeadPeople();
-           // eraseDestroyedBuildings();
+            // eraseDestroyedBuildings();
             generateNewObstacles();
             upScore();
         }

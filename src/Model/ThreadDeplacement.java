@@ -24,18 +24,18 @@ public class ThreadDeplacement extends Thread {
 
     @Override
     public void run() {
-            System.out.println(p.toString());
-            /**
-             * Probleme de paraléllisme dans le lancement
-             */
-            for (Point point : points) {
-                p.setPosition((int) point.getX(), (int) point.getY());
-                try {
-                    sleep(delai);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+        System.out.println(p.toString());
+        /**
+         * Probleme de paraléllisme dans le lancement
+         */
+        for (Point point : points) {
+            p.setPosition((int) point.getX(), (int) point.getY());
+            try {
+                sleep(delai);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
+        }
     }
 }
 

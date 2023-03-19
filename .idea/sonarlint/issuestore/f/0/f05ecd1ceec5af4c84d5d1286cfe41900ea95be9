@@ -1,0 +1,22 @@
+
+i
+java:S1301•"KReplace this "switch" statement by "if" statements to increase readability.(Ö¬ô¶8ˆÍÿî0
+v	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Ç„üà8ßÊØ¾â0
+C
+java:S1170"!Make this final field static too.(ì¸ü‘üÿÿÿÿ8’ËØ¾â0
+C
+java:S1170"!Make this final field static too.(üÑÚÈüÿÿÿÿ8’ËØ¾â0
+C
+java:S1170"!Make this final field static too.(Á¯ûÀúÿÿÿÿ8’ËØ¾â0
+C
+java:S1170"!Make this final field static too.(¶ÁóÈÿÿÿÿÿ8“ËØ¾â0
+>
+java:S1170"!Make this final field static too.(àß´†8“ËØ¾â0
+?
+java:S1170"!Make this final field static too.(ÏÈ×ä8‘ˆÍÿî0
+>	java:S131A""Add a default case to this switch.(Âª‘§8¤ËØ¾â0
+v	java:S131•"YComplete cases by adding the missing enum constants or add a default case to this switch.(Ö¬ô¶8›ˆÍÿî0
+S
+java:S1144T"1Remove this unused private "setRessource" method.(¹íÑıÿÿÿÿ8®ËØ¾â0
+I
+java:S1144d",Remove this unused private "setSize" method.(Ä“‰À8¯ËØ¾â0

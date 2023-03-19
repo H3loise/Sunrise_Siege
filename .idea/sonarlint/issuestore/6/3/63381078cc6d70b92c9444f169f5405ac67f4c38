@@ -1,0 +1,50 @@
+
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(èî“–øÿÿÿÿ
+7
+java:S1170"!Make this final field static too.(”äÄü
+<
+java:S1170"!Make this final field static too.(ŒªÀøÿÿÿÿ
+;
+java:S1948"%Make "map" transient or serializable.(é•·õ
+Q	java:S125"<This block of commented-out lines of code should be removed.(ô’íˆ
+P
+java:S1161$":Add the "@Override" annotation above this method signature(¶øÂÁ
+P
+java:S2209&"5Change this instance-reference to a static reference.(éö¢ìùÿÿÿÿ
+P
+java:S2209&"5Change this instance-reference to a static reference.(éö¢ìùÿÿÿÿ
+P
+java:S2209'"5Change this instance-reference to a static reference.(›õæÆÿÿÿÿÿ
+P
+java:S2209'"5Change this instance-reference to a static reference.(›õæÆÿÿÿÿÿ
+P
+java:S2209'"5Change this instance-reference to a static reference.(›õæÆÿÿÿÿÿ
+P
+java:S2209("5Change this instance-reference to a static reference.(˜”§äøÿÿÿÿ
+P
+java:S2209("5Change this instance-reference to a static reference.(˜”§äøÿÿÿÿ
+P
+java:S2209("5Change this instance-reference to a static reference.(˜”§äøÿÿÿÿ
+P
+java:S2209)"5Change this instance-reference to a static reference.(‹±ô¤øÿÿÿÿ
+P
+java:S2209)"5Change this instance-reference to a static reference.(‹±ô¤øÿÿÿÿ
+P
+java:S2209)"5Change this instance-reference to a static reference.(‹±ô¤øÿÿÿÿ
+P
+java:S2209)"5Change this instance-reference to a static reference.(‹±ô¤øÿÿÿÿ
+P
+java:S22090"5Change this instance-reference to a static reference.(ï§¿—ÿÿÿÿÿ
+P
+java:S22090"5Change this instance-reference to a static reference.(ï§¿—ÿÿÿÿÿ
+]	java:S1252"<This block of commented-out lines of code should be removed.(ñ®£éùÿÿÿÿ8Ñ‚Íÿî0
+>
+java:S1872¨"'Use an "instanceof" comparison instead.(Åš¬Ö
+C
+java:S1872«"'Use an "instanceof" comparison instead.(€çöˆúÿÿÿÿ
+C
+java:S1872®"'Use an "instanceof" comparison instead.(–í¯öýÿÿÿÿ
+W
+java:S1128"5Remove this unused import 'Model.Personnages.Archer'.(Šó£‹ýÿÿÿÿ8¡ñ‡áâ0
+L
+java:S1068"1Remove this unused "vueRessources" private field.(Õ÷à‰ýÿÿÿÿ

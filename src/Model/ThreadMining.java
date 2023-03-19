@@ -14,12 +14,15 @@ public class ThreadMining extends Thread {
     private int finalY;
     private Obstacle o;
     private final int delai = 20;
+    ArrayList<Point> points;
 
-    public ThreadMining(Map m, Personnage p, int finalX, int finalY,Obstacle o) {
+
+    public ThreadMining(Map m, Personnage p,Obstacle o, ArrayList<Point> points) {
+        this.points = points;
         this.m = m;
         this.p = p;
-        this.finalX = finalX;
-        this.finalY = finalY;
+        this.finalX = o.getX();
+        this.finalY = o.getY();
         this.o = o;
     }
 
@@ -30,9 +33,8 @@ public class ThreadMining extends Thread {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        ArrayList<Point> chemin = m.cheminLePluscourt(p, finalX, finalY);
         for (Point point :
-                chemin) {
+                points) {
             p.setPosition( (int)point.getX(), (int) point.getY());
 
 

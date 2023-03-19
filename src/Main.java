@@ -1,6 +1,8 @@
 import Controller.ActionPanel;
 import Model.Map;
+import Model.Obstacles.Obstacle;
 import Model.Personnages.Guerrier;
+import Model.Personnages.Villageois;
 import Model.TimeChanger;
 import Vue.Affichage;
 import Vue.ControllerView.ArcherController;
@@ -27,8 +29,11 @@ public class Main {
         fenetre.setVisible(true);
         fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
          **/
-        Guerrier testDeplacement = new Guerrier( 200,200);
+        Villageois testDeplacement = new Villageois( 200,200);
         map.addCharacter(testDeplacement);
+        Obstacle b = new Obstacle(4,700);
+                map.addObstacle(b);
+        map.mining(testDeplacement,b);
         Affichage affichage = new Affichage(map);
         ActionPanel actionPanel = new ActionPanel(map,affichage);
         affichage.addMouseListener(actionPanel);

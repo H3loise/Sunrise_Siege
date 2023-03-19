@@ -12,33 +12,30 @@ public class ThreadDeplacement extends Thread {
     int finalX;
     int finalY;
     private final int delai = 20;
+    ArrayList<Point> points;
 
-    public ThreadDeplacement(Map m, Personnage p, int finalX, int finalY) {
+    public ThreadDeplacement(Map m, Personnage p, int finalX, int finalY,ArrayList<Point> points) {
         this.m = m;
         this.p = p;
         this.finalX = finalX;
         this.finalY = finalY;
+        this.points = points;
     }
 
     @Override
     public void run() {
-        try {
-            sleep(300);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        ArrayList<Point> chemin = m.cheminLePluscourt(p, finalX, finalY);
-        for (Point point :
-                chemin) {
-            p.setPosition( (int)point.getX(), (int) point.getY());
-
-
-            try {
-                sleep(delai);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            System.out.println(p.toString());
+            /**
+             * Probleme de paraléllisme dans le lancement
+             */
+            for (Point point : points) {
+                p.setPosition((int) point.getX(), (int) point.getY());
+                try {
+                    sleep(delai);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
-        }
     }
 }
 

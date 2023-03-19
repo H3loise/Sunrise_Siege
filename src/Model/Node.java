@@ -92,4 +92,17 @@ public class Node {
     public void setgCost(int i ){
         gCost = i;
     }
+
+    public void setAsNonGoal() {
+        this.goal = false;
+    }
+
+    public void resetState(){
+        open = false;
+        checked = false;
+        start = false;
+        goal = false;
+        parent =null;
+    }
+
 }

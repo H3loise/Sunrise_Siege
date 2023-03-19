@@ -3,17 +3,15 @@ package Model;
 //import Model.Batiments.Batiment;
 //import Model.Batiments.Nexus;
 import Model.Batiments.Batiment;
+import Model.Batiments.Caserne;
 import Model.Batiments.Nexus;
 import Model.Obstacles.Obstacle;
-import Model.Personnages.Archer;
-import Model.Personnages.Personnage;
-import Model.Personnages.Villageois;
+import Model.Personnages.*;
 //import Model.Personnages.Archer;
 //import Model.Personnages.Guerrier;
 //import Model.Personnages.Personnage;
 //import Model.Personnages.Villageois;
 
-import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.awt.*;
 import java.util.*;
 
@@ -33,7 +31,7 @@ public class Map {
     private int wood;
     private boolean day;
 
-    private ArrayList<Personnage> ennemies = new ArrayList<>();
+    private ArrayList<Ennemy> ennemies = new ArrayList<>();
 
     public ArrayList<Obstacle> getObstacles() {
         return obstacles;
@@ -80,7 +78,7 @@ public class Map {
     private ArrayList<Node> openList = new ArrayList<>();
     private ArrayList<Node> checkedList = new ArrayList<>();
     boolean goalReached = false;
-
+    private Caserne caserne;
 
     public Map(){
         this.batiments = new ArrayList<>();
@@ -96,7 +94,7 @@ public class Map {
         //this.characters.add(new Villageois(300, 300));
         //this.characters.add(new Guerrier( 350, 300));
         //this.characters.add(new Archer(400,300));
-        this.characters.add(new Archer(10,10));
+        this.characters.add(new Archer(50,50));
         this.obstacles.add(new Obstacle(300, 350));
         this.obstacles.add(new Obstacle(350, 350));
         this.obstacles.add(new Obstacle(400,350));
@@ -108,11 +106,14 @@ public class Map {
             rendreCaseImpossibleObstacles(b);
         }
         new ThreadAttackNexusAuto(this).start();
+        this.caserne = new Caserne(500,600);
+        rendreCasesImpossibleBats(caserne);
+        batiments.add(caserne);
     }
     public Map(ArrayList<Obstacle> o, ArrayList<Personnage> c, ArrayList<Batiment> b){
         this.batiments=b;
         this.obstacles=o;
-        this.characters=c;
+        this.characters =c;
     }
     private void initializeNodes() {
         int col = 0;
@@ -267,6 +268,20 @@ public class Map {
         }
     }
 
+    private void rendreCasePossibleBatiment(Batiment b){
+        int x = b.getX();
+        int y = b.getY();
+        int taille = b.getTaille() + Personnage.taille ;
+        for(int i = x- Personnage.taille ;i<x + b.getTaille();i++) {
+            if (i < Map.taille && i>=0) {
+                for (int j = y - Personnage.taille; j < y + b.getTaille() ; j++) {
+                    if (j < Map.taille && j>=0) {
+                        nodes[i][j].setAsFree();
+                    }
+                }
+            }
+        }
+    }
     private void rendreCaseImpossibleObstacles(Obstacle b ){
         int x = b.getX();
         int y = b.getY();
@@ -280,16 +295,17 @@ public class Map {
                 }
             }
         }
+
     }
 
     private void rendreCasePossibleObstacles(Obstacle b ){
         int x = b.getX();
         int y = b.getY();
         int taille = b.getTaille()  + Personnage.taille ;
-        for(int i = x;i<x+taille;i++) {
-            if (i < Map.taille) {
-                for (int j = y; j < y + taille; j++) {
-                    if (j < Map.taille) {
+        for(int i = x- Personnage.taille ;i<x + b.getTaille();i++) {
+            if (i < Map.taille && i>=0) {
+                for (int j = y - Personnage.taille; j < y + b.getTaille() ; j++){
+                    if (j < Map.taille && j>=0) {
                         nodes[i][j].setAsFree();
                     }
                 }
@@ -311,17 +327,33 @@ public class Map {
         obstacles.add(o);
     }
     public void deplacementPerso(Personnage p ,int x,int y){
-        new ThreadDeplacement(this,p,x,y).start();
-        System.out.println("coucou");
+        ArrayList<Point> points= cheminLePluscourt(p,x,y);
+        System.out.println(points);
+        resetNoeudsAprèsUtilisation();
+        new ThreadDeplacement(this,p,x,y,points).start();
     }
 
+    private void resetNoeudsAprèsUtilisation(){
+        int col = 0;
+        int row =0;
+        while (col < maxCol && row < maxRow) {
+            nodes[col][row].resetState();
+            col++;
+            if (col == maxCol) {
+                col =0;
+                row++;
+            }
+        }
+    }
     public void deplacementPersoMiner(Personnage p ,int x,int y,Obstacle o ){
         new ThreadMining(this,p,x,y,o).start();
         System.out.println("coucou");
     }
-    public ArrayList<Point> cheminLePluscourt(Personnage p, int x, int y){
+    public  ArrayList<Point> cheminLePluscourt(Personnage p, int x, int y){
         if(nodes[x][y].isSolid()){
+            System.out.println("solide");
             return new ArrayList<>();
+
         }
         if(p.getY() == y && p.getX() == x){
             System.out.println("Vous êtes déjà sur cette case");
@@ -329,14 +361,11 @@ public class Map {
         }
         ArrayList<Point>res = new ArrayList<>();
         ArrayList<Node> chemin = recherche(p,x,y);
+        System.out.println(chemin);
         for (Node n : chemin){
             res.add(new Point(n.getCol(),n.getRow()));
         }
-        currentNode = null;
-        goalNode = null;
-        startNode = null;
-        checkedList = new ArrayList<>();
-        openList = new ArrayList<>();
+
         return res;
     }
 
@@ -353,6 +382,17 @@ public class Map {
         node.setfCost(node.getgCost() + node.gethCost());
     }
 
+    private void afficheNodesDifferents(){
+        for (Node[] n:
+                nodes) {
+            for (Node res:
+                    n) {
+                if (res.isStart() /*|| res.isChecked() || res.isOpen() || res.isGoal()*/){
+                    System.out.println("probleme ici");
+                }
+            }
+        }
+    }
     private void setCostOnNodes(){
         for (Node[] n:
                 nodes) {
@@ -363,12 +403,16 @@ public class Map {
         }
     }
     public ArrayList<Node> recherche(Personnage p,int x,int y){
+        Node tempStart = startNode;
+        ArrayList<Node> tempOpen = openList;
+
+        ArrayList<Node>tempChecked = checkedList;
         startNode = nodes[p.getX()][p.getY()];
         nodes[p.getX()][p.getY()].setAsStart();
         currentNode = startNode;
         goalNode = nodes[x][y];
         nodes[x][y].setAsGoal();
-
+        setCostOnNodes();
         ArrayList<Node> res = new ArrayList<>();
         while(!goalReached){
             int col = currentNode.getCol();
@@ -409,6 +453,9 @@ public class Map {
                res = trackThePath();
             }
         }
+        goalReached =false;
+        openList = tempOpen;
+        checkedList = tempChecked;
         return res;
     }
 
@@ -450,18 +497,44 @@ public class Map {
         this.wood += wood;
     }
 
+    private void resetPositionWarriors(){
+        rendreCasePossibleBatiment(caserne);
+        for (Personnage p:
+                characters) {
+            if(p instanceof Guerrier || p instanceof Archer){
+                System.out.println("oui");
+                deplacementPerso(p, caserne.getX(), caserne.getY());
+            }
+
+        }
+    }
+    private void generateEnnemies(){
+        /**
+         * A coder
+         */
+    }
+
     /**
      * Procédure permettant l'update du modèle, on lance les fonctions créees pour cela.
      */
     public void update(){
-        eraseDeadPeople();
-        eraseDestroyedBuildings();
-        generateNewObstacles();
-        upScore();
-
+        if(day){
+            resetPositionWarriors();
+            rendreCasesImpossibleBats(caserne);
+            eraseDeadPeople();
+           // eraseDestroyedBuildings();
+            generateNewObstacles();
+            upScore();
+        }
+        else {
+            rendreCasePossibleBatiment(caserne);
+            generateEnnemies();
+        }
     }
 
-    public ArrayList<Personnage> getEnnemies() {
+
+
+    public ArrayList<Ennemy> getEnnemies() {
         return ennemies;
     }
 }

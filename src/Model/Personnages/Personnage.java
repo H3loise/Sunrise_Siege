@@ -1,18 +1,14 @@
 package Model.Personnages;
 
-import Model.Items;
-
-import java.awt.event.*;
-
-import javax.swing.*;
-import java.awt.event.ActionListener;
-
-public abstract class Personnage implements Items {
+public abstract class Personnage {
     private int x;
     private int y;
-    private int health_points;
-    private boolean isSelected = false;
+    protected int health_points;
     private boolean isAlive = true;
+    protected int hpMax = health_points;
+
+    protected int level;
+    public static final int taille = 50;
 
     public Personnage(int health_points, int x, int y){
         this.health_points = health_points;
@@ -41,14 +37,6 @@ public abstract class Personnage implements Items {
         return this.isAlive;
     }
 
-    public boolean getIsSelected(){
-        return this.isSelected;
-    }
-
-    public void setisSelected(boolean bool){
-        this.isSelected = bool;
-    }
-
     public int getHealth_points(){return this.health_points;}
 
     public int getX(){return this.x;}
@@ -64,4 +52,11 @@ public abstract class Personnage implements Items {
 
     public void setY(int new_y){this.y = new_y;}
 
+    public void heal(){
+        health_points = hpMax;
+    }
+
+    public int getLevel(){
+        return this.level;
+    }
 }

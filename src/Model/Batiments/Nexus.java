@@ -9,6 +9,8 @@ public class Nexus extends Batiment {
     private int attack;
     private final int minimumOfEach = 5;
 
+    private final double range = 100;
+
     /**
      * Création d'un Nexus, appel au super constructeur
      * @param x
@@ -16,8 +18,12 @@ public class Nexus extends Batiment {
      */
     public Nexus(int x, int y) {
         super( x, y);
-        this.setPv(100);
+        this.pv  = 100;
+        this.setPvMax(this.pv);
         this.attack = 50;
+    }
+    public int getPv() {
+        return this.pv;
     }
 
     /**
@@ -26,6 +32,10 @@ public class Nexus extends Batiment {
      */
     public int getAttack() {
         return attack;
+    }
+
+    public double getRange() {
+        return range;
     }
 
     /**
@@ -42,10 +52,10 @@ public class Nexus extends Batiment {
      *
      */
     public void upgrade(){
-        setPv(getLevel()+1);
+        setLevel(getLevel()+1);
         this.attack+=50;
-        setPvMax(getPvMax()+100);
-        setPv(getPvMax());
+        this.pvMax+=100;
+        this.pv = pvMax;
     }
 
     /**
@@ -72,8 +82,5 @@ public class Nexus extends Batiment {
                 " d'attaque, " + getPv() +
                 " points de vie, niveau :" + getLevel();
     }
-
-
-
 
 }

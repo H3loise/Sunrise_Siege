@@ -1,7 +1,5 @@
 package Model.Obstacles;
 
-import Model.Items;
-
 import java.awt.*;
 import java.util.Random;
 
@@ -12,7 +10,7 @@ import java.util.Random;
  *
  */
 
-public class Obstacle implements Items {
+public class Obstacle {
     private int ressource;
     private Taille size;
     private int x;
@@ -55,7 +53,6 @@ public class Obstacle implements Items {
             case 0 -> size = Taille.Small;
             case 1 -> size = Taille.Average;
             case 2 -> size = Taille.Big;
-            default -> size = Taille.Big;
         }
         switch (size){
             case Small -> ressource = few;
@@ -142,6 +139,7 @@ public class Obstacle implements Items {
     public Type getType() {
         return type;
     }
+    private final int taille = 50;
 
     /**
      * Permet d'augmenter la taille de l'obstacle, pourra être utile prochainement
@@ -169,5 +167,9 @@ public class Obstacle implements Items {
                 " , de taille " + size +
                 " et qui rapporte " + ressource +
                 "à sa destruction";
+    }
+
+    public int getTaille() {
+        return taille;
     }
 }

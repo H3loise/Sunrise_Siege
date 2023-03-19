@@ -1,7 +1,5 @@
 package Model.Batiments;
 
-import Model.Items;
-
 import java.awt.*;
 
 
@@ -10,12 +8,13 @@ import java.awt.*;
  * un batiment a toujours des pv, une position, une image de nuit et de jour, et un niveau.
  * un batiment est un Nexus pour l'instant, mais pas un obstacle attention.
  */
-public abstract class Batiment implements Items {
-    private int pv;
-    private int pvMax;
+public abstract class Batiment {
+    protected int pv;
+    protected int pvMax;
     private int x;
     private int y;
     private int level;
+    private final int taille = 150;
 
     /**
      * Le niveau d'un batiment est à 1 lors de sa création, on peut l'augmenter avec la sous_fonction cheat.
@@ -29,9 +28,7 @@ public abstract class Batiment implements Items {
         this.level = 1;
     }
 
-    public int getPv() {
-        return pv;
-    }
+
 
     public void setPv(int pv) {
         this.pv = pv;
@@ -70,5 +67,9 @@ public abstract class Batiment implements Items {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public int getTaille() {
+        return taille;
     }
 }

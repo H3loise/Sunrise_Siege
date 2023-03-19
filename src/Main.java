@@ -1,16 +1,31 @@
-import Model.Batiments.Batiment;
-import Model.Batiments.Nexus;
+import Controller.ActionPanel;
 import Model.Map;
-import Model.Obstacles.Obstacle;
-import Model.Personnages.Archer;
-import Model.Personnages.Personnage;
+import Model.Personnages.Guerrier;
+import Model.TimeChanger;
 import Vue.Affichage;
 
-import java.io.IOException;
-import java.util.ArrayList;
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         Map map = new Map();
-        new Affichage(map);
+        /**JFrame fenetre=new JFrame("Sunrise Siege");
+         //fenetre.setPreferredSize(new Dimension(1500,1000));
+         VueJeu vueJeu=new VueJeu(map);
+         ArcherController archerController= new ArcherController(map);
+         fenetre.add(vueJeu,BorderLayout.CENTER);
+         fenetre.add(archerController,BorderLayout.EAST);
+         //new ThreadAfficheur(vueJeu).start();
+         //vueJeu.repaint();
+         //new TimeChanger(map).start();
+         fenetre.setPreferredSize(new Dimension(1300,1000));
+         fenetre.pack();
+         fenetre.setVisible(true);
+         fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+         **/
+        Guerrier testDeplacement = new Guerrier( 200,200);
+        map.addCharacter(testDeplacement);
+        Affichage affichage = new Affichage(map);
+        ActionPanel actionPanel = new ActionPanel(map,affichage);
+        affichage.addMouseListener(actionPanel);
+        new TimeChanger(map).start();
     }
 }

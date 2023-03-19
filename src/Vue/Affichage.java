@@ -1,66 +1,67 @@
 package Vue;
 
-import Control.Control;
 import Model.Map;
+import Model.Personnages.Archer;
+import Vue.ControllerView.*;
+
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 
 public class Affichage extends JFrame {
-    private final VueRessources vueRessources;
-    private final VueJeu vueJeu;
-    private final VueInfo vueInfo;
+    //private VueController controller;
+    private JPanel controller;
+    private ArcherController archerController;
+    private NoneController noneController;
+    private NexusController nexusController;
+    private GuerrierController guerrierController;
+    private VillageoisController villageoisController;
+    public CardLayout card;
 
-    /**
-     * Création d'un Vue.Affichage
-     * @param map de type Modele.Map
-     */
-    public Affichage(Map map) throws IOException {
-        JFrame window = new JFrame("Sunrise Siege");
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-        window.setPreferredSize(new Dimension(Map.taille, Map.taille));
-//        this.setPreferredSize(new Dimension(Map.taille,Map.taille));
-//        this.getContentPane().setLayout(new BorderLayout());
+    public Affichage(Map m){
+        super("Sunrise Siege");
+        VueJeu vueJeu = new VueJeu(m);
+        VueRessources vueRessources = new VueRessources(m);
+        this.card = new CardLayout();
+        new ThreadAfficheur(vueJeu).start();
+        this.nexusController = new NexusController(m);
+        this.archerController= new ArcherController(m);
+        this.noneController=new NoneController(m);
+        this.guerrierController=new GuerrierController(m);
+        this.villageoisController=new VillageoisController(m);
 
-        //window.getContentPane().setLayout(new BorderLayout());
-        //window.getContentPane().setLayout(new BorderLayout());
-        panel.addMouseListener(new Control());
-        window.add(panel);
+        String keyArcher = "archer";
+        String keyNone = "none";
+        String keyNexus = "nexus";
+        String keyGuerrier = "guerrier";
+        String keyVillageois = "villageois";
 
-        this.vueRessources = new VueRessources(map);
-        this.vueJeu = new VueJeu(map);
-        this.vueInfo = new VueInfo(map);
-        this.vueRessources.setBorder(BorderFactory.createLineBorder(Color.black));
-
-//        window.add(this.vueInfo, BorderLayout.EAST);
-//        window.add(this.vueJeu);
-//        window.add(this.vueRessources, BorderLayout.SOUTH);
-
-        panel.add(this.vueInfo, BorderLayout.EAST);
-        panel.add(this.vueJeu);
-        panel.add(this.vueRessources, BorderLayout.SOUTH);
-
-//        this.add(this.vueInfo, BorderLayout.EAST);
-//        this.add(this.vueJeu);
-//        this.add(this.vueRessources, BorderLayout.SOUTH);
-        window.pack();
-        window.setVisible(true);
-//        this.pack();
-//        this.setVisible(true);
-//        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.controller=new JPanel(card);
+        //this.controller=this.archerController;
+        //this.controller=new ArcherController(m);
+        controller.add(noneController,keyNone);
+        controller.add(archerController,keyArcher);
+        controller.add(nexusController,keyNexus);
+        controller.add(guerrierController,keyGuerrier);
+        controller.add(villageoisController,keyVillageois);
+        //this.controller=new ArcherController(m);
+        this.add(vueJeu, BorderLayout.CENTER);
+        this.add(vueRessources,BorderLayout.SOUTH);
+        this.add(controller,BorderLayout.EAST);
+        this.setPreferredSize(new Dimension(1300,1000));
+        this.pack();
+        this.setVisible(true);
+        this.setResizable(false);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-    /**
-     * Méthode pour dessiner la map, les obstacles, les personnages et les batiments.
-     * @param g Instance de la classe Graphics
-     */
-
-    public void paint(Graphics g){
-        super.repaint();
-        vueInfo.paint(g);
-        vueRessources.paint(g);
-        vueJeu.paint(g);
+    public void setArcher(){
+        this.controller=this.archerController;
     }
 
+    public void setNone(){
+        this.controller=this.noneController;
+    }
+
+    public JPanel getController(){
+        return this.controller;
+    }
 }

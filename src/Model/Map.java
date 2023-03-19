@@ -6,6 +6,7 @@ import Model.Batiments.Batiment;
 import Model.Batiments.Nexus;
 import Model.Obstacles.Obstacle;
 import Model.Personnages.Archer;
+import Model.Personnages.Ennemy;
 import Model.Personnages.Personnage;
 import Model.Personnages.Villageois;
 //import Model.Personnages.Archer;
@@ -33,7 +34,7 @@ public class Map {
     private int wood;
     private boolean day;
 
-    private ArrayList<Personnage> ennemies = new ArrayList<>();
+    private ArrayList<Ennemy> ennemies = new ArrayList<>();
 
     public ArrayList<Obstacle> getObstacles() {
         return obstacles;
@@ -103,8 +104,7 @@ public class Map {
 
         initializeNodes();
         rendreCasesImpossibleBats(nexus);
-        for (Obstacle b:
-            obstacles ) {
+        for (Obstacle b: obstacles ) {
             rendreCaseImpossibleObstacles(b);
         }
         new ThreadAttackNexusAuto(this).start();
@@ -461,7 +461,7 @@ public class Map {
 
     }
 
-    public ArrayList<Personnage> getEnnemies() {
+    public ArrayList<Ennemy> getEnnemies() {
         return ennemies;
     }
 }

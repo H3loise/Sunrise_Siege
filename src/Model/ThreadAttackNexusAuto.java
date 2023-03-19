@@ -18,24 +18,23 @@ public class ThreadAttackNexusAuto extends Thread{
     @Override
     public void run() {
         Ennemy target = null;
-        /*while (map.getNexus().getPv()>0) {
+        while (map.getNexus().getPv()>0) {
 
             double min = map.getNexus().getRange();
-            for (Ennemy p :
-                    map.getEnnemies()) {
-                if (Math.abs(p.getX() - x) + Math.abs(p.getY() - y)) <= min) {
+            for (Ennemy p : map.getEnnemies()) {
+                if (Math.abs(p.getX() - x) + Math.abs(p.getY() - y)<= min) {
                     target = p;
                 }
             }
             if(target !=null){
-                target.getAttacked(map.getNexus().getAttack());
+                target.attackedPersonnage(map.getNexus().getAttack());
             }
             try {
                 sleep(cooldown);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-        }*/
+        }
     }
 
 

@@ -17,10 +17,41 @@ public class NexusController extends VueController {
         JButton acheterVillageois = new JButton("acheter villageois");
         JButton acheterArchers = new JButton("acheter archers");
         JButton acheterGuerriers = new JButton("acheter guerriers");
+        JButton healNexus = new JButton("heal Nexus");
         this.add(upgrade);
         this.add(acheterArchers);
         this.add(acheterGuerriers);
         this.add(acheterVillageois);
+        this.add(healNexus);
+
+        acheterArchers.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Achete archer");
+                map.acheterArcher();
+            }
+        });
+        healNexus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Nexus soigné mon gâté");
+                map.healingNexus();
+            }
+        });
+        acheterGuerriers.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Achete archer");
+                map.acheterGuerrier();
+            }
+        });
+        acheterVillageois.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Achete archer");
+                map.acheterVillageois();
+            }
+        });
         upgrade.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

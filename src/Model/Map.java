@@ -85,11 +85,12 @@ public class Map {
         this.characters = new ArrayList<>();
         this.obstacles = new ArrayList<>();
         Nexus chateau = new Nexus( 50,400);
+        chateau.setPv(100);
         this.nexus = chateau;
         batiments.add(chateau);
-        this.food=0;
-        this.wood=0;
-        this.stone=0;
+        this.food=20;
+        this.wood=20;
+        this.stone=20;
 
         //this.characters.add(new Villageois(300, 300));
         //this.characters.add(new Guerrier( 350, 300));
@@ -180,13 +181,13 @@ public class Map {
     /**
      * Procédure qui se lance au moment de l'update, elle permet de vider l'ArrayList batiments des batiments détruits
      */
-    private void eraseDestroyedBuildings(){
+    /*private void eraseDestroyedBuildings(){
         for(Batiment b : batiments){
             if(b.getPv() <= 0 ){
                 batiments.remove(b);
             }
         }
-    }
+    }*/
 
     /**
      * Fonction calculant si la partie est perdu, autrement dit si le nexus a été détruit.
@@ -328,7 +329,6 @@ public class Map {
     }
     public void deplacementPerso(Personnage p ,int x,int y){
         ArrayList<Point> points= cheminLePluscourt(p,x,y);
-        System.out.println(points);
         resetNoeudsAprèsUtilisation();
         new ThreadDeplacement(this,p,x,y,points).start();
     }
@@ -514,6 +514,104 @@ public class Map {
          */
     }
 
+
+
+    public void acheterVillageois() {
+        if (wood >= Villageois.woodPrice && stone > Villageois.stonePrice && food >= Villageois.wheatPrice) {
+            stone -= Villageois.stonePrice;
+            wood -= Villageois.woodPrice;
+            food -= Villageois.wheatPrice;
+            int x = 10;
+            int y = 10;
+            boolean libre = false;
+            Villageois p = new Villageois(10, 10);
+            for (Node[] n :
+                    nodes) {
+                if (libre) {
+                    break;
+                }
+                for (Node res :
+                        n) {
+                    if(!res.isSolid()){
+                        libre = true;
+                        x = res.getRow();
+                        y = res.getCol();
+                        break;
+                    }
+                }
+            }
+            p.setPosition(x,y);
+            addCharacter(p);
+        }
+        else{
+            System.out.println("Vous n'avez pas assez de ressources");
+        }
+    }
+
+    public void acheterGuerrier(){
+        if (wood >= Guerrier.woodPrice && stone > Guerrier.stonePrice && food >= Guerrier.wheatPrice) {
+            stone -= Guerrier.stonePrice;
+            wood -= Guerrier.woodPrice;
+            food -= Guerrier.wheatPrice;
+            Guerrier p = new Guerrier(caserne.getX(), caserne.getY());
+            addCharacter(p);
+            //petit message sur le panel please
+        }
+            else{
+                System.out.println("Vous n'avez pas assez de ressources");
+                //on pourra afficher la différence de ce qu'il manque
+            }
+    }
+    public void acheterArcher(){
+        if (wood >= Archer.woodPrice && stone > Archer.stonePrice && food >= Archer.wheatPrice) {
+            stone -= Archer.stonePrice;
+            wood -= Archer.woodPrice;
+            food -= Archer.wheatPrice;
+            Archer p = new Archer(caserne.getX(), caserne.getY());
+            addCharacter(p);
+            //petit message sur le panel please
+        }
+        else{
+            System.out.println("Vous n'avez pas assez de ressources");
+            //on pourra afficher la différence de ce qu'il manque
+        }
+    }
+
+    public void healEveryone(){
+        for(Personnage p :characters){
+            p.heal();
+        }
+    }
+
+        public ArrayList<Ennemy> getEnnemies () {
+            return ennemies;
+        }
+
+
+    public void upgradeGuerrier(Guerrier g){
+        if(stone >= Guerrier.stonePrice * g.getLevel() && food >= Guerrier.wheatPrice * g.getLevel() & wood >= Guerrier.woodPrice * g.getLevel() ){
+            stone -= Guerrier.stonePrice * g.getLevel();
+            food -= Guerrier.wheatPrice * g.getLevel();
+            wood -= Guerrier.woodPrice * g.getLevel();
+            g.upgrade();
+        }else{
+            System.out.println("Vous n'avez pas assez de ressources");
+        }
+    }
+
+    public void upgradeArcher(Guerrier g){
+        if(stone >= Archer.stonePrice * g.getLevel() && food >= Archer.wheatPrice * g.getLevel() & wood >= Archer.woodPrice * g.getLevel() ){
+            stone -= Archer.stonePrice * g.getLevel();
+            food -= Archer.wheatPrice * g.getLevel();
+            wood -= Archer.woodPrice * g.getLevel();
+            g.upgrade();
+        }else{
+            System.out.println("Vous n'avez pas assez de ressources");
+        }
+    }
+
+
+
     /**
      * Procédure permettant l'update du modèle, on lance les fonctions créees pour cela.
      */
@@ -525,16 +623,11 @@ public class Map {
             // eraseDestroyedBuildings();
             generateNewObstacles();
             upScore();
+            healEveryone();
         }
         else {
             rendreCasePossibleBatiment(caserne);
             generateEnnemies();
         }
-    }
-
-
-
-    public ArrayList<Ennemy> getEnnemies() {
-        return ennemies;
     }
 }

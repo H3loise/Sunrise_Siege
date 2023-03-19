@@ -18,8 +18,12 @@ public class Nexus extends Batiment {
      */
     public Nexus(int x, int y) {
         super( x, y);
-        this.setPv(100);
+        this.pv  = 100;
+        this.setPvMax(this.pv);
         this.attack = 50;
+    }
+    public int getPv() {
+        return this.pv;
     }
 
     /**
@@ -48,10 +52,10 @@ public class Nexus extends Batiment {
      *
      */
     public void upgrade(){
-        setPv(getLevel()+1);
+        setLevel(getLevel()+1);
         this.attack+=50;
-        setPvMax(getPvMax()+100);
-        setPv(getPvMax());
+        this.pvMax+=100;
+        this.pv = pvMax;
     }
 
     /**

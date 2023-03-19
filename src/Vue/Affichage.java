@@ -50,6 +50,7 @@ public class Affichage extends JFrame {
         this.setPreferredSize(new Dimension(1300,1000));
         this.pack();
         this.setVisible(true);
+        this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     public void setArcher(){

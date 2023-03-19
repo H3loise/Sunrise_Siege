@@ -8,15 +8,17 @@ import java.awt.event.ActionListener;
 public abstract class Personnage {
     private int x;
     private int y;
-    private int health_points;
+    protected int health_points;
     private boolean isAlive = true;
+    protected int hpMax = health_points;
 
-
+    protected int level;
     public static final int taille = 50;
     public Personnage(int health_points, int x, int y){
         this.health_points = health_points;
         this.x = x;
         this.y = y;
+
     }
 
 
@@ -56,5 +58,11 @@ public abstract class Personnage {
 
     public void setY(int new_y){this.y = new_y;}
 
+    public void heal(){
+        health_points = hpMax;
+    }
 
+    public int getLevel(){
+        return this.level;
+    }
 }

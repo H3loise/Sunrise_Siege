@@ -29,7 +29,6 @@ public class Main {
          **/
         Guerrier testDeplacement = new Guerrier( 200,200);
         map.addCharacter(testDeplacement);
-        map.deplacementPerso(testDeplacement,50,700);
         Affichage affichage = new Affichage(map);
         ActionPanel actionPanel = new ActionPanel(map,affichage);
         affichage.addMouseListener(actionPanel);

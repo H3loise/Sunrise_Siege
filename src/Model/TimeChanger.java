@@ -10,7 +10,7 @@ public class TimeChanger extends Thread{
     @Override
     public void run() {
         super.run();
-
+        System.out.println(m.getNexus().toString());
         while (!m.testLoose()) {
             try {
                 sleep(delai);

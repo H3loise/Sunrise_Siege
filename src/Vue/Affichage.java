@@ -20,6 +20,7 @@ public class Affichage extends JFrame {
     public Affichage(Map m){
         super("Sunrise Siege");
         VueJeu vueJeu = new VueJeu(m);
+        VueRessources vueRessources = new VueRessources(m);
         this.card = new CardLayout();
         new ThreadAfficheur(vueJeu).start();
         this.nexusController = new NexusController(m);
@@ -44,13 +45,13 @@ public class Affichage extends JFrame {
         controller.add(villageoisController,keyVillageois);
         //this.controller=new ArcherController(m);
         this.add(vueJeu, BorderLayout.CENTER);
+        this.add(vueRessources,BorderLayout.SOUTH);
         this.add(controller,BorderLayout.EAST);
         this.setPreferredSize(new Dimension(1300,1000));
         this.pack();
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-
     public void setArcher(){
         this.controller=this.archerController;
     }

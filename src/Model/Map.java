@@ -637,12 +637,13 @@ public class Map {
             generateNewObstacles();
             upScore();
             healEveryone();
-            killEnnemies();
+            //killEnnemies();
+            generateEnnemies();
+            moveEnnemeies();
         }
         else {
             rendreCasePossibleBatiment(caserne);
-            generateEnnemies();
-            moveEnnemeies();
+
         }
     }
 }

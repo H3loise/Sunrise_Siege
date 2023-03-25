@@ -11,7 +11,7 @@ public class ThreadDeplacement extends Thread {
     Personnage p;
     int finalX;
     int finalY;
-    private final int delai = 10;
+    private final int delai = 5;
     ArrayList<Point> points;
 
     public ThreadDeplacement(Map m, Personnage p, int finalX, int finalY,ArrayList<Point> points) {

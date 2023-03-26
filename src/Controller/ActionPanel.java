@@ -77,6 +77,8 @@ public class ActionPanel implements MouseListener {
                         map.deplacementPersoMiner(map.getActionner(),o);
                         System.out.println("minage ");
                         mining=false;
+                        map.setActionner(null);
+                        this.affichage.card.show(this.affichage.getController(), "none");
                     }
                 }if(mining){
                     map.deplacementPerso(map.getActionner(),e.getX(),e.getY());

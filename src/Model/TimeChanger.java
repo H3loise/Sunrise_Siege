@@ -2,7 +2,7 @@ package Model;
 
 public class TimeChanger extends Thread{
     Map m;
-    private final int delai = 10000;
+    private final int delai = 50000;
     public TimeChanger(Map m){
         this.m=m;
     }
@@ -10,13 +10,9 @@ public class TimeChanger extends Thread{
     @Override
     public void run() {
         super.run();
-
+        System.out.println(m.getNexus().toString());
         while (!m.testLoose()) {
-            try {
-                sleep(delai);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+
             if (this.m.getDay()) {
                 m.setDay(false);
                 m.update();
@@ -26,7 +22,11 @@ public class TimeChanger extends Thread{
 
 
             }
-
+            try {
+                sleep(delai);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

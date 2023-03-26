@@ -12,4 +12,8 @@ public class Caserne extends Batiment{
     public Caserne(int x, int y) {
         super(x, y);
     }
+    public void upgrade(){
+        this.level ++;
+    }
+
 }

@@ -7,22 +7,25 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class NexusController extends VueController {
+public class CaserneController extends VueController {
     private Map map;
 
-    public NexusController(Map map) {
+    public CaserneController(Map map) {
         super(map);
         this.map=map;
         JButton upgrade = new JButton("UPGRADE");
-        JButton acheterVillageois = new JButton("acheter villageois");
         JButton acheterArchers = new JButton("acheter archers");
         JButton acheterGuerriers = new JButton("acheter guerriers");
-        JButton healNexus = new JButton("heal Nexus");
+        Label name = new Label();
+        name.setText("Caserne");
+        Label niveau = new Label();
+        niveau.setText("Niveau : " + map.getCaserne().getLevel());
+
+        this.add(name);
+        this.add(niveau) ;
         this.add(upgrade);
         this.add(acheterArchers);
         this.add(acheterGuerriers);
-        this.add(acheterVillageois);
-        this.add(healNexus);
 
         acheterArchers.addActionListener(new ActionListener() {
             @Override
@@ -31,13 +34,7 @@ public class NexusController extends VueController {
                 map.acheterArcher();
             }
         });
-        healNexus.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Nexus soigné mon gâté");
-                map.healingNexus();
-            }
-        });
+
         acheterGuerriers.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -45,18 +42,12 @@ public class NexusController extends VueController {
                 map.acheterGuerrier();
             }
         });
-        acheterVillageois.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Achete archer");
-                map.acheterVillageois();
-            }
-        });
+
         upgrade.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("change le nexus");
-                map.upgradeNexus();
+                map.upgradeCaserne();
             }
         });
     }

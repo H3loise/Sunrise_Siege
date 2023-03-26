@@ -14,6 +14,7 @@ import Model.Personnages.*;
 
 import java.awt.*;
 import java.util.*;
+import java.util.function.Predicate;
 
 public class Map {
     private ArrayList<Obstacle> obstacles;
@@ -22,14 +23,41 @@ public class Map {
     public static final int taille=1000;
     //a enlever
     private Nexus nexus;
+    private Personnage actionner;
+
     private int score = 0;
     public static final int windowWidth = 1480;
     public static final int windowHeight = 920;
-    //
+    //private int food;
+
     private int food;
     private int stone;
     private int wood;
     private boolean day;
+
+
+    private int xActionner;
+    private int yActionner;
+
+    public void setxActionner(int x){
+        this.xActionner=x;
+    }
+
+    public int getxActionner(){
+        return this.xActionner;
+    }
+
+    public void setyActionner(int y){
+        this.yActionner=y;
+    }
+
+    public int getyActionner(){
+        return this.yActionner;
+    }
+
+    public void setActionner(Personnage actionner) {
+        this.actionner = actionner;
+    }
 
     private ArrayList<Ennemy> ennemies = new ArrayList<>();
 
@@ -85,17 +113,18 @@ public class Map {
         this.characters = new ArrayList<>();
         this.obstacles = new ArrayList<>();
         Nexus chateau = new Nexus( 50,400);
+        chateau.setPv(100);
         this.nexus = chateau;
         batiments.add(chateau);
-        this.food=0;
-        this.wood=0;
-        this.stone=0;
+        this.food=20;
+        this.wood=20;
+        this.stone=20;
 
         //this.characters.add(new Villageois(300, 300));
         //this.characters.add(new Guerrier( 350, 300));
         //this.characters.add(new Archer(400,300));
-        this.characters.add(new Archer(50,50));
-        this.obstacles.add(new Obstacle(300, 350));
+        //this.characters.add(new Archer(50,50));
+        //this.obstacles.add(new Obstacle(300, 350));
         this.obstacles.add(new Obstacle(350, 350));
         this.obstacles.add(new Obstacle(400,350));
 
@@ -115,6 +144,10 @@ public class Map {
         this.obstacles=o;
         this.characters =c;
     }
+
+    /**
+     * Fonction permettant d'initialiser tout les noeuds, on leur transmet leur position.
+     */
     private void initializeNodes() {
         int col = 0;
         int row =0;
@@ -129,14 +162,20 @@ public class Map {
     }
     /**
      * Procédure permettant de miner une ressource, le matériau est récupéré et le minerai est détruit.
+     * La place occupée par le matériaux dans les noeuds est alors libérée
      * @param v
      * @param o
      */
     public void mining(Villageois v,Obstacle o){
         rendreCasePossibleObstacles(o);
-        deplacementPersoMiner(v,o.getX(),o.getY(),o);
+        deplacementPersoMiner(v,o);
     }
 
+
+    /**
+     * Donne les ressources liées à l'obstacle passé en param, l'obstacle est alors remove de l'ArrayList obstacles
+     * @param o
+     */
     public void obstacleMined(Obstacle o){
         switch (o.getType()) {
             case Rock -> stone += o.getRessource();
@@ -180,13 +219,13 @@ public class Map {
     /**
      * Procédure qui se lance au moment de l'update, elle permet de vider l'ArrayList batiments des batiments détruits
      */
-    private void eraseDestroyedBuildings(){
+    /*private void eraseDestroyedBuildings(){
         for(Batiment b : batiments){
             if(b.getPv() <= 0 ){
                 batiments.remove(b);
             }
         }
-    }
+    }*/
 
     /**
      * Fonction calculant si la partie est perdu, autrement dit si le nexus a été détruit.
@@ -204,10 +243,31 @@ public class Map {
         Random random = new Random();
         int n = random.nextInt((score%150) + 4);
         for (int i = 0; i < n; i++) {
-            Obstacle o = new Obstacle(random.nextInt(0,taille),random.nextInt(0,taille));
+            int x = random.nextInt(0,taille);
+            int y = random.nextInt(0,taille);
+            while(isOneSolid(x,y)){
+                 x = random.nextInt(0,taille);
+                y = random.nextInt(0,taille);
+            }
+            Obstacle o = new Obstacle(x,y);
             this.obstacles.add(o);
             rendreCaseImpossibleObstacles(o);
         }
+    }
+
+    private boolean isOneSolid(int x,int y){
+        for(int i = x;i< x+ nexus.getTaille() + 5;i++){
+            if(i<1000) {
+                for (int j = y; j < y + nexus.getTaille() +5; j++) {
+                    if (j < 1000) {
+                        if (nodes[i][j].isSolid()) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -231,8 +291,10 @@ public class Map {
     }
 
 
-
-
+    /**
+     * Procédure permettant de remettre les pv du Nexus au pvMax, cela déduit des ressources liés au cout de la reparation
+     * Le cout pour le réparer est enfait le prix que le Nexus a couté pour être amélioré à son niveau actuel
+     */
     public void healingNexus() {
         int n = nexus.getMinimumOfEach();
         if (wood >= n * (nexus.getLevel()-1) && food >= n * (nexus.getLevel()-1) && stone >= n * (nexus.getLevel()-1)) {
@@ -248,11 +310,20 @@ public class Map {
         }
     }
 
-
+    /**
+     * Permettant de mettre directement des personnages, ceci est une fonction pour les dev
+     * @param characters
+     */
     public void setCharacters(ArrayList<Personnage> characters) {
         this.characters = characters;
     }
 
+
+    /**
+     * Je prends en compte la taille du batiment ainsi que la hitbox du joueur, et je rends les cases corresepondantes
+     * solides afin que l'algorithme empêche mon joueur de passer par là
+     * @param b
+     */
     private void rendreCasesImpossibleBats(Batiment b){
         int x = b.getX();
         int y = b.getY();
@@ -268,6 +339,11 @@ public class Map {
         }
     }
 
+    /**
+     * Après destruction d'un batiment, il faut libérer la place.
+     * Cette fonction rends les cases qui étaient solides libres à nouveau, permettant au joueur de les traverser.
+     * @param b
+     */
     private void rendreCasePossibleBatiment(Batiment b){
         int x = b.getX();
         int y = b.getY();
@@ -282,11 +358,17 @@ public class Map {
             }
         }
     }
+
+    /**
+     * Les obstacles sont intraversables, à part au moment d'être minés, ainsi je les rends "opaques" l'autre partie
+     * du temps
+     * @param b
+     */
     private void rendreCaseImpossibleObstacles(Obstacle b ){
         int x = b.getX();
         int y = b.getY();
         int taille = b.getTaille() + Personnage.taille ;
-        for(int i = x- Personnage.taille ;i<x + b.getTaille();i++) {
+        for(int i = x- Personnage.taille ;i <x + b.getTaille();i++) {
             if (i < Map.taille && i>=0) {
                 for (int j = y - Personnage.taille; j < y + b.getTaille() ; j++) {
                     if (j < Map.taille && j>=0) {
@@ -298,6 +380,10 @@ public class Map {
 
     }
 
+    /**
+     * Je libère la place que prenais l'obstacles dans les noeuds, ainsi les cases redeviennent traversables
+     * @param b
+     */
     private void rendreCasePossibleObstacles(Obstacle b ){
         int x = b.getX();
         int y = b.getY();
@@ -313,26 +399,52 @@ public class Map {
         }
     }
 
+    /**
+     * Fun test dev
+     */
     private void testCaseImpossible(){
         for(int i = 0;i<taille-200;i++){
             nodes[i][400].setAsSolid();
         }
     }
 
+    /**
+     * Pour ajouter un personnage depuis l'exterieur, fonction utilisée notamment dans le main pour des test
+     * @param p
+     */
     public void addCharacter(Personnage p ){
         characters.add(p);
     }
 
+    /**
+     * same
+     * @param o
+     */
     public void addObstacle(Obstacle o){
         obstacles.add(o);
     }
+
+    /**
+     * Fonction  de deplacement du personnage, on prends un personnage, la destination souhaitée, on calcule le 
+     * cheminLePluscourt puis on lance le thread de déplacement, si chemin vide ou non trouvé le thread ne fait rien.
+     * De plus on remet à l'état initial les noeuds modifiés pour la recherche de ce parcours
+     * @param p
+     * @param x
+     * @param y
+     */
     public void deplacementPerso(Personnage p ,int x,int y){
-        ArrayList<Point> points= cheminLePluscourt(p,x,y);
-        System.out.println(points);
-        resetNoeudsAprèsUtilisation();
-        new ThreadDeplacement(this,p,x,y,points).start();
+        if(!p.isMoving()) {
+            p.setMoving(true);
+            ArrayList<Point> points = cheminLePluscourt(p, x, y);
+            resetNoeudsAprèsUtilisation();
+            new ThreadDeplacement(this, p, points).start();
+        }
     }
 
+    /**
+     * Après utilisation, les champs Checked,Open,Start,Goal doivent etre remis à 0 et ce pour chaque neouds, on parcourt
+     * donc tout les noeuds et on reset chacun d'entre eux
+     */
     private void resetNoeudsAprèsUtilisation(){
         int col = 0;
         int row =0;
@@ -345,10 +457,31 @@ public class Map {
             }
         }
     }
-    public void deplacementPersoMiner(Personnage p ,int x,int y,Obstacle o ){
-        new ThreadMining(this,p,x,y,o).start();
-        System.out.println("coucou");
+
+    /**
+     * Pour miner un Obstacle il nous faut un obstacle,
+     * @param p
+     * @param o
+     */
+    public void deplacementPersoMiner(Personnage p ,Obstacle o ){
+        if(!p.isMoving()) {
+            p.setMoving(true);
+            rendreCasePossibleObstacles(o);
+            ArrayList<Point> points = cheminLePluscourt(p, o.getX(), o.getY());
+            resetNoeudsAprèsUtilisation();
+            new ThreadMining(this, p, o, points).start();
+            System.out.println("coucou");
+        }
     }
+
+    /**
+     * Lance la fonction recherche, qui retourne le path sous forme d'ArrayList de noeud et le convertit sous forme
+     * d'arrayList de Point, plus facile à manipuler par la suite
+     * @param p
+     * @param x
+     * @param y
+     * @return
+     */
     public  ArrayList<Point> cheminLePluscourt(Personnage p, int x, int y){
         if(nodes[x][y].isSolid()){
             System.out.println("solide");
@@ -369,6 +502,10 @@ public class Map {
         return res;
     }
 
+    /**
+     * Mets le fcost,hcost et gcost au noeud selon la distance par rapport au départ et à la fin
+     * @param node
+     */
     private void getCost(Node node){
 
         //Gcost = distance depuis le point de depart
@@ -382,6 +519,9 @@ public class Map {
         node.setfCost(node.getgCost() + node.gethCost());
     }
 
+    /**
+     * fun for devs
+     */
     private void afficheNodesDifferents(){
         for (Node[] n:
                 nodes) {
@@ -393,6 +533,11 @@ public class Map {
             }
         }
     }
+
+    /**
+     * Permet d'attribuer à chaque Noeud son cout, on parcourt donc tout le double tableau nodes et on lance
+     * getCost pour chacun Noeud
+     */
     private void setCostOnNodes(){
         for (Node[] n:
                 nodes) {
@@ -459,6 +604,8 @@ public class Map {
         return res;
     }
 
+
+
     private void openNode(Node node){
         if(!node.isOpen() && !node.isChecked() && !node.isSolid()){
             node.setAsOpen();
@@ -472,6 +619,10 @@ public class Map {
         return nodes;
     }
 
+    /**
+     * On récupère le path jusqu'au GoalNode, on doit retourner la liste car on par du GoalNode pour aller jusqu'au StartNode
+     * @return
+     */
     private ArrayList<Node> trackThePath(){
         ArrayList<Node> res =new ArrayList<>();
         Node current = goalNode;
@@ -497,6 +648,10 @@ public class Map {
         this.wood += wood;
     }
 
+    /**
+     *  On fait revenir chacun des guerriers/archer à la caserne, on rendre la caserne tangible le temps de calculer le
+     *  chemin, puis on déplace chacun des guerrier/archer
+     */
     private void resetPositionWarriors(){
         rendreCasePossibleBatiment(caserne);
         for (Personnage p:
@@ -514,6 +669,135 @@ public class Map {
          */
     }
 
+
+    /**
+     * Procedure pour acheter des villageois, les villageois ont un coût, on  déduit alors les ressources corresepondantes
+     * au joueur et on place le villageois sur la première case libre, si le joueur n'a pas assez de ressource, rien n'est
+     * effectué
+     */
+    public void acheterVillageois() {
+        if (wood >= Villageois.woodPrice && stone > Villageois.stonePrice && food >= Villageois.wheatPrice) {
+            stone -= Villageois.stonePrice;
+            wood -= Villageois.woodPrice;
+            food -= Villageois.wheatPrice;
+            int x = 10;
+            int y = 10;
+            boolean libre = false;
+            Villageois p = new Villageois(10, 10);
+            for (Node[] n :
+                    nodes) {
+                if (libre) {
+                    break;
+                }
+                for (Node res :
+                        n) {
+                    if(!res.isSolid()){
+                        libre = true;
+                        x = res.getRow();
+                        y = res.getCol();
+                        break;
+                    }
+                }
+            }
+            p.setPosition(x,y);
+            addCharacter(p);
+        }
+        else{
+            System.out.println("Vous n'avez pas assez de ressources");
+        }
+    }
+
+    /**
+     * On peut acheter des guerriers, ils ont un coût, une fois acheté le guerrier spawn sur la caserne.
+     */
+    public void acheterGuerrier(){
+        if (wood >= Guerrier.woodPrice && stone > Guerrier.stonePrice && food >= Guerrier.wheatPrice) {
+            stone -= Guerrier.stonePrice;
+            wood -= Guerrier.woodPrice;
+            food -= Guerrier.wheatPrice;
+            Guerrier p = new Guerrier(caserne.getX(), caserne.getY());
+            for (int i = 1; i < caserne.getLevel(); i++) {
+                p.upgrade();
+            }
+            addCharacter(p);
+            //petit message sur le panel please
+        }
+            else{
+                System.out.println("Vous n'avez pas assez de ressources");
+                //on pourra afficher la différence de ce qu'il manque
+            }
+    }
+
+    /**
+     * On peut acheter des archers, ils ont un coût, une fois acheté l'archer spawn sur la caserne.
+     */
+    public void acheterArcher(){
+        if (wood >= Archer.woodPrice && stone > Archer.stonePrice && food >= Archer.wheatPrice) {
+            stone -= Archer.stonePrice;
+            wood -= Archer.woodPrice;
+            food -= Archer.wheatPrice;
+            Archer p = new Archer(caserne.getX(), caserne.getY());
+            addCharacter(p);
+            //petit message sur le panel please
+        }
+        else{
+            System.out.println("Vous n'avez pas assez de ressources");
+            //on pourra afficher la différence de ce qu'il manque
+        }
+    }
+
+    /**
+     * Procédure pour soigner tout les guerriers au levé du jour, on parcourt l'arraylist de personnage et on
+     * lance proc heal() sur chaque
+     */
+    public void healEveryone(){
+        for(Personnage p :characters){
+            p.heal();
+        }
+    }
+
+        public ArrayList<Ennemy> getEnnemies () {
+            return ennemies;
+        }
+
+
+    /**
+     * Proc permet d'upgrade un guerrier, on va lamodifier pour upgrade le niveau de création des guerriers.
+     * @param g
+     */
+    public void upgradeGuerrier(Guerrier g){
+        if(stone >= Guerrier.stonePrice * g.getLevel() && food >= Guerrier.wheatPrice * g.getLevel() & wood >= Guerrier.woodPrice * g.getLevel() ){
+            stone -= Guerrier.stonePrice * g.getLevel();
+            food -= Guerrier.wheatPrice * g.getLevel();
+            wood -= Guerrier.woodPrice * g.getLevel();
+            g.upgrade();
+        }else{
+            System.out.println("Vous n'avez pas assez de ressources");
+        }
+    }
+
+    /**
+     * idem
+     *
+     * @param g
+     */
+    public void upgradeArcher(Guerrier g){
+        if(stone >= Archer.stonePrice * g.getLevel() && food >= Archer.wheatPrice * g.getLevel() & wood >= Archer.woodPrice * g.getLevel() ){
+            stone -= Archer.stonePrice * g.getLevel();
+            food -= Archer.wheatPrice * g.getLevel();
+            wood -= Archer.woodPrice * g.getLevel();
+            g.upgrade();
+        }else{
+            System.out.println("Vous n'avez pas assez de ressources");
+        }
+    }
+
+
+    public Personnage getActionner(){
+        return this.actionner;
+    }
+
+
     /**
      * Procédure permettant l'update du modèle, on lance les fonctions créees pour cela.
      */
@@ -525,6 +809,7 @@ public class Map {
             // eraseDestroyedBuildings();
             generateNewObstacles();
             upScore();
+            healEveryone();
         }
         else {
             rendreCasePossibleBatiment(caserne);
@@ -532,9 +817,26 @@ public class Map {
         }
     }
 
+    public void upgradeCaserne() {
 
+        //Besoin de faire un calcul pour vérifier si on peut l'upgrade ou pas, bastos
+        caserne.upgrade();
+        for (Personnage p : characters) {
+            if (p instanceof Guerrier) {
+                Guerrier g = (Guerrier) p;
+                for (int i = 1; i < caserne.getLevel(); i++) {
+                    g.upgrade();
+                }
+            } else if (p instanceof Archer) {
+                Archer a = (Archer) p;
+                for (int i = 1; i < caserne.getLevel(); i++) {
+                    a.upgrade();
+                }
+            }
+        }
+    }
 
-    public ArrayList<Ennemy> getEnnemies() {
-        return ennemies;
+    public Caserne getCaserne() {
+        return this.caserne;
     }
 }

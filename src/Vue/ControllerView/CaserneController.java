@@ -13,16 +13,20 @@ public class CaserneController extends VueController {
     public CaserneController(Map map) {
         super(map);
         this.map=map;
+        int pdv = map.getNexus().getPv();
+        int level = map.getCaserne().getLevel();
         JButton upgrade = new JButton("UPGRADE");
+        JLabel hp = new JLabel("HP : " + pdv);
+        JLabel lvl = new JLabel("Niveau : " + level);
         JButton acheterArchers = new JButton("acheter archers");
         JButton acheterGuerriers = new JButton("acheter guerriers");
         Label name = new Label();
         name.setText("Caserne");
         Label niveau = new Label();
-        niveau.setText("Niveau : " + map.getCaserne().getLevel());
 
         this.add(name);
-        this.add(niveau) ;
+        this.add(hp);
+        this.add(lvl);
         this.add(upgrade);
         this.add(acheterArchers);
         this.add(acheterGuerriers);

@@ -1,7 +1,0 @@
-
-0
-java:S1220""Move this file to a named package.
-7
-java:S1170"!Make this final field static too.(Îð¿Þ
-t
-java:S2142"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€

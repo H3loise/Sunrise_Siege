@@ -13,6 +13,7 @@ public class GuerrierController extends VueController {
     public GuerrierController(Map map) {
         super(map);
         JLabel texte = new JLabel("Guerrier");
+        //JLabel hp = new JLabel("HP : " + pdv);
         JButton attaquer = new JButton("ATTAQUER");
         JButton deplacement = new JButton("DÉPLACEMENT");
         JButton upgrade = new JButton("Ameliorer");

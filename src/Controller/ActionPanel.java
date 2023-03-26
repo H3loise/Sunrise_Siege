@@ -41,6 +41,11 @@ public class ActionPanel implements MouseListener {
                 this.affichage.card.show(this.affichage.getController(), "nexus");
                 changed = false;
             }
+            if (e.getX() >= map.getCaserne().getX() && e.getX() <= (map.getCaserne().getX() + 150) && e.getY() >= map.getCaserne().getY() && e.getY() <= (map.getCaserne().getY() + 150)) {
+                System.out.println("change pour le chateau");
+                this.affichage.card.show(this.affichage.getController(), "caserne");
+                changed = false;
+            }
             for (Personnage p : personnages) {
                 if (e.getX() >= p.getX() && e.getX() <= p.getX() + 80 && e.getY() >= p.getY() && e.getY() <= p.getY() + 80) {
                     if (p instanceof Archer) {

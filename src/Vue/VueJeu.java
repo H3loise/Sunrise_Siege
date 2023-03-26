@@ -37,7 +37,7 @@ public class VueJeu extends JPanel {
             g.setColor(color);
             g.fillRect(0, 0, map.taille, map.taille);
         }
-        //funTest(g);
+        funTest(g);
     }
 
     public void paintObstacles(Graphics g) {

@@ -13,7 +13,7 @@ public abstract class Batiment {
     protected int pvMax;
     private int x;
     private int y;
-    private int level;
+    protected int level;
     private final int taille = 150;
 
     /**

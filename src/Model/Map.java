@@ -14,6 +14,7 @@ import Model.Personnages.*;
 
 import java.awt.*;
 import java.util.*;
+import java.util.function.Predicate;
 
 public class Map {
     private ArrayList<Obstacle> obstacles;
@@ -715,6 +716,9 @@ public class Map {
             wood -= Guerrier.woodPrice;
             food -= Guerrier.wheatPrice;
             Guerrier p = new Guerrier(caserne.getX(), caserne.getY());
+            for (int i = 1; i < caserne.getLevel(); i++) {
+                p.upgrade();
+            }
             addCharacter(p);
             //petit message sur le panel please
         }
@@ -811,5 +815,26 @@ public class Map {
             rendreCasePossibleBatiment(caserne);
             generateEnnemies();
         }
+    }
+
+    public void upgradeCaserne() {
+
+        for (Personnage p : characters) {
+            if (p instanceof Guerrier) {
+                Guerrier g = (Guerrier) p;
+                for (int i = 1; i < caserne.getLevel(); i++) {
+                    g.upgrade();
+                }
+            } else if (p instanceof Archer) {
+                Archer a = (Archer) p;
+                for (int i = 1; i < caserne.getLevel(); i++) {
+                    a.upgrade();
+                }
+            }
+        }
+    }
+
+    public Caserne getCaserne() {
+        return this.caserne;
     }
 }

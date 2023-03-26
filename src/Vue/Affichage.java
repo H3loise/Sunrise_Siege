@@ -1,5 +1,6 @@
 package Vue;
 
+import Model.Batiments.Caserne;
 import Model.Map;
 import Model.Personnages.Archer;
 import Vue.ControllerView.*;
@@ -15,6 +16,7 @@ public class Affichage extends JFrame {
     private NexusController nexusController;
     private GuerrierController guerrierController;
     private VillageoisController villageoisController;
+    private CaserneController caserneController;
     public CardLayout card;
 
     public Affichage(Map m){
@@ -28,12 +30,14 @@ public class Affichage extends JFrame {
         this.noneController=new NoneController(m);
         this.guerrierController=new GuerrierController(m);
         this.villageoisController=new VillageoisController(m);
+        this.caserneController = new CaserneController(m);
 
         String keyArcher = "archer";
         String keyNone = "none";
         String keyNexus = "nexus";
         String keyGuerrier = "guerrier";
         String keyVillageois = "villageois";
+        String keyCaserne = "caserne";
 
         this.controller=new JPanel(card);
         //this.controller=this.archerController;
@@ -43,6 +47,8 @@ public class Affichage extends JFrame {
         controller.add(nexusController,keyNexus);
         controller.add(guerrierController,keyGuerrier);
         controller.add(villageoisController,keyVillageois);
+        controller.add(caserneController,keyCaserne);
+
         //this.controller=new ArcherController(m);
         this.add(vueJeu, BorderLayout.CENTER);
         this.add(vueRessources,BorderLayout.SOUTH);

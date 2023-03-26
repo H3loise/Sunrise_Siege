@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Map;
+import Model.Obstacles.Obstacle;
 import Model.Personnages.Archer;
 import Model.Personnages.Guerrier;
 import Model.Personnages.Personnage;
@@ -30,29 +31,56 @@ public class ActionPanel implements MouseListener {
         NoneController none = new NoneController(map);
         ArrayList<Personnage> personnages = map.getPersonnages();
         boolean changed =true;
+        System.out.println("le perso actionner"+map.getActionner());
 
         System.out.println("coordonnées chateau : x= "+this.map.getNexus().getX()+" y="+this.map.getNexus().getY());
         System.out.println("coordonnées click souris : x="+e.getX()+" y = "+e.getY());
-
-        if(e.getX()>=map.getNexus().getX() && e.getX()<= (map.getNexus().getX()+150) && e.getY()>=map.getNexus().getY() && e.getY()<= (map.getNexus().getY()+150)){
-            System.out.println("change pour le chateau");
-            this.affichage.card.show(this.affichage.getController(),"nexus");
-            changed=false;
-        }
-        for(Personnage p:personnages){
-            if(e.getX()>=p.getX() && e.getX()<=p.getX()+80 && e.getY()>=p.getY() && e.getY()<=p.getY()+80){
-                if(p instanceof Archer){
-                    this.affichage.card.show(this.affichage.getController(),"archer");
-                }if(p instanceof Guerrier){
-                    this.affichage.card.show(this.affichage.getController(),"guerrier");
-                }if(p instanceof Villageois){
-                    this.affichage.card.show(this.affichage.getController(),"villageois");
-                }
-                changed=false;
+        if(map.getActionner()==null) {
+            if (e.getX() >= map.getNexus().getX() && e.getX() <= (map.getNexus().getX() + 150) && e.getY() >= map.getNexus().getY() && e.getY() <= (map.getNexus().getY() + 150)) {
+                System.out.println("change pour le chateau");
+                this.affichage.card.show(this.affichage.getController(), "nexus");
+                changed = false;
             }
-        }
-        if(changed) {
-            this.affichage.card.show(this.affichage.getController(), "none");
+            for (Personnage p : personnages) {
+                if (e.getX() >= p.getX() && e.getX() <= p.getX() + 80 && e.getY() >= p.getY() && e.getY() <= p.getY() + 80) {
+                    if (p instanceof Archer) {
+                        this.affichage.card.show(this.affichage.getController(), "archer");
+                    }
+                    if (p instanceof Guerrier) {
+                        this.affichage.card.show(this.affichage.getController(), "guerrier");
+                    }
+                    if (p instanceof Villageois) {
+                        this.affichage.card.show(this.affichage.getController(), "villageois");
+                    }
+                    changed = false;
+                    this.map.setActionner(p);
+                }
+            }
+            if (changed) {
+                this.affichage.card.show(this.affichage.getController(), "none");
+            }
+        }else{
+            boolean mining=true;
+            if(map.getActionner() instanceof Villageois) {
+                for (Obstacle o : map.getObstacles()) {
+                    if (o.getX() <= e.getX() && o.getX() + 40 >= e.getX() && o.getY() <= e.getY() && e.getX() + 40 >= e.getY()) {
+                        map.deplacementPersoMiner(map.getActionner(),o);
+                        mining=false;
+                    }
+                }if(mining){
+                    map.deplacementPerso(map.getActionner(),e.getX(),e.getY());
+                    map.setActionner(null);
+                    this.affichage.card.show(this.affichage.getController(), "none");
+                }
+            }else {
+
+                System.out.println("On change les coordonnées du pointeur");
+                this.map.setyActionner(e.getY());
+                this.map.setxActionner(e.getX());
+                map.deplacementPerso(map.getActionner(), e.getX(), e.getY());
+                map.setActionner(null);
+                this.affichage.card.show(this.affichage.getController(), "none");
+            }
         }
         //this.affichage.setNone();
         //this.affichage.getController().revalidate();

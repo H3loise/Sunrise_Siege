@@ -11,9 +11,11 @@ public abstract class Personnage {
     protected int health_points;
     private boolean isAlive = true;
     protected int hpMax = health_points;
-
+    private final Object lock = new Object();
     protected int level;
     public static final int taille = 50;
+
+    private boolean moving = false;
     public Personnage(int health_points, int x, int y){
         this.health_points = health_points;
         this.x = x;
@@ -48,15 +50,20 @@ public abstract class Personnage {
     public int getX(){return this.x;}
 
     public int getY(){return this.y;}
-
-    public void setPosition(int x , int y){
-        setX(x);
-        setY(y);
+    public void setPosition(int x, int y) {
+        synchronized (lock) {
+            setX(x);
+            setY(y);
+        }
     }
 
-    public void setX(int new_x){this.x = new_x;}
+    public synchronized  void  setX(int new_x){
+        this.x = new_x;
+    }
 
-    public void setY(int new_y){this.y = new_y;}
+    public synchronized void setY(int new_y){
+        this.y = new_y;
+    }
 
     public void heal(){
         health_points = hpMax;
@@ -64,5 +71,13 @@ public abstract class Personnage {
 
     public int getLevel(){
         return this.level;
+    }
+
+    public void setMoving(boolean moving) {
+        this.moving = moving;
+    }
+
+    public boolean isMoving(){
+        return this.moving;
     }
 }

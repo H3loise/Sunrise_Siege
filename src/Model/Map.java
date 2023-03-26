@@ -22,14 +22,41 @@ public class Map {
     public static final int taille=1000;
     //a enlever
     private Nexus nexus;
+    private Personnage actionner;
+
     private int score = 0;
     public static final int windowWidth = 1480;
     public static final int windowHeight = 920;
-    //
+    //private int food;
+
     private int food;
     private int stone;
     private int wood;
     private boolean day;
+
+
+    private int xActionner;
+    private int yActionner;
+
+    public void setxActionner(int x){
+        this.xActionner=x;
+    }
+
+    public int getxActionner(){
+        return this.xActionner;
+    }
+
+    public void setyActionner(int y){
+        this.yActionner=y;
+    }
+
+    public int getyActionner(){
+        return this.yActionner;
+    }
+
+    public void setActionner(Personnage actionner) {
+        this.actionner = actionner;
+    }
 
     private ArrayList<Ennemy> ennemies = new ArrayList<>();
 
@@ -96,7 +123,7 @@ public class Map {
         //this.characters.add(new Guerrier( 350, 300));
         //this.characters.add(new Archer(400,300));
         this.characters.add(new Archer(50,50));
-        this.obstacles.add(new Obstacle(300, 350));
+        //this.obstacles.add(new Obstacle(300, 350));
         this.obstacles.add(new Obstacle(350, 350));
         this.obstacles.add(new Obstacle(400,350));
 
@@ -215,10 +242,31 @@ public class Map {
         Random random = new Random();
         int n = random.nextInt((score%150) + 4);
         for (int i = 0; i < n; i++) {
-            Obstacle o = new Obstacle(random.nextInt(0,taille),random.nextInt(0,taille));
+            int x = random.nextInt(0,taille);
+            int y = random.nextInt(0,taille);
+            while(isOneSolid(x,y)){
+                 x = random.nextInt(0,taille);
+                y = random.nextInt(0,taille);
+            }
+            Obstacle o = new Obstacle(x,y);
             this.obstacles.add(o);
             rendreCaseImpossibleObstacles(o);
         }
+    }
+
+    private boolean isOneSolid(int x,int y){
+        for(int i = x;i< x+ nexus.getTaille() + 5;i++){
+            if(i<1000) {
+                for (int j = y; j < y + nexus.getTaille() +5; j++) {
+                    if (j < 1000) {
+                        if (nodes[i][j].isSolid()) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -319,7 +367,7 @@ public class Map {
         int x = b.getX();
         int y = b.getY();
         int taille = b.getTaille() + Personnage.taille ;
-        for(int i = x- Personnage.taille ;i<x + b.getTaille();i++) {
+        for(int i = x- Personnage.taille ;i <x + b.getTaille();i++) {
             if (i < Map.taille && i>=0) {
                 for (int j = y - Personnage.taille; j < y + b.getTaille() ; j++) {
                     if (j < Map.taille && j>=0) {
@@ -384,9 +432,12 @@ public class Map {
      * @param y
      */
     public void deplacementPerso(Personnage p ,int x,int y){
-        ArrayList<Point> points= cheminLePluscourt(p,x,y);
-        resetNoeudsAprèsUtilisation();
-        new ThreadDeplacement(this,p,points).start();
+        if(!p.isMoving()) {
+            p.setMoving(true);
+            ArrayList<Point> points = cheminLePluscourt(p, x, y);
+            resetNoeudsAprèsUtilisation();
+            new ThreadDeplacement(this, p, points).start();
+        }
     }
 
     /**
@@ -412,10 +463,14 @@ public class Map {
      * @param o
      */
     public void deplacementPersoMiner(Personnage p ,Obstacle o ){
-        ArrayList<Point> points= cheminLePluscourt(p,o.getX(),o.getY());
-        resetNoeudsAprèsUtilisation();
-        new ThreadMining(this,p,o,points).start();
-        System.out.println("coucou");
+        if(!p.isMoving()) {
+            p.setMoving(true);
+            rendreCasePossibleObstacles(o);
+            ArrayList<Point> points = cheminLePluscourt(p, o.getX(), o.getY());
+            resetNoeudsAprèsUtilisation();
+            new ThreadMining(this, p, o, points).start();
+            System.out.println("coucou");
+        }
     }
 
     /**
@@ -733,6 +788,10 @@ public class Map {
         }
     }
 
+
+    public Personnage getActionner(){
+        return this.actionner;
+    }
 
 
     /**

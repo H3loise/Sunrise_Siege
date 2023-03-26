@@ -31,9 +31,6 @@ public class Main {
          **/
         Villageois testDeplacement = new Villageois( 200,200);
         map.addCharacter(testDeplacement);
-        Obstacle b = new Obstacle(4,700);
-                map.addObstacle(b);
-        map.mining(testDeplacement,b);
         Affichage affichage = new Affichage(map);
         ActionPanel actionPanel = new ActionPanel(map,affichage);
         affichage.addMouseListener(actionPanel);

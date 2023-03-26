@@ -13,7 +13,7 @@ public class ThreadMining extends Thread {
     private int finalX;
     private int finalY;
     private Obstacle o;
-    private final int delai = 20;
+    private final int delai = 10;
     ArrayList<Point> points;
 
 
@@ -44,6 +44,7 @@ public class ThreadMining extends Thread {
                 throw new RuntimeException(e);
             }
         }
+        p.setMoving(false);
         m.obstacleMined(o);
     }
 }

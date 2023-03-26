@@ -48,17 +48,22 @@ public class ActionPanel implements MouseListener {
             }
             for (Personnage p : personnages) {
                 if (e.getX() >= p.getX() && e.getX() <= p.getX() + 80 && e.getY() >= p.getY() && e.getY() <= p.getY() + 80) {
-                    if (p instanceof Archer) {
+                    if (p instanceof Archer && !map.getDay()) {
+
                         this.affichage.card.show(this.affichage.getController(), "archer");
+                        this.map.setActionner(p);
                     }
-                    if (p instanceof Guerrier) {
+                    if (p instanceof Guerrier && !map.getDay()) {
+
                         this.affichage.card.show(this.affichage.getController(), "guerrier");
+                        this.map.setActionner(p);
                     }
-                    if (p instanceof Villageois) {
+                    if (p instanceof Villageois && map.getDay()) {
                         this.affichage.card.show(this.affichage.getController(), "villageois");
+                        this.map.setActionner(p);
                     }
                     changed = false;
-                    this.map.setActionner(p);
+
                 }
             }
             if (changed) {
@@ -70,6 +75,7 @@ public class ActionPanel implements MouseListener {
                 for (Obstacle o : map.getObstacles()) {
                     if (o.getX() <= e.getX() && o.getX() + 40 >= e.getX() && o.getY() <= e.getY() && e.getX() + 40 >= e.getY()) {
                         map.deplacementPersoMiner(map.getActionner(),o);
+                        System.out.println("minage ");
                         mining=false;
                     }
                 }if(mining){

@@ -37,7 +37,7 @@ public class VueJeu extends JPanel {
             g.setColor(color);
             g.fillRect(0, 0, map.taille, map.taille);
         }
-        funTest(g);
+        //funTest(g);
     }
 
     public void paintObstacles(Graphics g) {
@@ -82,13 +82,18 @@ public class VueJeu extends JPanel {
     public void paintPersonnages(Graphics g) {
         for (Personnage p : map.getPersonnages()) {
             if (p instanceof Archer) {
-                g.drawImage(BanqueImage.imgArcher, p.getX(), p.getY(), 40, 40, null);
-                g.drawRect(p.getX(), p.getY(), 40, 40);
+                if(!map.getDay() || (p.getX()!=map.getCaserne().getX() && p.getY()!=map.getCaserne().getY())) {
+                    g.drawImage(BanqueImage.imgArcher, p.getX(), p.getY(), 40, 40, null);
+                }
             } else {
                 if (p instanceof Guerrier) {
-                    g.drawImage(BanqueImage.imgGuerrier, p.getX(), p.getY(), 40, 40, null);
+                    if(!map.getDay() || (p.getX()!=map.getCaserne().getX() && p.getY()!=map.getCaserne().getY())){
+                        g.drawImage(BanqueImage.imgGuerrier, p.getX(), p.getY(), 40, 40, null);
+                    }
                 } else {
-                    g.drawImage(BanqueImage.imgVillageois, p.getX(), p.getY(), 40, 40, null);
+                    if(map.getDay()) {
+                        g.drawImage(BanqueImage.imgVillageois, p.getX(), p.getY(), 40, 40, null);
+                    }
                 }
             }
         }

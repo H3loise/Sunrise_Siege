@@ -123,7 +123,7 @@ public class Map {
         //this.characters.add(new Villageois(300, 300));
         //this.characters.add(new Guerrier( 350, 300));
         //this.characters.add(new Archer(400,300));
-        this.characters.add(new Archer(50,50));
+        //this.characters.add(new Archer(50,50));
         //this.obstacles.add(new Obstacle(300, 350));
         this.obstacles.add(new Obstacle(350, 350));
         this.obstacles.add(new Obstacle(400,350));
@@ -819,6 +819,8 @@ public class Map {
 
     public void upgradeCaserne() {
 
+        //Besoin de faire un calcul pour vérifier si on peut l'upgrade ou pas, bastos
+        caserne.upgrade();
         for (Personnage p : characters) {
             if (p instanceof Guerrier) {
                 Guerrier g = (Guerrier) p;

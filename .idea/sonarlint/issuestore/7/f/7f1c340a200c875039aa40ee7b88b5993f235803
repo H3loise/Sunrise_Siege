@@ -1,0 +1,22 @@
+
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(èî“–øÿÿÿÿ
+7
+java:S1170"!Make this final field static too.(¡Óù¥
+7
+java:S1170"!Make this final field static too.(óçÎ
+@
+java:S1948"%Make "map" transient or serializable.(“ÖÂÅøÿÿÿÿ
+Q	java:S1253"<This block of commented-out lines of code should be removed.(¿İ’Ù
+R
+java:S2209V"5Change this instance-reference to a static reference.(í‘±œ8¨œäáâ0
+W
+java:S2209Y"5Change this instance-reference to a static reference.(Í‹¸ºøÿÿÿÿ8æÌäáâ0
+O
+java:S1128"2Remove this unused import 'javax.imageio.ImageIO'.(‘çÔû8»©¨Äâ0
+[
+java:S1128"9Remove this unused import 'java.awt.image.BufferedImage'.(×íĞ‡şÿÿÿÿ8»©¨Äâ0
+F
+java:S1128	")Remove this unused import 'java.io.File'.(†Ğ¥Å8»©¨Äâ0
+R
+java:S1128
+"0Remove this unused import 'java.io.IOException'.(ªº»Úıÿÿÿÿ8»©¨Äâ0

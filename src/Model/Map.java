@@ -760,6 +760,9 @@ public class Map {
             return ennemies;
         }
 
+        public void addEnnemy(Ennemy e){
+            ennemies.add(e);
+        }
 
     /**
      * Proc permet d'upgrade un guerrier, on va lamodifier pour upgrade le niveau de création des guerriers.

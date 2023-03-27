@@ -1,6 +1,7 @@
 import Controller.ActionPanel;
 import Model.Map;
 import Model.Obstacles.Obstacle;
+import Model.Personnages.Ennemy;
 import Model.Personnages.Guerrier;
 import Model.Personnages.Villageois;
 import Model.TimeChanger;
@@ -29,6 +30,8 @@ public class Main {
         fenetre.setVisible(true);
         fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
          **/
+        Ennemy z = new Ennemy(100,100);
+        map.addEnnemy(z);
         Villageois testDeplacement = new Villageois( 200,200);
         map.addCharacter(testDeplacement);
         Affichage affichage = new Affichage(map);

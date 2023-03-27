@@ -13,7 +13,7 @@ public abstract class Personnage {
     protected int hpMax = health_points;
     private final Object lock = new Object();
     protected int level;
-    public static final int taille = 50;
+    public static final int taille = 60;
 
     private boolean moving = false;
     public Personnage(int health_points, int x, int y){

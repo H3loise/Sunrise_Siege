@@ -108,6 +108,9 @@ public class Map {
     boolean goalReached = false;
     private Caserne caserne;
 
+    private int delaiJourNuit = 6000;
+
+    private long startTime = 0;
     public Map(){
         this.batiments = new ArrayList<>();
         this.characters = new ArrayList<>();
@@ -171,6 +174,28 @@ public class Map {
         deplacementPersoMiner(v,o);
     }
 
+    /**
+     * Getter du delaiJourNuit
+     * @return delaiJourNuit
+     */
+
+    public int getDelaiJourNuit(){
+        return this.delaiJourNuit;
+    }
+
+    /**
+     * Getter de startTime qui défini depuis quand le cycle a commencé
+     * @return startTime
+     */
+    public long getStartTime(){
+        return startTime;
+    }
+    /**
+     * Setter de startTime qui défini depuis quand le cycle a commencé
+     */
+    public void setStartTime(long millis){
+        startTime = millis;
+    }
 
     /**
      * Donne les ressources liées à l'obstacle passé en param, l'obstacle est alors remove de l'ArrayList obstacles

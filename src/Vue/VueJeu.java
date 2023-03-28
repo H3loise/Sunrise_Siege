@@ -44,7 +44,7 @@ public class VueJeu extends JPanel {
         paintPersonnages(g);
         paintObstacles(g);
         if (!map.getDay()) {
-            Color color = new Color(25, 25, 112, 120);
+            Color color = new Color(25, 25, 112, 80);
             g.setColor(color);
             g.fillRect(0, 0, map.taille, map.taille);
         }

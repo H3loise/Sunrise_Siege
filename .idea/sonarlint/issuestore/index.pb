@@ -15,8 +15,6 @@ N
 src/Model/Batiments/Nexus.java,9\2\92c398097484c444638ba8f4361e0daf088602a2
 P
  src/Model/Batiments/Caserne.java,8\2\82f3f85e1fe54417ba1873a18be368709983dc29
-J
-src/Vue/VueRessources.java,7\f\7f1c340a200c875039aa40ee7b88b5993f235803
 P
  src/Model/ThreadDeplacement.java,a\b\ab658f643267d63e757e92dd9efd0c3326917d45
 T
@@ -27,3 +25,25 @@ Y
 Projet Final.iml,9\3\93a161fe0d805a1c4c8fd11eefcb84bcb8be7bbc
 Z
 *src/Vue/ControllerView/NoneController.java,7\f\7f0fc80b872460d489a169e2858bae3dd15ba8c3
+`
+0src/Vue/ControllerView/VillageoisController.java,e\5\e520de9afbfc384a49911cb36a61212e266e3860
+S
+#src/Model/Personnages/Guerrier.java,0\d\0d5c8c4c1646e23369c08572199fe899e9e8ff8a
+U
+%src/Model/Personnages/Villageois.java,2\2\2223a8dba893e0aec8e5d47f833f01d42c46a15b
+[
++src/Vue/ControllerView/NexusController.java,c\0\c034c483c9af51b4a39af239537fd48f2c56655f
+Q
+!src/Model/Personnages/Archer.java,f\4\f4b45ed4fff76d630788ce9ceb98bd3001dc6d63
+\
+,src/Vue/ControllerView/ArcherController.java,8\4\842c852272d50e5182bf56c6d9144026777e6b00
+^
+.src/Vue/ControllerView/GuerrierController.java,3\1\3194e1647532df1418a3f8bc2b6b77d8f23ed683
+]
+-src/Vue/ControllerView/CaserneController.java,f\d\fde849ffb25f2b70d83a76e850d12e0c836b997c
+Q
+!src/Model/Batiments/Batiment.java,6\c\6c0038009ba6f10d9089dad6faebf570b12e4d00
+w
+G.idea/sonarlint/issuestore/9/3/93a161fe0d805a1c4c8fd11eefcb84bcb8be7bbc,8\0\80cf39e1f5636e34646145939f9bb41dfe79025f
+U
+%src/Model/Personnages/Personnage.java,5\1\516bef43bfd5de99c3ae105e428d61dc71ff6352

@@ -8,8 +8,8 @@ import java.awt.event.ActionListener;
 public abstract class Personnage {
     private int x;
     private int y;
-    protected int health_points;
     private boolean isAlive = true;
+    protected int health_points;
     protected int hpMax = health_points;
     private final Object lock = new Object();
     protected int level;
@@ -20,7 +20,6 @@ public abstract class Personnage {
         this.health_points = health_points;
         this.x = x;
         this.y = y;
-
     }
 
 
@@ -46,6 +45,8 @@ public abstract class Personnage {
     }
 
     public int getHealth_points(){return this.health_points;}
+
+    public int getHpMax(){return this.hpMax;}
 
     public int getX(){return this.x;}
 

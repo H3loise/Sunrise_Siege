@@ -93,8 +93,19 @@ public class VueJeu extends JPanel {
 
     public void paintPersonnages(Graphics g) {
         for (Personnage p : map.getPersonnages()) {
+            int hpMax = p.getHpMax(); // récupère les hpMax
+            int hpCurrent = p.getHealth_points(); // récupère les hp actuel
+            double ratio = (double) hpCurrent / hpMax; // calcule le ratio des hps (entre 0 et 1)
+            int hpWidth = (int) (ratio * (Personnage.taille/2)); // calcule la largeur du rectangle représentant la progression
+
             if (p instanceof Archer) {
                 if (!map.getDay() || (p.getX()!=map.getCaserne().getX() && p.getY()!=map.getCaserne().getY())) {
+                    g.setColor(Color.BLACK);
+                    g.drawRect(p.getX()+Personnage.taille/4, p.getY()-3, Personnage.taille / 2+1, 6);
+                    g.setColor(Color.RED);
+                    g.fillRect(p.getX()+Personnage.taille/4+1, p.getY()-2, Personnage.taille/2,5) ;
+                    g.setColor(Color.GREEN);
+                    g.fillRect(p.getX()+Personnage.taille/4+1, p.getY()-2, hpWidth,5);
                     if (p.isMoving()) {
                         g.drawImage(BanqueImage.gifArcherWalk.get(frameIndexGA).getImage(), p.getX(), p.getY(), Personnage.taille, Personnage.taille, null);
                     //}else if(p.isAttacking()){
@@ -106,6 +117,12 @@ public class VueJeu extends JPanel {
             } else {
                 if (p instanceof Guerrier) {
                     if(!map.getDay() || (p.getX()!=map.getCaserne().getX() && p.getY()!=map.getCaserne().getY())){
+                        g.setColor(Color.BLACK);
+                        g.drawRect(p.getX()+Personnage.taille/4-7, p.getY()-3, Personnage.taille / 2+1, 6);
+                        g.setColor(Color.RED);
+                        g.fillRect(p.getX()+Personnage.taille/4-6, p.getY()-2, Personnage.taille/2,5) ;
+                        g.setColor(Color.GREEN);
+                        g.fillRect(p.getX()+Personnage.taille/4-6, p.getY()-2, hpWidth,5);
                         if(p.isMoving()) {
                             g.drawImage(BanqueImage.gifGuerrierWalk.get(frameIndexGA).getImage(), p.getX(), p.getY(), Personnage.taille, Personnage.taille, null);
                         //}else if(p.isAttacking()){
@@ -117,6 +134,12 @@ public class VueJeu extends JPanel {
                 } else {
                     if (p instanceof Villageois) {
                         if (map.getDay()) {
+                            g.setColor(Color.BLACK);
+                            g.drawRect(p.getX()+Personnage.taille/4, p.getY()-3, Personnage.taille / 2+1, 6);
+                            g.setColor(Color.RED);
+                            g.fillRect(p.getX()+Personnage.taille/4+1, p.getY()-2, Personnage.taille/2,5) ;
+                            g.setColor(Color.GREEN);
+                            g.fillRect(p.getX()+Personnage.taille/4+1, p.getY()-2, hpWidth,5);
                             if (p.isMoving()) {
                                 g.drawImage(BanqueImage.gifVillagerWalk.get(frameIndexV).getImage(), p.getX(), p.getY(), Personnage.taille, Personnage.taille, null);
                             } else {
@@ -128,7 +151,17 @@ public class VueJeu extends JPanel {
             }
         }
         for(Ennemy e : map.getEnnemies()){
+            int hpMax = e.getHpMax(); // récupère les hpMax
+            int hpCurrent = e.getHealth_points(); // récupère les hp actuel
+            double ratio = (double) hpCurrent / hpMax; // calcule le ratio des hps (entre 0 et 1)
+            int hpWidth = (int) (ratio * (Personnage.taille/2)); // calcule la largeur du rectangle représentant la progression
             if(!map.getDay()) {
+                g.setColor(Color.BLACK);
+                g.drawRect(e.getX()+Personnage.taille/4, e.getY()-9, Personnage.taille / 2+1, 6);
+                g.setColor(Color.RED);
+                g.fillRect(e.getX()+Personnage.taille/4+1, e.getY()-8, Personnage.taille/2,5) ;
+                g.setColor(Color.GREEN);
+                g.fillRect(e.getX()+Personnage.taille/4+1, e.getY()-8, hpWidth,5);
                 if (e.isMoving()) {
                     g.drawImage(BanqueImage.gifZombieWalk.get(frameIndexZ).getImage(), e.getX(), e.getY(), Personnage.taille, Personnage.taille, null);
                 } else {
@@ -162,5 +195,6 @@ public class VueJeu extends JPanel {
             }
         }
     }
+
 
 }

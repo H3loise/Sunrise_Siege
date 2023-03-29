@@ -1,7 +1,7 @@
 package Model.Personnages;
 public class Archer extends Personnage {
 
-    private  static int health_points = 150;// apparemment faut mettre static pour que ça rentre dans le super
+    private static int health_points = 150;// apparemment faut mettre static pour que ça rentre dans le super
 
     private  int attack_points = 50;
 
@@ -21,6 +21,7 @@ public class Archer extends Personnage {
 
     public Archer(int x, int y) {
         super(health_points,x,y);
+        this.hpMax = this.getHealth_points();
         level = 1;
     }
 

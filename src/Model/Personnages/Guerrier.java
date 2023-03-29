@@ -3,9 +3,7 @@ package Model.Personnages;
 public class Guerrier extends Personnage {
     private  static int health_points = 150;// apparemment faut mettre static pour que ça rentre dans le super
 
-    private int hpMax = health_points;
     private  int attack_points = 50;               // apparemment faut mettre static pour que ça rentre dans le super
-
 
     public static final int woodPrice = 0;
     public static final int wheatPrice = 3;
@@ -15,6 +13,7 @@ public class Guerrier extends Personnage {
 
     public Guerrier(int x, int y){
         super(health_points,x,y);
+        this.hpMax = this.getHealth_points();
         level = 1;
     }
 

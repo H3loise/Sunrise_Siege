@@ -108,7 +108,7 @@ public class Map {
     boolean goalReached = false;
     private Caserne caserne;
 
-    private int delaiJourNuit = 6000;
+    private int delaiJourNuit = 50000;
 
     private long startTime = 0;
     public Map(){

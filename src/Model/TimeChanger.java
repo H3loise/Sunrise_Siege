@@ -48,13 +48,13 @@ public class TimeChanger extends Thread {
                 clip.stop();
             }
             if (this.m.getDay()) {
-                clip = playMusic("src/Music/NightSong.wav");
+                //clip = playMusic("src/Music/NightSong.wav");
 
             } else {
-                clip = playMusic("src/Music/DaySong.wav");
+                //clip = playMusic("src/Music/DaySong.wav");
             }
 
-            m.setDay(!m.getDay());
+            m.setDay(m.getDay());
             m.update();
 
             m.setStartTime(System.currentTimeMillis());

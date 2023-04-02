@@ -17,6 +17,8 @@ public class Affichage extends JFrame {
     private GuerrierController guerrierController;
     private VillageoisController villageoisController;
     private CaserneController caserneController;
+    private EnnemyController ennemyController;
+
     public CardLayout card;
 
     public Affichage(Map m){
@@ -31,6 +33,7 @@ public class Affichage extends JFrame {
         this.guerrierController=new GuerrierController(m);
         this.villageoisController=new VillageoisController(m);
         this.caserneController = new CaserneController(m);
+        this.ennemyController = new EnnemyController(m);
 
         String keyArcher = "archer";
         String keyNone = "none";
@@ -38,6 +41,8 @@ public class Affichage extends JFrame {
         String keyGuerrier = "guerrier";
         String keyVillageois = "villageois";
         String keyCaserne = "caserne";
+        String keyEnnemy = "ennemy";
+
 
         this.controller=new JPanel(card);
         //this.controller=this.archerController;
@@ -48,11 +53,17 @@ public class Affichage extends JFrame {
         controller.add(guerrierController,keyGuerrier);
         controller.add(villageoisController,keyVillageois);
         controller.add(caserneController,keyCaserne);
+        controller.add(ennemyController,keyEnnemy);
 
         //this.controller=new ArcherController(m);
-        this.add(vueJeu, BorderLayout.CENTER);
-        this.add(vueRessources,BorderLayout.SOUTH);
-        this.add(controller,BorderLayout.EAST);
+        JPanel intermediatePanel = new JPanel(new BorderLayout());
+
+        intermediatePanel.add(vueJeu, BorderLayout.CENTER);
+        intermediatePanel.add(vueRessources, BorderLayout.SOUTH);
+
+        this.add(controller, BorderLayout.EAST);
+        this.add(intermediatePanel, BorderLayout.CENTER);
+
         this.setPreferredSize(new Dimension(1300,1000));
         this.pack();
         this.setVisible(true);

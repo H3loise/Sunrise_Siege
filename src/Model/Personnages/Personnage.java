@@ -15,6 +15,8 @@ public abstract class Personnage {
     protected int level;
     public static final int taille = 60;
 
+    private int attack_points = 50;
+
     private boolean moving = false;
     public Personnage(int health_points, int x, int y){
         this.health_points = health_points;
@@ -80,5 +82,11 @@ public abstract class Personnage {
 
     public boolean isMoving(){
         return this.moving;
+    }
+    public int getAttack_points(){
+            return this.attack_points;
+    }
+    protected void setAttack_points(int atk) {
+        this.attack_points = atk;
     }
 }

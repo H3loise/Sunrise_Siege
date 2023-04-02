@@ -10,7 +10,7 @@ import java.awt.*;
  */
 public abstract class Batiment {
     protected int pv;
-    protected int pvMax;
+    protected int pvMax = 100;
     private int x;
     private int y;
     protected int level;
@@ -29,42 +29,35 @@ public abstract class Batiment {
     }
 
 
-
+    public int getPv() {
+        return pv;
+    }
     public void setPv(int pv) {
         this.pv = pv;
     }
-
-
     public int getPvMax() {
         return pvMax;
     }
-
-    public void setPvMax(int pv) {
-        this.pv = pvMax;
+    public void setPvMax(int pvMax) {
+        this.pvMax = pvMax;
     }
+
     public int getX() {
         return x;
     }
-
     public void setX(int x) {
         this.x = x;
     }
-
     public int getY() {
         return y;
     }
-
     public void setY(int y) {
         this.y = y;
     }
 
-
-
-
     public int getLevel() {
         return level;
     }
-
     public void setLevel(int level) {
         this.level = level;
     }

@@ -8,7 +8,6 @@ public class Nexus extends Batiment {
     //Canon qui attaque
     private int attack;
     private final int minimumOfEach = 5;
-
     private final double range = 100;
 
     /**
@@ -17,13 +16,9 @@ public class Nexus extends Batiment {
      * @param y
      */
     public Nexus(int x, int y) {
-        super( x, y);
-        this.pv  = 100;
-        this.setPvMax(this.pv);
+        super(x, y);
+        this.setPv(this.pvMax);
         this.attack = 50;
-    }
-    public int getPv() {
-        return this.pv;
     }
 
     /**
@@ -54,8 +49,8 @@ public class Nexus extends Batiment {
     public void upgrade(){
         setLevel(getLevel()+1);
         this.attack+=50;
-        this.pvMax+=100;
-        this.pv = pvMax;
+        setPvMax(pvMax+100);
+        setPv(pvMax);
     }
 
     /**

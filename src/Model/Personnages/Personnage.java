@@ -1,25 +1,27 @@
 package Model.Personnages;
 
-import java.awt.event.*;
-
-import javax.swing.*;
-import java.awt.event.ActionListener;
-
 public abstract class Personnage {
     private int x;
     private int y;
+    private final int rayon;
     private boolean isAlive = true;
     protected int health_points;
     protected int hpMax = health_points;
-    private final Object lock = new Object();
+    private int attack_points;
     protected int level;
     public static final int taille = 60;
 
     private boolean moving = false;
-    public Personnage(int health_points, int x, int y){
+    public Personnage(int health_points, int x, int y, int rayon, int attack_points){
         this.health_points = health_points;
         this.x = x;
         this.y = y;
+        this.rayon = rayon;
+        this.attack_points = attack_points;
+    }
+
+    public int getAttack_points(){
+        return this.attack_points;
     }
 
 
@@ -27,13 +29,17 @@ public abstract class Personnage {
      * perso qui se fait attaquer
      * @param damage
      */
-    public void attackedPersonnage(int damage){
+    public void receivesDamage(int damage){
         if(this.health_points <= 0){
             this.isAlive = false;
         }
         else{
             this.health_points -= damage;
         }
+    }
+
+    public void attack(Personnage perso){
+        perso.receivesDamage(this.getAttack_points());
     }
 
     /**
@@ -51,11 +57,12 @@ public abstract class Personnage {
     public int getX(){return this.x;}
 
     public int getY(){return this.y;}
+
+    public int getRayon(){return this.rayon;}
+
     public void setPosition(int x, int y) {
-        synchronized (lock) {
-            setX(x);
-            setY(y);
-        }
+        setX(x);
+        setY(y);
     }
 
     public synchronized  void  setX(int new_x){

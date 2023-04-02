@@ -1,17 +1,12 @@
 import Controller.ActionPanel;
 import Model.Map;
-import Model.Obstacles.Obstacle;
+import Model.Personnages.Archer;
 import Model.Personnages.Ennemy;
-import Model.Personnages.Guerrier;
+import Model.ThreadScanEnnemies;
 import Model.Personnages.Villageois;
+import Model.ThreadWipeDeadCharacters;
 import Model.TimeChanger;
 import Vue.Affichage;
-import Vue.ControllerView.ArcherController;
-import Vue.ThreadAfficheur;
-import Vue.VueJeu;
-
-import javax.swing.*;
-import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -32,11 +27,15 @@ public class Main {
          **/
         Ennemy z = new Ennemy(100,100);
         map.addEnnemy(z);
+        Archer arch = new Archer(300,100);
+        map.addCharacter(arch);
+        new ThreadScanEnnemies(map,arch).start();
         Villageois testDeplacement = new Villageois( 200,200);
         map.addCharacter(testDeplacement);
         Affichage affichage = new Affichage(map);
         ActionPanel actionPanel = new ActionPanel(map,affichage);
         affichage.addMouseListener(actionPanel);
         new TimeChanger(map).start();
+        new ThreadWipeDeadCharacters(map).start();
     }
 }

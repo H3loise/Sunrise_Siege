@@ -1,20 +1,13 @@
 package Model;
 
-//import Model.Batiments.Batiment;
-//import Model.Batiments.Nexus;
 import Model.Batiments.Batiment;
 import Model.Batiments.Caserne;
 import Model.Batiments.Nexus;
 import Model.Obstacles.Obstacle;
 import Model.Personnages.*;
-//import Model.Personnages.Archer;
-//import Model.Personnages.Guerrier;
-//import Model.Personnages.Personnage;
-//import Model.Personnages.Villageois;
 
 import java.awt.*;
 import java.util.*;
-import java.util.function.Predicate;
 
 public class Map {
     private ArrayList<Obstacle> obstacles;
@@ -59,7 +52,7 @@ public class Map {
         this.actionner = actionner;
     }
 
-    private ArrayList<Ennemy> ennemies = new ArrayList<>();
+    private final ArrayList<Ennemy> ennemies = new ArrayList<>();
 
     public ArrayList<Obstacle> getObstacles() {
         return obstacles;
@@ -234,10 +227,18 @@ public class Map {
     /**
      * Procédure qui se lance au moment de l'update, elle permet de vider l'ArrayList characters des personnages morts
      */
-    private void eraseDeadPeople(){
+    public void eraseDeadPeople(){
         for(Personnage p : characters){
             if (!p.getIsAlive()){
                 characters.remove(p);
+            }
+        }
+    }
+
+    public void eraseMonsters(){
+        for (Ennemy ennemy : this.ennemies){
+            if(!ennemy.getIsAlive()){
+                this.ennemies.remove(ennemy);
             }
         }
     }
@@ -825,6 +826,25 @@ public class Map {
         return this.actionner;
     }
 
+    /** ------------------------------------------------------------------
+     *                                              BAGARRE
+     *  ------------------------------------------------------------------
+     */
+    public boolean scanFightRange(Personnage perso, Ennemy ennemi){
+        double diam = Math.sqrt((perso.getX() - ennemi.getX()) * (perso.getX() - ennemi.getX()) + (perso.getY() - ennemi.getY()) * (perso.getY() - ennemi.getY()));
+        int r1 = perso.getRayon();
+        int r2 = ennemi.getRayon();
+        if(diam <= r1-r2 || diam <= r2-r1 || diam < r1+r2 || diam == r1+r2){
+            return true;
+        }
+        return false;
+    }
+
+    public void attack(Personnage perso, Ennemy ennemi){
+        while(ennemi.getIsAlive() && perso.getIsAlive()){
+            perso.attack(ennemi);
+        }
+    }
 
     /**
      * Procédure permettant l'update du modèle, on lance les fonctions créees pour cela.

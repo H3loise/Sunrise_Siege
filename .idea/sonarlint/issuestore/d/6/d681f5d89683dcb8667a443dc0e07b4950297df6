@@ -1,0 +1,88 @@
+
+`	java:S112'"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+`	java:S112:"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+`	java:S112M"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+`	java:S112`"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+`	java:S112s"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112†"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112”"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112¡"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112ª"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112³"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112À"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112É"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112Ò"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112ß"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112è"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112ñ"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112ÿ"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112‰"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112“"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112¢"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112«"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112´"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112À"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112Î"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112Ø"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112â"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112ğ"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112ú"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(èî“–øÿÿÿÿ
+P
+java:S1118":Add a private constructor to hide the implicit public one.(ò×ì«
+E
+java:S2386!"*Make member "gifArcherAttack" "protected".(ÇŠæ¢ûÿÿÿÿ
+>
+java:S23864"(Make member "gifArcherWalk" "protected".(æ¥¯ó
+B
+java:S2386G",Make member "gifGuerrierAttack" "protected".(ŞêÖ«
+E
+java:S2386Z"*Make member "gifGuerrierWalk" "protected".(¿ÃëÀüÿÿÿÿ
+@
+java:S2386m"*Make member "gifVillagerWalk" "protected".(ùóİÔ
+>
+java:S2386€"(Make member "gifZombieWalk" "protected".(Ø›·
+a
+java:S1124"EReorder the modifiers to comply with the Java Language Specification.(Ê×êÃşÿÿÿÿ
+a
+java:S1124›"EReorder the modifiers to comply with the Java Language Specification.(¥öØ‹úÿÿÿÿ
+\
+java:S1124¤"EReorder the modifiers to comply with the Java Language Specification.(éÀØÙ
+a
+java:S1124­"EReorder the modifiers to comply with the Java Language Specification.(Øş¿…øÿÿÿÿ
+a
+java:S1124º"EReorder the modifiers to comply with the Java Language Specification.(ÊÂï¶úÿÿÿÿ
+a
+java:S1124Ã"EReorder the modifiers to comply with the Java Language Specification.(¢ù÷ÿÿÿÿÿ
+a
+java:S1124Ì"EReorder the modifiers to comply with the Java Language Specification.(’®‡Õıÿÿÿÿ
+\
+java:S1124Ù"EReorder the modifiers to comply with the Java Language Specification.(Õ¾¢ç
+\
+java:S1124â"EReorder the modifiers to comply with the Java Language Specification.(æ¡é¬
+\
+java:S1124ë"EReorder the modifiers to comply with the Java Language Specification.(àÉ‘
+\
+java:S1124ù"EReorder the modifiers to comply with the Java Language Specification.(£Æó‹
+a
+java:S1124ƒ"EReorder the modifiers to comply with the Java Language Specification.(Ñêÿÿÿÿÿ
+a
+java:S1124"EReorder the modifiers to comply with the Java Language Specification.(…íõÔøÿÿÿÿ
+a
+java:S1124œ"EReorder the modifiers to comply with the Java Language Specification.(Ëòëşÿÿÿÿ
+a
+java:S1124¥"EReorder the modifiers to comply with the Java Language Specification.(ğ¯·ˆüÿÿÿÿ
+\
+java:S1124®"EReorder the modifiers to comply with the Java Language Specification.(øÆÇ´
+a
+java:S1124º"EReorder the modifiers to comply with the Java Language Specification.(”Œ˜ˆıÿÿÿÿ
+\
+java:S1124È"EReorder the modifiers to comply with the Java Language Specification.(õÁ
+\
+java:S1124Ò"EReorder the modifiers to comply with the Java Language Specification.(öºÏÚ
+a
+java:S1124Ü"EReorder the modifiers to comply with the Java Language Specification.(Ø£úÕøÿÿÿÿ
+a
+java:S1124ê"EReorder the modifiers to comply with the Java Language Specification.(êµãùÿÿÿÿ
+\
+java:S1124ô"EReorder the modifiers to comply with the Java Language Specification.(æÀ¶Œ

@@ -1,22 +1,27 @@
 package Model.Personnages;
 
+import java.awt.event.*;
+
+import javax.swing.*;
+import java.awt.event.ActionListener;
+
 public abstract class Personnage {
     private int x;
     private int y;
-    private final int rayon;
-    protected int health_points;
     private boolean isAlive = true;
+    protected int health_points;
     protected int hpMax = health_points;
-
+    private final Object lock = new Object();
     protected int level;
-    public static final int taille = 50;
+    public static final int taille = 60;
 
-    public Personnage(int health_points, int x, int y, int rayon){
+    private boolean moving = false;
+    public Personnage(int health_points, int x, int y){
         this.health_points = health_points;
         this.x = x;
         this.y = y;
-        this.rayon = rayon;
     }
+
 
     /**
      * perso qui se fait attaquer
@@ -39,24 +44,27 @@ public abstract class Personnage {
         return this.isAlive;
     }
 
-    public int getRayon(){
-        return this.rayon;
-    }
-
     public int getHealth_points(){return this.health_points;}
+
+    public int getHpMax(){return this.hpMax;}
 
     public int getX(){return this.x;}
 
     public int getY(){return this.y;}
-
-    public void setPosition(int x , int y){
-        setX(x);
-        setY(y);
+    public void setPosition(int x, int y) {
+        synchronized (lock) {
+            setX(x);
+            setY(y);
+        }
     }
 
-    public void setX(int new_x){this.x = new_x;}
+    public synchronized  void  setX(int new_x){
+        this.x = new_x;
+    }
 
-    public void setY(int new_y){this.y = new_y;}
+    public synchronized void setY(int new_y){
+        this.y = new_y;
+    }
 
     public void heal(){
         health_points = hpMax;
@@ -64,5 +72,13 @@ public abstract class Personnage {
 
     public int getLevel(){
         return this.level;
+    }
+
+    public void setMoving(boolean moving) {
+        this.moving = moving;
+    }
+
+    public boolean isMoving(){
+        return this.moving;
     }
 }

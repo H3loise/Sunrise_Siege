@@ -1,0 +1,8 @@
+
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Ì—¦äúÿÿÿÿ
+T
+java:S5993"9Change the visibility of this constructor to "protected".(ßØëÜùÿÿÿÿ
+;
+java:S1948	"%Make "map" transient or serializable.(é•·õ
+=
+java:S1068	"'Remove this unused "map" private field.(é•·õ

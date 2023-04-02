@@ -13,7 +13,8 @@ public class Villageois extends Personnage{
 
 
     public Villageois(int x, int y){
-        super(health_points,x,y,0);
+        super(health_points,x,y);
+        this.hpMax = this.getHealth_points();
     }
 
 

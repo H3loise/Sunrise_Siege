@@ -1,12 +1,11 @@
 package Model.Personnages;
 public class Archer extends Personnage {
 
-    private  static int health_points = 150;// apparemment faut mettre static pour que ça rentre dans le super
+    private static int health_points = 150;// apparemment faut mettre static pour que ça rentre dans le super
 
     private  int attack_points = 50;
 
     private final int min_attack_distance = 0;
-    private static int rayon = 50;
 
     public static final int woodPrice = 4;
     public static final int wheatPrice = 3;
@@ -21,7 +20,8 @@ public class Archer extends Personnage {
 
 
     public Archer(int x, int y) {
-        super(health_points,x,y,rayon);
+        super(health_points,x,y);
+        this.hpMax = this.getHealth_points();
         level = 1;
     }
 
@@ -31,7 +31,6 @@ public class Archer extends Personnage {
         attack_points = (attack_points * level) + (50*level);
         health_points = hpMax;
     }
-
     public void attack(Personnage p) {
         p.attackedPersonnage(this.attack_points);
     }

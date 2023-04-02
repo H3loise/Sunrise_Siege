@@ -1,0 +1,25 @@
+
+i
+java:S1192$"NDefine a constant instead of duplicating this literal "Achete archer" 3 times.(¦Œ‰½ùÿÿÿÿ
+>
+java:S1604!"(Make this anonymous inner class a lambda(ãÀá
+>
+java:S1604("(Make this anonymous inner class a lambda(ˆ˜ö÷
+C
+java:S1604/"(Make this anonymous inner class a lambda(Ø¸¦Àüÿÿÿÿ
+>
+java:S16046"(Make this anonymous inner class a lambda(¥íÒ•
+>
+java:S1604="(Make this anonymous inner class a lambda(‰†ªÛ
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Ì—¦äúÿÿÿÿ
+;
+java:S1948"%Make "map" transient or serializable.(é•·õ
+S	java:S106$"9Replace this use of System.out or System.err by a logger.(¦Œ‰½ùÿÿÿÿ
+N	java:S106+"9Replace this use of System.out or System.err by a logger.(¨î¬î
+S	java:S1062"9Replace this use of System.out or System.err by a logger.(¦Œ‰½ùÿÿÿÿ
+S	java:S1069"9Replace this use of System.out or System.err by a logger.(¦Œ‰½ùÿÿÿÿ
+S	java:S106@"9Replace this use of System.out or System.err by a logger.(Ü²à‹úÿÿÿÿ
+>
+java:S1185H"(Remove this method to simply inherit it.(¶øÂÁ
+=
+java:S1068"'Remove this unused "map" private field.(é•·õ

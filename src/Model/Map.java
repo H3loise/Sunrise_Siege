@@ -1,19 +1,15 @@
 package Model;
 
-//import Model.Batiments.Batiment;
-//import Model.Batiments.Nexus;
 import Model.Batiments.Batiment;
 import Model.Batiments.Caserne;
 import Model.Batiments.Nexus;
 import Model.Obstacles.Obstacle;
 import Model.Personnages.*;
-//import Model.Personnages.Archer;
-//import Model.Personnages.Guerrier;
-//import Model.Personnages.Personnage;
-//import Model.Personnages.Villageois;
 
 import java.awt.*;
 import java.util.*;
+
+import java.io.*;
 
 public class Map {
     private ArrayList<Obstacle> obstacles;
@@ -624,6 +620,29 @@ public class Map {
     }
 
 
+    /** ------------------------------------------------------------------
+     *                                              BAGARRE
+     *  ------------------------------------------------------------------
+     */
+    public boolean isInFightZone(Personnage p1, Personnage p2){
+        double d = Math.sqrt((p1.getX() - p2.getX()) * (p1.getX() - p2.getX()) + (p1.getY() - p2.getY()) * (p1.getY() - p2.getY()));
+        int r1 = p1.getRayon();
+        int r2 = p2.getRayon();
+        if(d <= r1-r2 || d <= r2-r1 || d < r1+r2 || d == r1+r2){
+            return true;
+        }
+        return false;
+    }
+
+    public void startCombat(){
+        for (Personnage p : this.characters){
+            for(Ennemy e : this.ennemies){
+                if(isInFightZone(p,e)){
+                    deplacementPerso(p, e.getX(),e.getY());
+                }
+            }
+        }
+    }
 
     /**
      * Procédure permettant l'update du modèle, on lance les fonctions créees pour cela.
@@ -640,10 +659,10 @@ public class Map {
             //killEnnemies();
             generateEnnemies();
             moveEnnemeies();
+            startCombat();
         }
         else {
             rendreCasePossibleBatiment(caserne);
-
         }
     }
 }

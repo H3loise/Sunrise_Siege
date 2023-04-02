@@ -13,7 +13,7 @@ public class Villageois extends Personnage{
 
 
     public Villageois(int x, int y){
-        super(health_points,x,y);
+        super(health_points,x,y,0);
     }
 
 

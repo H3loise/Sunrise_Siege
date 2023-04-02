@@ -3,6 +3,7 @@ package Model.Personnages;
 public abstract class Personnage {
     private int x;
     private int y;
+    private final int rayon;
     protected int health_points;
     private boolean isAlive = true;
     protected int hpMax = health_points;
@@ -10,10 +11,11 @@ public abstract class Personnage {
     protected int level;
     public static final int taille = 50;
 
-    public Personnage(int health_points, int x, int y){
+    public Personnage(int health_points, int x, int y, int rayon){
         this.health_points = health_points;
         this.x = x;
         this.y = y;
+        this.rayon = rayon;
     }
 
     /**
@@ -35,6 +37,10 @@ public abstract class Personnage {
      */
     public boolean getIsAlive(){
         return this.isAlive;
+    }
+
+    public int getRayon(){
+        return this.rayon;
     }
 
     public int getHealth_points(){return this.health_points;}

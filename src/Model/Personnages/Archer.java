@@ -6,6 +6,7 @@ public class Archer extends Personnage {
     private  int attack_points = 50;
 
     private final int min_attack_distance = 0;
+    private static int rayon = 50;
 
     public static final int woodPrice = 4;
     public static final int wheatPrice = 3;
@@ -20,7 +21,7 @@ public class Archer extends Personnage {
 
 
     public Archer(int x, int y) {
-        super(health_points,x,y);
+        super(health_points,x,y,rayon);
         level = 1;
     }
 

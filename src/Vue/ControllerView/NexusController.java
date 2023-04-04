@@ -19,6 +19,11 @@ public class NexusController extends VueController {
     private JButton upgrade;
     private JButton acheterVillageois;
     private JButton healNexus;
+
+    /**
+     * Controleur du Nexus (layout de droite) qui permet de fournir les informations sur le Nexus lorsqu'il est selectionné
+     * @param map
+     */
     public NexusController(Map map) {
         super(map);
         this.map=map;
@@ -87,6 +92,10 @@ public class NexusController extends VueController {
             }
         });
     }
+
+    /**
+     * Permet d'actualiser les statitisques du Nexus lorsqu'il est selectionnée
+     */
     private void updateContent() {
         pdv = map.getNexus().getPv();
         pdvMax = map.getNexus().getPvMax();

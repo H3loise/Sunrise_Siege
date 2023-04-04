@@ -11,14 +11,13 @@ public class VillageoisController extends VueController {
     Map map;
     int pdv = 0;
     int pdvMax = 0;
-
-
     private JLabel nom;
     private JLabel hp;
 
-
-
-
+    /**
+     * Controleur du Villageois (layout de droite) qui permet de fournir les informations sur les villageois notamment celui selectionné
+     * @param map
+     */
     public VillageoisController(Map map) {
         super(map);
         this.map = map;
@@ -28,7 +27,7 @@ public class VillageoisController extends VueController {
         setLayout(new BorderLayout());
         add(nom, BorderLayout.NORTH);
         if (map.getActionner() != null) {
-            pdv = map.getActionner().getHealth_points()+1;
+            pdv = map.getActionner().getHealth_points();
             pdvMax = map.getActionner().getHpMax();
         }
         hp = new JLabel("HP : " + pdv + "/" +  pdvMax );
@@ -40,7 +39,7 @@ public class VillageoisController extends VueController {
         add(contentPanel, BorderLayout.CENTER);
 
         int delay = 100;
-        Timer timer = new Timer(delay, new ActionListener() {
+        Timer timer = new Timer(delay, new ActionListener() { //actualise les points de vie grâce à la fonction en dessous tout les 100ms
             @Override
             public void actionPerformed(ActionEvent e) {
                 updateContent();
@@ -49,13 +48,14 @@ public class VillageoisController extends VueController {
         timer.start();
     }
 
+    /**
+     * Permet d'actualiser les statistiques du Villageois selectionnée
+     */
     private void updateContent() {
-
         if (map.getActionner() != null) {
             pdv = map.getActionner().getHealth_points();
             pdvMax = map.getActionner().getHpMax();
         }
-
     }
     @Override
     public void paint(Graphics g) {

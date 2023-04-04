@@ -15,27 +15,25 @@ public class VueJeu extends JPanel {
     private int largeur;
     private int hauteur;
     private Map map;
-    private int frameIndexGA = 0;
-    private int frameIndexV = 0;
-    private int frameIndexZ = 0;
 
-    private Timer timer;
+
     public VueJeu(Map m) {
         this.largeur = 1000;
         this.hauteur = 1000;
         this.setPreferredSize(new Dimension(largeur, hauteur));
         this.map = m;
-        timer = new Timer(100, e -> updateFrameIndex());
-        timer.start();
     }
 
-    private void updateFrameIndex() {
-        frameIndexGA = (frameIndexGA + 1) % 12;
-        frameIndexV = (frameIndexV + 1) % 8;
-        frameIndexZ = (frameIndexZ + 1) % 11;
-        repaint();
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        paintPersonnages(g);
     }
 
+    /**
+     * Affiche l'effet de nuit, et utilise les méthodes créer en dessous pour afficher la carte
+     * @param g
+     */
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -48,10 +46,12 @@ public class VueJeu extends JPanel {
             g.setColor(color);
             g.fillRect(0, 0, map.taille, map.taille);
         }
-        //funTest(g);
     }
 
-
+    /**
+     * Affiche les images pour les obstacles
+     * @param g
+     */
     public void paintObstacles(Graphics g) {
         for (Obstacle o : map.getObstacles()) {
             if (o.getType() == Type.Rock) {
@@ -90,8 +90,16 @@ public class VueJeu extends JPanel {
         }
     }
 
-
+    /**
+     * Affiche les images pour les Personnages
+     * Les images d'animations sont calculées grace a un modulo sur le temps écoulé pour boucler et donner les index
+     * @param g
+     */
     public void paintPersonnages(Graphics g) {
+        long currentTime = System.currentTimeMillis();
+        int frameIndexGA = (int) ((currentTime / 100) % 12);
+        int frameIndexV = (int) ((currentTime / 100) % 8);
+        int frameIndexZ = (int) ((currentTime / 100) % 11);
         for (Personnage p : map.getPersonnages()) {
             int hpMax = p.getHpMax(); // récupère les hpMax
             int hpCurrent = p.getHealth_points(); // récupère les hp actuel
@@ -126,7 +134,7 @@ public class VueJeu extends JPanel {
                         if(p.isMoving()) {
                             g.drawImage(BanqueImage.gifGuerrierWalk.get(frameIndexGA).getImage(), p.getX(), p.getY(), Personnage.taille, Personnage.taille, null);
                         //}else if(p.isAttacking()){
-                        //    g.drawImage(BanqueImage.gifArcherAttack.get(frameIndexGA).getImage(), p.getX(), p.getY(), Personnage.taille, Personnage.taille, null);
+                        //    g.drawImage(BanqueImage.gifGuerrierAttack.get(frameIndexGA).getImage(), p.getX(), p.getY(), Personnage.taille, Personnage.taille, null);
                         } else {
                             g.drawImage(BanqueImage.gifGuerrierWalk.get(11).getImage(), p.getX(), p.getY(), Personnage.taille, Personnage.taille, null);
                         }
@@ -171,6 +179,10 @@ public class VueJeu extends JPanel {
         }
     }
 
+    /**
+     * Affiche les images pour les bâtiments
+     * @param g
+     */
     public void paintBatiments(Graphics g) {
         for (Batiment b : map.getBatiments()) {
             //g.drawImage(BanqueImage.imgNexus1,b.getX(),b.getY(),150,150,null);
@@ -185,16 +197,4 @@ public class VueJeu extends JPanel {
             }
         }
     }
-
-    private void funTest(Graphics g) {
-    g.setColor(Color.black);
-        for (Node[] c: map.getNodes()) {
-            for (Node node: c) {
-                if(node.isSolid())
-                g.drawRect(node.getCol(),node.getRow(),1,1);
-            }
-        }
-    }
-
-
 }

@@ -7,7 +7,10 @@ import java.awt.*;
 
 public class NoneController extends VueController {
 
-
+    /**
+     * Controleur lorsque l'on ne clique sur rien (layout de droite) qui permet d'afficher un petit texte significatif
+     * @param map
+     */
     public NoneController(Map map) {
         super(map);
 

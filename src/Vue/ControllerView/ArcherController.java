@@ -18,6 +18,10 @@ public class ArcherController extends VueController {
     private JLabel nom;
     private JLabel hp;
     private JLabel atk;
+    /**
+     * Controleur de l'Archer (layout de droite) qui permet de fournir les informations sur les archers notamment celui selectionné
+     * @param map
+     */
     public ArcherController(Map map) {
         super(map);
         this.map = map;
@@ -53,6 +57,9 @@ public class ArcherController extends VueController {
         timer.start();
     }
 
+    /**
+     * Permet d'actualiser les statistiques de l'archer selectionnée
+     */
     private void updateContent() {
 
         if (map.getActionner() != null) {

@@ -15,6 +15,10 @@ public class GuerrierController extends VueController {
     private JLabel nom;
     private JLabel hp;
     private JLabel atk;
+    /**
+     * Controleur du Guerrier (layout de droite) qui permet de fournir les informations sur les guerriers notamment celui selectionné
+     * @param map
+     */
     public GuerrierController(Map map) {
         super(map);
         this.map = map;
@@ -50,8 +54,10 @@ public class GuerrierController extends VueController {
         timer.start();
     }
 
+    /**
+     * Permet d'actualiser les statistiques du guerrier selectionnée
+     */
     private void updateContent() {
-
         if (map.getActionner() != null) {
             pdv = map.getActionner().getHealth_points();
             pdvMax = map.getActionner().getHpMax();

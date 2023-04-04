@@ -16,7 +16,11 @@ public class CaserneController extends VueController {
     private JLabel lvl;
     private JButton acheterArchers;
     private JButton acheterGuerriers;
-    public CaserneController(Map map) {
+
+    /**
+     * Controleur de la Caserne (layout de droite) qui permet de fournir les informations sur la Caserne lorsqu'elle est selectionné
+     * @param map
+     */    public CaserneController(Map map) {
         super(map);
         this.map=map;
         pdv = map.getCaserne().getPv();
@@ -86,6 +90,9 @@ public class CaserneController extends VueController {
         });
     }
 
+    /**
+     * Permet d'actualiser les statitisques du Caserne lorsqu'il est selectionnée
+     */
     private void updateContent() {
         pdv = map.getCaserne().getPv();
         pdvMax = map.getCaserne().getPvMax();

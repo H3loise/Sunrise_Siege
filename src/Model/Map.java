@@ -160,6 +160,8 @@ public class Map {
             }
         }
     }
+
+
     /**
      * Procédure permettant de miner une ressource, le matériau est récupéré et le minerai est détruit.
      * La place occupée par le matériaux dans les noeuds est alors libérée
@@ -384,7 +386,7 @@ public class Map {
      * Je libère la place que prenais l'obstacles dans les noeuds, ainsi les cases redeviennent traversables
      * @param b
      */
-    private void rendreCasePossibleObstacles(Obstacle b ){
+    private void    rendreCasePossibleObstacles(Obstacle b ){
         int x = b.getX();
         int y = b.getY();
         int taille = b.getTaille()  + Personnage.taille ;

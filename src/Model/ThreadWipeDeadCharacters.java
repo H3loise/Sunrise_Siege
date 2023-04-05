@@ -2,7 +2,7 @@ package Model;
 
 public class ThreadWipeDeadCharacters extends Thread{
     private final Map map;
-    private final int cooldown = 1000;
+    private final int cooldown = 100;
 
     public ThreadWipeDeadCharacters(Map map){
         this.map = map;

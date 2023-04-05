@@ -1,27 +1,22 @@
 package Model.Personnages;
+
+import Model.Map;
+
 public class Archer extends Personnage {
 
-    private static int health_points = 150;// apparemment faut mettre static pour que ça rentre dans le super
+    private static int health_points = 1000;
 
-    private static int attack_points = 50;
+    private static int attack_points = 5;
 
-    private final int min_attack_distance = 0;
-    private static int rayon = 150;
+    private static final int rayon = 200;
 
     public static final int woodPrice = 4;
     public static final int wheatPrice = 3;
-
     public static final int stonePrice = 0;
 
 
-    /**
-     * Comme archer unité de combat a distance, donner limite
-     */
-    private final int max_attack_distance = 20;
-
-
-    public Archer(int x, int y) {
-        super(health_points,x,y,rayon,attack_points);
+    public Archer(int x, int y, Map map) {
+        super(health_points,x,y,rayon,attack_points,map);
         this.hpMax = this.getHealth_points();
         level = 1;
     }
@@ -32,9 +27,5 @@ public class Archer extends Personnage {
         attack_points = (attack_points * level) + (50*level);
         health_points = hpMax;
     }
-
-
-
-
 
 }

@@ -1,5 +1,9 @@
 package Model.Personnages;
 
+import Model.Map;
+import Model.ThreadDeplacement;
+import Model.ThreadScanEnnemies;
+
 public abstract class Personnage {
     private int x;
     private int y;
@@ -7,17 +11,20 @@ public abstract class Personnage {
     private boolean isAlive = true;
     protected int health_points;
     protected int hpMax = health_points;
-    private int attack_points;
+    private final int attack_points;
     protected int level;
     public static final int taille = 60;
-
     private boolean moving = false;
-    public Personnage(int health_points, int x, int y, int rayon, int attack_points){
+    private boolean attacking = false;
+    private ThreadDeplacement thread_deplacement = null;
+
+    public Personnage(int health_points, int x, int y, int rayon, int attack_points, Map map){
         this.health_points = health_points;
         this.x = x;
         this.y = y;
         this.rayon = rayon;
         this.attack_points = attack_points;
+        new ThreadScanEnnemies(map,this).start();
     }
 
     public int getAttack_points(){
@@ -39,6 +46,7 @@ public abstract class Personnage {
     }
 
     public void attack(Personnage perso){
+        this.attacking = true;
         perso.receivesDamage(this.getAttack_points());
     }
 
@@ -48,6 +56,14 @@ public abstract class Personnage {
      */
     public boolean getIsAlive(){
         return this.isAlive;
+    }
+
+    public void setThread_deplacement(ThreadDeplacement thread_dep){
+        this.thread_deplacement = thread_dep;
+    }
+
+    public ThreadDeplacement getThread_deplacement(){
+        return this.thread_deplacement;
     }
 
     public int getHealth_points(){return this.health_points;}
@@ -88,4 +104,8 @@ public abstract class Personnage {
     public boolean isMoving(){
         return this.moving;
     }
+
+    public boolean isAttacking(){return this.attacking;}
+
+    public void setAttacking(boolean attacking){this.attacking = attacking;}
 }

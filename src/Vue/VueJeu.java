@@ -108,8 +108,8 @@ public class VueJeu extends JPanel {
                     g.fillRect(p.getX()+Personnage.taille/4+1, p.getY()-2, hpWidth,5);
                     if (p.isMoving()) {
                         g.drawImage(BanqueImage.gifArcherWalk.get(frameIndexGA).getImage(), p.getX(), p.getY(), Personnage.taille, Personnage.taille, null);
-                    //}else if(p.isAttacking()){
-                    //    g.drawImage(BanqueImage.gifArcherAttack.get(frameIndexGA).getImage(), p.getX(), p.getY(), Personnage.taille, Personnage.taille, null);
+                    }else if(p.isAttacking()){
+                        g.drawImage(BanqueImage.gifArcherAttack.get(frameIndexGA).getImage(), p.getX(), p.getY(), Personnage.taille, Personnage.taille, null);
                     }else {
                         g.drawImage(BanqueImage.gifArcherWalk.get(7).getImage(), p.getX(), p.getY(), Personnage.taille, Personnage.taille, null);
                     }
@@ -125,8 +125,8 @@ public class VueJeu extends JPanel {
                         g.fillRect(p.getX()+Personnage.taille/4-6, p.getY()-2, hpWidth,5);
                         if(p.isMoving()) {
                             g.drawImage(BanqueImage.gifGuerrierWalk.get(frameIndexGA).getImage(), p.getX(), p.getY(), Personnage.taille, Personnage.taille, null);
-                        //}else if(p.isAttacking()){
-                        //    g.drawImage(BanqueImage.gifArcherAttack.get(frameIndexGA).getImage(), p.getX(), p.getY(), Personnage.taille, Personnage.taille, null);
+                        }else if(p.isAttacking()){
+                            g.drawImage(BanqueImage.gifGuerrierAttack.get(frameIndexGA).getImage(), p.getX(), p.getY(), Personnage.taille, Personnage.taille, null);
                         } else {
                             g.drawImage(BanqueImage.gifGuerrierWalk.get(11).getImage(), p.getX(), p.getY(), Personnage.taille, Personnage.taille, null);
                         }

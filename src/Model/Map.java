@@ -248,7 +248,7 @@ public class Map {
      */
     private void generateNewObstacles(){
         Random random = new Random();
-        int n = random.nextInt((score%150))+ 3;
+        int n = random.nextInt((score%150)+1)+ 3;
         for (int i = 0; i < n; i++) {
             int x = random.nextInt(0,taille);
             int y = random.nextInt(0,taille);

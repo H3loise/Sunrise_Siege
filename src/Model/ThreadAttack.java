@@ -1,6 +1,5 @@
 package Model;
 
-import Model.Personnages.Ennemy;
 import Model.Personnages.Personnage;
 
 /**

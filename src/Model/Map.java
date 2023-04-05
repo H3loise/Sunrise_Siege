@@ -77,6 +77,9 @@ public class Map {
         return characters;
     }
 
+    public int getScore() {
+        return score;
+    }
 
     public int getFood() {
         return food;

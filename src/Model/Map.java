@@ -248,7 +248,7 @@ public class Map {
      */
     private void generateNewObstacles(){
         Random random = new Random();
-        int n = random.nextInt((score%150))+ 3;
+        int n = random.nextInt((score%150)+1)+ 3;
         for (int i = 0; i < n; i++) {
             int x = random.nextInt(0,taille);
             int y = random.nextInt(0,taille);
@@ -289,13 +289,14 @@ public class Map {
             food -= n * nexus.getLevel();
             stone -= n * nexus.getLevel();
             nexus.upgrade();
-            score += 400;
+            score += 50;
             System.out.println("Bravo le nexus a été amélioré, voici ses stats actuelles : ");
             System.out.println(nexus.toString());
         }else{
             System.out.println("t'as pas assez clochard va, au travail !!!!!");
         }
     }
+
 
 
     /**
@@ -812,7 +813,6 @@ public class Map {
                 if(!res.isSolid()){
                     if(Math.hypot((middleNexus.getX()-res.getRow()),(middleNexus.getY()- res.getCol())) < max && (res.getRow()!=0 && res.getCol()!=0)){
                         res_array.add(new Point(res.getRow(),res.getCol()));
-                        System.out.println(res.isSolid());
                     }
                 }
             }
@@ -838,7 +838,6 @@ public class Map {
                 min = Math.hypot((ennemi.getX()-p.x),(ennemi.getY()- p.y));
             }
         }
-        System.out.println(res);
         System.out.println(nodes[(int) res.getX()][(int) res.getY()].isSolid());
         return res;
     }

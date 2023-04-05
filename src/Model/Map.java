@@ -9,6 +9,8 @@ import Model.Personnages.*;
 import java.awt.*;
 import java.util.*;
 
+import static java.lang.Thread.sleep;
+
 public class Map {
     private ArrayList<Obstacle> obstacles;
     private ArrayList<Personnage> characters;
@@ -19,8 +21,7 @@ public class Map {
     private Personnage actionner;
 
     private int score = 0;
-    public static final int windowWidth = 1480;
-    public static final int windowHeight = 920;
+
     //private int food;
 
     private int food;
@@ -50,7 +51,16 @@ public class Map {
 
     public void setActionner(Personnage actionner) {
         this.actionner = actionner;
-        System.out.println("zebi zebi :" + actionner);
+    }
+
+    public int getActionnerHealth_Points(){
+        return this.actionner.getHealth_points();
+    }
+    public int getActionnerHpMax(){
+        return this.actionner.getHpMax();
+    }
+    public int getActionnerAttack(){
+        return this.actionner.getAttack_points();
     }
 
     private final ArrayList<Ennemy> ennemies = new ArrayList<>();
@@ -102,7 +112,7 @@ public class Map {
     boolean goalReached = false;
     private Caserne caserne;
 
-    private int delaiJourNuit = 5000;
+    private int delaiJourNuit = 25000;
 
     private long startTime = 0;
     public Map(){
@@ -110,7 +120,6 @@ public class Map {
         this.characters = new ArrayList<>();
         this.obstacles = new ArrayList<>();
         Nexus chateau = new Nexus( 50,400);
-        chateau.setPv(100);
         this.nexus = chateau;
         batiments.add(chateau);
         this.food=50;
@@ -129,6 +138,7 @@ public class Map {
         this.caserne = new Caserne(500,600);
         rendreCasesImpossibleBats(caserne);
         batiments.add(caserne);
+        new ThreadAttackNexusAuto(this);
     }
     public Map(ArrayList<Obstacle> o, ArrayList<Personnage> c, ArrayList<Batiment> b){
         this.batiments=b;
@@ -152,16 +162,7 @@ public class Map {
         }
     }
 
-    /**
-     * Procédure permettant de miner une ressource, le matériau est récupéré et le minerai est détruit.
-     * La place occupée par le matériaux dans les noeuds est alors libérée
-     * @param v
-     * @param o
-     */
-    public void mining(Villageois v,Obstacle o){
-        rendreCasePossibleObstacles(o);
-        deplacementPersoMiner(v,o);
-    }
+
 
     /**
      * Getter du delaiJourNuit
@@ -231,15 +232,7 @@ public class Map {
         this.ennemies.removeIf(ennemy -> !ennemy.getIsAlive());
     }
     /**
-     * Procédure qui se lance au moment de l'update, elle permet de vider l'ArrayList batiments des batiments détruits
-     */
-    /*private void eraseDestroyedBuildings(){
-        for(Batiment b : batiments){
-            if(b.getPv() <= 0 ){
-                batiments.remove(b);
-            }
-        }
-    }*/
+
 
     /**
      * Fonction calculant si la partie est perdu, autrement dit si le nexus a été détruit.
@@ -324,13 +317,7 @@ public class Map {
         }
     }
 
-    /**
-     * Permettant de mettre directement des personnages, ceci est une fonction pour les dev
-     * @param characters
-     */
-    public void setCharacters(ArrayList<Personnage> characters) {
-        this.characters = characters;
-    }
+
 
 
     /**
@@ -413,14 +400,6 @@ public class Map {
         }
     }
 
-    /**
-     * Fun test dev
-     */
-    private void testCaseImpossible(){
-        for(int i = 0;i<taille-200;i++){
-            nodes[i][400].setAsSolid();
-        }
-    }
 
 
     /** ------------------------------------------------------------------
@@ -434,12 +413,12 @@ public class Map {
      */
     public void addCharacter(Personnage p ){
         characters.add(p);
-        new ThreadScanEnnemies(this,p).start();
+        //new ThreadScanEnnemies(this,p).start();
     }
 
     public void addEnnemy(Ennemy e){
         this.ennemies.add(e);
-        new ThreadScanEnnemies(this,e).start();
+        //new ThreadScanEnnemies(this,e).start();
     }
 
     /**
@@ -450,16 +429,6 @@ public class Map {
         obstacles.add(o);
     }
 
-    /**
-     * Fonction  de deplacement du personnage, on prends un personnage, la destination souhaitée, on calcule le 
-     * cheminLePluscourt puis on lance le thread de déplacement, si chemin vide ou non trouvé le thread ne fait rien.
-     * De plus on remet à l'état initial les noeuds modifiés pour la recherche de ce parcours
-     * ----------------------------
-     * Note Yanis :
-     * @param p
-     * @param x
-     * @param y
-     */
 
     public void deplacementPerso(Personnage p ,int x,int y){
         if(!p.isMoving()) {
@@ -467,7 +436,7 @@ public class Map {
             ThreadDeplacement thread_dep = new ThreadDeplacement(this, p, points);
             p.setMoving(true);
             p.setThread_deplacement(thread_dep);
-            resetNoeudsApresUtilisation();
+            resetNoeudsAprèsUtilisation();
             thread_dep.start();
         }
     }
@@ -476,7 +445,7 @@ public class Map {
      * Après utilisation, les champs Checked,Open,Start,Goal doivent etre remis à 0 et ce pour chaque neouds, on parcourt
      * donc tout les noeuds et on reset chacun d'entre eux
      */
-    private void resetNoeudsApresUtilisation(){
+    private void resetNoeudsAprèsUtilisation(){
         int col = 0;
         int row =0;
         while (col < maxCol && row < maxRow) {
@@ -499,7 +468,7 @@ public class Map {
             p.setMoving(true);
             rendreCasePossibleObstacles(o);
             ArrayList<Point> points = cheminLePluscourt(p, o.getX(), o.getY());
-            resetNoeudsApresUtilisation();
+            resetNoeudsAprèsUtilisation();
             new ThreadMining(this, p, o, points).start();
             System.out.println("coucou");
         }
@@ -685,14 +654,7 @@ public class Map {
         }
     }
 
-    /**
-     * Prend tous les ennemis de la partie et les déplace vers le nexus
-     */
-    private void moveEnnemiesToNexus(){
-        for (Ennemy ennemi : this.ennemies){
-            deplacementPerso(ennemi,this.nexus.getX(),this.nexus.getY());
-        }
-    }
+
 
 
     /**
@@ -708,7 +670,7 @@ public class Map {
             int x = 10;
             int y = 10;
             boolean libre = false;
-            Villageois p = new Villageois(10, 10);
+            Villageois p = new Villageois(10, 10,this);
             for (Node[] n :
                     nodes) {
                 if (libre) {
@@ -740,16 +702,14 @@ public class Map {
             stone -= Guerrier.stonePrice;
             wood -= Guerrier.woodPrice;
             food -= Guerrier.wheatPrice;
-            Guerrier p = new Guerrier(caserne.getX(), caserne.getY());
+            Guerrier p = new Guerrier(caserne.getX(), caserne.getY(),this);
             for (int i = 1; i < caserne.getLevel(); i++) {
                 p.upgrade();
             }
             addCharacter(p);
-            //petit message sur le panel please
         }
             else{
                 System.out.println("Vous n'avez pas assez de ressources");
-                //on pourra afficher la différence de ce qu'il manque
             }
     }
 
@@ -761,13 +721,11 @@ public class Map {
             stone -= Archer.stonePrice;
             wood -= Archer.woodPrice;
             food -= Archer.wheatPrice;
-            Archer p = new Archer(caserne.getX(), caserne.getY());
+            Archer p = new Archer(caserne.getX(), caserne.getY(),this);
             addCharacter(p);
-            //petit message sur le panel please
         }
         else{
             System.out.println("Vous n'avez pas assez de ressources");
-            //on pourra afficher la différence de ce qu'il manque
         }
     }
 
@@ -783,6 +741,263 @@ public class Map {
 
     public ArrayList<Ennemy> getEnnemies () {
         return ennemies;
+    }
+
+
+
+
+    public Personnage getActionner(){
+        return this.actionner;
+    }
+
+    /** ------------------------------------------------------------------
+     *                                              ENNEMIES
+     *  ------------------------------------------------------------------
+     */
+
+    /**
+     * Génère des ennemis avec un minimum de 4 ennemis
+     * les ennemis sont générés obligatoirement soit dans la partie haute soit dans la partie droite pour des soucis d'équilibrage
+     * donc x_or_y représente une sorte de "pile ou face" qui determinera si l'ennemi apparaitera en haut ou a droite
+     * ensuite on donne une valeur aléatoire a la coordonée x ou y du monstre dépendemment de la ou il apparait
+     */
+    private void generateEnnemies(){
+        Random random = new Random();
+        int ennemy_number = random.nextInt((score%150+1))+1;
+        int x_or_y = random.nextInt(2);
+        for (int i = 0; i < ennemy_number; i++) {
+            if (x_or_y == 0) {
+                addEnnemy(new Ennemy(random.nextInt(800), 0,this));
+            } else {
+                addEnnemy(new Ennemy(800, random.nextInt(800),this));
+            }
+        }
+    }
+
+    /**
+     * Initialisation  du déplacement de tout les ennemis, on calcule le point le plus proche d'eux pour frapper le nexus
+     * grâce à closestNexusPoint(Ennmy) et on lance le déplacement grâce au threadDéplacement et A*;
+     */
+    private void moveEnnemies(){
+         for(Ennemy ennemi : this.ennemies){
+            deplacementPerso(ennemi,closestNexusPoint(ennemi).x,closestNexusPoint(ennemi).y);
+             try {
+                 sleep(2000);
+             } catch (InterruptedException e) {
+                 throw new RuntimeException(e);
+             }
+         }
+    }
+
+    /**
+     * On calcule les points libre par rapport au CENTRE du nexus ( et non en haut à gauche), puis on transmet les liste
+     * à la méthode searchMinDistArray(ArrayList<Point>,Ennemy) pour prendre le point le plus proche de l'ennemi.
+     * On prend une distance maximale de 100, totalement arbitraire
+     * @param ennemi
+     * @return
+     */
+    private Point closestNexusPoint(Ennemy ennemi){
+        double max = 100;
+        Point middleNexus = new Point(nexus.getX() + nexus.getTaille()/2, nexus.getY()+nexus.getTaille()/2);
+        ArrayList<Point> res_array = new ArrayList<>();
+        for (Node[] n : nodes) {
+            for (Node res : n) {
+                if(!res.isSolid()){
+                    if(Math.hypot((middleNexus.getX()-res.getRow()),(middleNexus.getY()- res.getCol())) < max){
+                        res_array.add(new Point(res.getRow(),res.getCol()));
+                        System.out.println(res.isSolid());
+                    }
+                }
+            }
+        }
+
+        return searchMinDistArray(res_array, ennemi);
+    }
+
+    /**
+     * Cherche le point à distance minimal de l'ennemi dans l'ArrayList, fonction classique de recherche de minimum,
+     * on instancie min à 10000 de façon arbitraire.
+     * @param points
+     * @param ennemi
+     * @return
+     */
+    private Point searchMinDistArray(ArrayList<Point> points, Ennemy ennemi){
+        Point res = new Point();
+        double min = 10000;
+        for(Point p : points){
+            if(min > Math.hypot((ennemi.getX()-p.x),(ennemi.getY()- p.y))){
+                res = p;
+                min = Math.hypot((ennemi.getX()-p.y),(ennemi.getY()- p.x));
+            }
+        }
+        //System.out.println(res);
+        System.out.println(nodes[(int) res.getX()][(int) res.getY()].isSolid());
+        return res;
+    }
+
+    /** ------------------------------------------------------------------
+     *                                              BAGARRE
+     *  ------------------------------------------------------------------
+     */
+
+
+    /**
+     * Lorsque la zone du perso touche le centre de "ennemi" la fonction renvoie true
+     */
+    public boolean scanFightRange(Personnage perso, Personnage ennemi) {
+        double distance = Math.sqrt((perso.getX() - ennemi.getX()) * (perso.getX() - ennemi.getX()) + (perso.getY() - ennemi.getY()) * (perso.getY() - ennemi.getY()));
+        double sumRadius = perso.getRayon() + ennemi.getRayon();
+        if (distance < perso.getRayon() || distance <= sumRadius - ennemi.getRayon()) {
+            return true;
+        }
+        return false;
+    }
+
+
+    /** ------------------------------------------------------------------
+     *                                              UPGRADE
+     *  ------------------------------------------------------------------
+     */
+
+    /**
+     * Procédure permettant l'update du modèle, on lance les fonctions créees pour cela.
+     */
+    public void update(){
+        if(day){
+            resetPositionWarriors();
+            rendreCasesImpossibleBats(caserne);
+            eraseDeadPeople();
+            generateNewObstacles();
+            upScore();
+            healEveryone();
+        }
+        else {
+            rendreCasePossibleBatiment(caserne);
+            generateEnnemies();
+            moveEnnemies();
+        }
+    }
+
+    /**
+     * On upgrade la caserne, faisant en sorte d'upgrade tout les Archer et Guerrier ayant été créee jusque là,
+     * de plus cela nous coûte des ressources, donc nous soustrayons les ressources si cela est possible avec un if
+     * faisant le calcul. Cette méthode se raprooche de Modele.Map.upgradeNexus();
+     */
+    public void upgradeCaserne() {
+        if(caserne.getLevel()< 3 ) {
+            int n = caserne.getMinimumOfEach();
+            if (wood >= n * caserne.getLevel() && food >= n * caserne.getLevel() && stone >= n * caserne.getLevel()) {
+                wood -= n * caserne.getLevel();
+                food -= n * caserne.getLevel();
+                stone -= n * caserne.getLevel();
+                caserne.upgrade();
+                for (Personnage p : characters) {
+                    if (p instanceof Guerrier) {
+                        Guerrier g = (Guerrier) p;
+                        for (int i = 1; i < caserne.getLevel(); i++) {
+                            if(g.getLevel()<caserne.getLevel()) {
+                                g.upgrade();
+
+                            }
+                        }
+                    } else if (p instanceof Archer) {
+                        Archer a = (Archer) p;
+                        for (int i = 1; i < caserne.getLevel(); i++) {
+                            if(a.getLevel()<caserne.getLevel()) {
+                                a.upgrade();
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+
+    public Caserne getCaserne() {
+        return this.caserne;
+    }
+
+
+    /**
+     * Code non utilisé
+     */
+
+    /**
+     * Procédure permettant de miner une ressource, le matériau est récupéré et le minerai est détruit.
+     * La place occupée par le matériaux dans les noeuds est alors libérée
+     * @param v
+     * @param o
+     */
+    public void mining(Villageois v,Obstacle o){
+        rendreCasePossibleObstacles(o);
+        deplacementPersoMiner(v,o);
+    }
+
+       /*public boolean scanFightRange(Personnage perso, Personnage ennemi){
+        double diam = Math.sqrt((perso.getX() - ennemi.getX()) * (perso.getX() - ennemi.getX()) + (perso.getY() - ennemi.getY()) * (perso.getY() - ennemi.getY()));
+        int r1 = perso.getRayon();
+        int r2 = ennemi.getRayon();
+        if(diam <= r1-r2 || diam <= r2-r1 || diam < r1+r2 || diam == r1+r2){
+            return true;
+        }
+        return false;
+    }*/
+
+     /*Procédure qui se lance au moment de l'update, elle permet de vider l'ArrayList batiments des batiments détruits
+     */
+    /*private void eraseDestroyedBuildings(){
+        for(Batiment b : batiments){
+            if(b.getPv() <= 0 ){
+                batiments.remove(b);
+            }
+        }
+    }*/
+
+    /**
+     * Permettant de mettre directement des personnages, ceci est une fonction pour les dev
+     * @param characters
+     */
+    public void setCharacters(ArrayList<Personnage> characters) {
+        this.characters = characters;
+    }
+
+
+    /**
+     * Fun test dev
+     */
+    private void testCaseImpossible(){
+        for(int i = 0;i<taille-200;i++){
+            nodes[i][400].setAsSolid();
+        }
+    }
+
+    /**
+     * Fonction  de deplacement du personnage, on prends un personnage, la destination souhaitée, on calcule le
+     * cheminLePluscourt puis on lance le thread de déplacement, si chemin vide ou non trouvé le thread ne fait rien.
+     * De plus on remet à l'état initial les noeuds modifiés pour la recherche de ce parcours
+     * ----------------------------
+     * Note Yanis :
+     * @param p
+     * @param x
+     * @param y
+     */
+    /*public void deplacementPerso(Personnage p ,int x,int y){
+        if(!p.isMoving()) {
+            p.setMoving(true);
+            ArrayList<Point> points = cheminLePluscourt(p, x, y);
+            resetNoeudsAprèsUtilisation();
+            new ThreadDeplacement(this, p, points).start();
+        }
+    }*/
+
+    /**
+     * Prend tous les ennemis de la partie et les déplace vers le nexus
+     */
+    private void moveEnnemiesToNexus(){
+        for (Ennemy ennemi : this.ennemies){
+            deplacementPerso(ennemi,this.nexus.getX(),this.nexus.getY());
+        }
     }
 
     /**
@@ -815,178 +1030,5 @@ public class Map {
         }else{
             System.out.println("Vous n'avez pas assez de ressources");
         }
-    }
-
-
-    public Personnage getActionner(){
-        return this.actionner;
-    }
-
-    /** ------------------------------------------------------------------
-     *                                              ENNEMIES
-     *  ------------------------------------------------------------------
-     */
-
-    /**
-     * Génère des ennemis avec un minimum de 4 ennemis
-     * les ennemis sont générés obligatoirement soit dans la partie haute soit dans la partie droite pour des soucis d'équilibrage
-     * donc x_or_y représente une sorte de "pile ou face" qui determinera si l'ennemi apparaitera en haut ou a droite
-     * ensuite on donne une valeur aléatoire a la coordonée x ou y du monstre dépendemment de la ou il apparait
-     */
-    private void generateEnnemies(){
-        Random random = new Random();
-        int ennemy_number = random.nextInt((score%150+1))+4;
-        int x_or_y = random.nextInt(2);
-        for (int i = 0; i < ennemy_number; i++) {
-            if (x_or_y == 0) {
-                addEnnemy(new Ennemy(random.nextInt(taille), 0));
-            } else {
-                addEnnemy(new Ennemy(900, random.nextInt(taille)));
-            }
-        }
-    }
-
-    /**
-     * Initialisation  du déplacement de tout les ennemis, on calcule le point le plus proche d'eux pour frapper le nexus
-     * grâce à closestNexusPoint(Ennmy) et on lance le déplacement grâce au threadDéplacement et A*;
-     */
-    private void moveEnnemies(){
-        for(Ennemy ennemi : this.ennemies){
-            deplacementPerso(ennemi,closestNexusPoint(ennemi).x,closestNexusPoint(ennemi).y);
-        }
-    }
-
-    /**
-     * On calcule les points libre par rapport au CENTRE du nexus ( et non en haut à gauche), puis on transmet les liste
-     * à la méthode searchMinDistArray(ArrayList<Point>,Ennemy) pour prendre le point le plus proche de l'ennemi.
-     * On prend une distance maximale de 100, totalement arbitraire
-     * @param ennemi
-     * @return
-     */
-    private Point closestNexusPoint(Ennemy ennemi){
-        double max = 100;
-        Point middleNexus = new Point(nexus.getX() + nexus.getTaille()/2, nexus.getY()+nexus.getTaille()/2);
-        ArrayList<Point> res_array = new ArrayList<>();
-        for (Node[] n : nodes) {
-            for (Node res : n) {
-                if(!res.isSolid()){
-                    if(Math.hypot((middleNexus.getX()-res.getRow()),(middleNexus.getY()- res.getCol())) < max){
-                        res_array.add(new Point(res.getRow(),res.getCol()));
-                    }
-                }
-            }
-        }
-
-        return searchMinDistArray(res_array, ennemi);
-    }
-
-    /**
-     * Cherche le point à distance minimal de l'ennemi dans l'ArrayList, fonction classique de recherche de minimum,
-     * on instancie min à 10000 de façon arbitraire.
-     * @param points
-     * @param ennemi
-     * @return
-     */
-    private Point searchMinDistArray(ArrayList<Point> points, Ennemy ennemi){
-        Point res = new Point();
-        double min = 10000;
-        for(Point p : points){
-            if(min > Math.hypot((ennemi.getX()-p.x),(ennemi.getY()- p.y))){
-                res = p;
-                min = Math.hypot((ennemi.getX()-p.x),(ennemi.getY()- p.y));
-            }
-        }
-        return res;
-    }
-
-    /** ------------------------------------------------------------------
-     *                                              BAGARRE
-     *  ------------------------------------------------------------------
-     */
-
-    /**
-     * Lorsque la zone du perso touche le centre de "ennemi" la fonction renvoie true
-     */
-    public boolean scanFightRange(Personnage perso, Personnage ennemi) {
-        double distance = Math.sqrt((perso.getX() - ennemi.getX()) * (perso.getX() - ennemi.getX()) + (perso.getY() - ennemi.getY()) * (perso.getY() - ennemi.getY()));
-        double sumRadius = perso.getRayon() + ennemi.getRayon();
-        if (distance < perso.getRayon() || distance <= sumRadius - ennemi.getRayon()) {
-            return true;
-        }
-        return false;
-    }
-
-    public boolean scanFightNexusRange(Personnage perso){
-        double distance = Math.sqrt((perso.getX() - this.getNexus().getX()) * (perso.getX() - this.getNexus().getX()) + (perso.getY() - this.getNexus().getY()) * (perso.getY() - this.getNexus().getY()));
-        double sumRadius = perso.getRayon() + this.getNexus().getRange();
-        if (distance < perso.getRayon() || distance <= sumRadius - this.getNexus().getRange()) {
-            return true;
-        }
-        return false;
-    }
-
-
-    /** ------------------------------------------------------------------
-     *                                              UPGRADE
-     *  ------------------------------------------------------------------
-     */
-
-    /**
-     * Procédure permettant l'update du modèle, on lance les fonctions créees pour cela.
-     */
-    public void update(){
-        if(day){
-            resetPositionWarriors();
-            rendreCasesImpossibleBats(caserne);
-            eraseDeadPeople();
-            //eraseDestroyedBuildings();
-            generateNewObstacles();
-            upScore();
-            healEveryone();
-        }
-        else {
-            rendreCasePossibleBatiment(caserne);
-            //generateEnnemies();
-            moveEnnemies();
-        }
-    }
-
-    /**
-     * On upgrade la caserne, faisant en sorte d'upgrade tout les Archer et Guerrier ayant été créee jusque là,
-     * de plus cela nous coûte des ressources, donc nous soustrayons les ressources si cela est possible avec un if
-     * faisant le calcul. Cette méthode se raprooche de Modele.Map.upgradeNexus();
-     */
-    public void upgradeCaserne() {
-        if(caserne.getLevel()< 3 ) {
-            int n = caserne.getMinimumOfEach();
-            if (wood >= n * caserne.getLevel() && food >= n * caserne.getLevel() && stone >= n * caserne.getLevel()) {
-                wood -= n * caserne.getLevel();
-                food -= n * caserne.getLevel();
-                stone -= n * caserne.getLevel();
-                caserne.upgrade();
-                for (Personnage p : characters) {
-                    if (p instanceof Guerrier) {
-                        Guerrier g = (Guerrier) p;
-                        for (int i = 1; i < caserne.getLevel(); i++) {
-                            if(g.getLevel()<caserne.getLevel()) {
-                                g.upgrade();
-                            }
-                        }
-                    } else if (p instanceof Archer) {
-                        Archer a = (Archer) p;
-                        for (int i = 1; i < caserne.getLevel(); i++) {
-                            if(a.getLevel()<caserne.getLevel()) {
-                                a.upgrade();
-                            }
-                        }
-                    }
-                }
-
-            }
-        }
-    }
-
-    public Caserne getCaserne() {
-        return this.caserne;
     }
 }

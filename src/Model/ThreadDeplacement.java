@@ -6,6 +6,10 @@ import Model.Personnages.Personnage;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Thread permettant le déplacement des personnages avec animations, on lui transmet juste la liste des points
+ * à parcourir.
+ */
 public class ThreadDeplacement extends Thread {
 
     Map m;
@@ -22,12 +26,13 @@ public class ThreadDeplacement extends Thread {
         }
     }
 
+    /**
+     * Lancement du run, il parcourt les points avec un sleep. Il met l'attribut à true pour éviter qu'on ne puisse
+     * redéplacer le personnage pendant son déplacement, de plus un personnage en train d'attaquer ne se deplace plus.
+     */
     @Override
     public void run() {
         System.out.println(p.toString());
-        /**
-         * Probleme de paraléllisme dans le lancement
-         */
             for (Point point : points) {
                 while(this.p.isAttacking()){
                     try {

@@ -31,14 +31,12 @@ public class VillageoisController extends VueController {
             pdvMax = map.getActionner().getHpMax();
         }
         hp = new JLabel("HP : " + pdv + "/" +  pdvMax );
-        JLabel descr = new JLabel("Peut miner et récolter des ressources");
+        JLabel Info = new JLabel("");
         JPanel contentPanel = new JPanel();
         contentPanel.setBackground(Color.lightGray);
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
         contentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
         contentPanel.add(hp);
-        contentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
-        contentPanel.add(descr);
         add(contentPanel, BorderLayout.CENTER);
 
         int delay = 100;
@@ -58,6 +56,7 @@ public class VillageoisController extends VueController {
         if (map.getActionner() != null) {
             pdv = map.getActionner().getHealth_points();
             pdvMax = map.getActionner().getHpMax();
+            hp.setText("HP : " + pdv + "/" + pdvMax);
         }
     }
     @Override

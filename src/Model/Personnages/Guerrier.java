@@ -2,6 +2,11 @@ package Model.Personnages;
 
 import Model.Map;
 
+/**
+ * Classe Guerrier, permettant de modéliser un Guerrier, unité controlable qui puisse attaquer les ennemis avec une range
+ * précise. Un guerrier peut être améliorer grâce à @upgrade().
+ * Sous-classe de Personnage.
+ */
 public class Guerrier extends Personnage {
     private  static int health_points = 1000;        // apparemment faut mettre static pour que ça rentre dans le super
 
@@ -19,11 +24,13 @@ public class Guerrier extends Personnage {
         this.hpMax = this.getHealth_points();
         level = 1;
     }
-
+    /**
+     * Permet l'amélioration de guerrier, de ses caractéristiques comme l'attaque et les pv.
+     */
     public void upgrade(){
         level ++;
         hpMax = (hpMax *  level) + (50*level);
         attack_points = (attack_points * level) + (15*level);
-        health_points = hpMax;
+        setHealth_points(getHpMax());
     }
 }

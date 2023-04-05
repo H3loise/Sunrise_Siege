@@ -1,0 +1,12 @@
+
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ΙΖμωÿÿÿÿ
+{	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(Κ»€λωÿÿÿÿ8 Ετ0
+y	java:S116"XRename this field "attack_points" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ΓÒ£οώÿÿÿÿ8§σÒ™τ0
+Y
+java:S2387"7"health_points" is the name of a field in "Personnage".(Κ»€λωÿÿÿÿ8 Ετ0
+C
+java:S1170"!Make this final field static too.(ΓÒ£οώÿÿÿÿ8§σÒ™τ0
+<
+java:S1170"!Make this final field static too.(¬®ύΰώÿÿÿÿ
+D
+java:S1068")Remove this unused "range" private field.(¬®ύΰώÿÿÿÿ

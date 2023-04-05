@@ -34,8 +34,7 @@ public class GuerrierController extends VueController {
             pdvMax = map.getActionner().getHpMax();
         }
         hp = new JLabel("HP : " + pdv + "/" +  pdvMax );
-        atk = new JLabel("Dégat : " + atk);
-        JLabel descr = new JLabel("Guerrier pouvant attaquer des monstres\n avec des attaques de mélée");
+        atk = new JLabel("Dégat : " + attack);
         JPanel contentPanel = new JPanel();
         contentPanel.setBackground(Color.lightGray);
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
@@ -43,8 +42,6 @@ public class GuerrierController extends VueController {
         contentPanel.add(hp);
         contentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
         contentPanel.add(atk);
-        contentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
-        contentPanel.add(descr);
         add(contentPanel, BorderLayout.CENTER);
 
         int delay = 100;
@@ -65,8 +62,9 @@ public class GuerrierController extends VueController {
             pdv = map.getActionner().getHealth_points();
             pdvMax = map.getActionner().getHpMax();
             attack = map.getActionner().getAttack_points();
+            hp.setText("HP : " + pdv + "/" + pdvMax);
+            atk.setText("Dégats : " + attack);
         }
-
     }
     @Override
     public void paint(Graphics g) {

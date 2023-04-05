@@ -4,6 +4,10 @@ import Model.Map;
 import Model.ThreadDeplacement;
 import Model.ThreadScanEnnemies;
 
+/**
+ * Classe Personnage permettant de modéliser un personnage,  classe abstraite ne pouvant être instancier,
+ * elle permet la défintion des sous-classes Ennemy,Archer, Guerrier et Villageois.
+ */
 public abstract class Personnage {
     private int x;
     private int y;
@@ -13,7 +17,7 @@ public abstract class Personnage {
     protected int hpMax = health_points;
     private final int attack_points;
     protected int level;
-    public static final int taille = 60;
+    public static final int taille = 50;
     private boolean moving = false;
     private boolean attacking = false;
     private ThreadDeplacement thread_deplacement = null;
@@ -44,6 +48,10 @@ public abstract class Personnage {
         }
     }
 
+    /**
+     * Méthode permet
+     * @param perso
+     */
     public void attack(Personnage perso){
         this.attacking = true;
         perso.receivesDamage(this.getAttack_points());
@@ -80,6 +88,10 @@ public abstract class Personnage {
         setY(y);
     }
 
+    public void setHealth_points(int health_points) {
+        this.health_points = health_points;
+    }
+
     public synchronized  void  setX(int new_x){
         this.x = new_x;
     }
@@ -88,9 +100,7 @@ public abstract class Personnage {
         this.y = new_y;
     }
 
-    public void heal(){
-        health_points = hpMax;
-    }
+
 
     public int getLevel(){
         return this.level;
@@ -107,4 +117,11 @@ public abstract class Personnage {
     public boolean isAttacking(){return this.attacking;}
 
     public void setAttacking(boolean attacking){this.attacking = attacking;}
+
+    /**
+     * Fonction permettant de régenerer les points de vie du personnage
+     */
+    public void heal(){
+        health_points = hpMax;
+    }
 }

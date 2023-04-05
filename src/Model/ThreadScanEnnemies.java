@@ -4,6 +4,10 @@ import Model.Personnages.Ennemy;
 import Model.Personnages.Personnage;
 import Model.Personnages.Villageois;
 
+/**
+ * Thread permettant de scanner les ennemis au alentours, selon la nature de l'ennemi et de l'attaquant, cela lance
+ * le threadAttack.
+ */
 public class ThreadScanEnnemies extends Thread{
     private final Map map;
     private final Personnage perso;
@@ -33,7 +37,7 @@ public class ThreadScanEnnemies extends Thread{
             if(this.perso instanceof Ennemy){
                 for(Personnage gentil : map.getPersonnages()){
                     if(map.scanFightRange(this.perso,gentil) && !this.perso.isAttacking() && !(gentil instanceof Villageois)){
-                        new ThreadAttack(map,this.perso,gentil).start();
+                        new ThreadAttack(this.perso,gentil).start();
                     }
                 }
             }
@@ -41,7 +45,7 @@ public class ThreadScanEnnemies extends Thread{
                 for (Ennemy ennemy : map.getEnnemies()) {
                     if (map.scanFightRange(this.perso, ennemy) && !this.perso.isAttacking()) {
                         //System.out.println("lezgo");
-                        new ThreadAttack(map,this.perso, ennemy).start();
+                        new ThreadAttack(this.perso, ennemy).start();
                     }
                 }
             }

@@ -1,9 +1,0 @@
-
-`	java:S112$"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
-o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(á–Ì“
-<
-java:S1170"!Make this final field static too.(âÇ•Óÿÿÿÿÿ
-t
-java:S2142#"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€
-O
-java:S1128"9Remove this unused import 'Model.Personnages.Personnage'.(ôËàô

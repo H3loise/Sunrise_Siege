@@ -8,6 +8,9 @@ public class ThreadAfficheur extends Thread{
         this.vue=v;
     }
 
+    /**
+     * Permet de repaint le jeu en boucle
+     */
     public void run() {
         while(true){
             vue.repaint();

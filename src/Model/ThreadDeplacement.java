@@ -1,5 +1,6 @@
 package Model;
 
+import Model.Personnages.Ennemy;
 import Model.Personnages.Personnage;
 
 import java.awt.*;
@@ -9,15 +10,16 @@ public class ThreadDeplacement extends Thread {
 
     Map m;
     Personnage p;
-    int finalX;
-    int finalY;
-    private final int delai = 10;
+    private int delai = 10;
     ArrayList<Point> points;
 
     public ThreadDeplacement(Map m, Personnage p,ArrayList<Point> points) {
         this.m = m;
         this.p = p;
         this.points = points;
+        if(this.p instanceof Ennemy){
+            this.delai = 10;
+        }
     }
 
     @Override
@@ -26,15 +28,23 @@ public class ThreadDeplacement extends Thread {
         /**
          * Probleme de paraléllisme dans le lancement
          */
-        for (Point point : points) {
-            p.setPosition((int) point.getX(), (int) point.getY());
-            try {
-                sleep(delai);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            for (Point point : points) {
+                while(this.p.isAttacking()){
+                    try {
+                        sleep(10);
+                        this.p.setMoving(false);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                this.p.setMoving(true);
+                p.setPosition((int) point.getX(), (int) point.getY());
+                try {
+                    sleep(delai);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
-        }
-        p.setMoving(false);
+            p.setMoving(false);
     }
 }
-

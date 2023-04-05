@@ -1,9 +1,12 @@
 package Vue;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Classe permettant de stocker les différentes images du jeu, elles sont en public static final donc accessibles depuis
@@ -14,6 +17,123 @@ import java.io.IOException;
 public abstract class BanqueImage {
 
 
+    /**
+     * Ajout des GIFs
+     */
+
+    /**
+     * GIF archer attaque
+     */
+
+    public static final List<ImageIcon> gifArcherAttack;
+
+    static {
+        try {
+            // Charger les images du GIF
+            gifArcherAttack = new ArrayList<>();
+            for (int i = 1; i <= 23; i++) {
+                ImageIcon gifFrame = new ImageIcon("src/GIF/archer_attaque/frame-" + i + ".gif");
+                gifArcherAttack.add(gifFrame);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * GIF archer marche
+     */
+
+    public static final List<ImageIcon> gifArcherWalk;
+
+    static {
+        try {
+            // Charger les images du GIF
+            gifArcherWalk = new ArrayList<>();
+            for (int i = 1; i <= 12; i++) {
+                ImageIcon gifFrame = new ImageIcon("src/GIF/archer_marche/frame-" + i + ".gif");
+                gifArcherWalk.add(gifFrame);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * GIF guerrier attaque
+     */
+
+    public static final List<ImageIcon> gifGuerrierAttack;
+
+    static {
+        try {
+            // Charger les images du GIF
+            gifGuerrierAttack = new ArrayList<>();
+            for (int i = 1; i <= 9; i++) {
+                ImageIcon gifFrame = new ImageIcon("src/GIF/guerrier_attaque/frame-" + i + ".gif");
+                gifGuerrierAttack.add(gifFrame);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * GIF guerrier marche
+     */
+
+    public static final List<ImageIcon> gifGuerrierWalk;
+
+    static {
+        try {
+            // Charger les images du GIF
+            gifGuerrierWalk = new ArrayList<>();
+            for (int i = 1; i <= 12; i++) {
+                ImageIcon gifFrame = new ImageIcon("src/GIF/guerrier_marche/frame-" + i + ".gif");
+                gifGuerrierWalk.add(gifFrame);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * GIF villageois marche
+     */
+
+    public static final List<ImageIcon> gifVillagerWalk;
+
+    static {
+        try {
+            // Charger les images du GIF
+            gifVillagerWalk = new ArrayList<>();
+            for (int i = 1; i <= 8; i++) {
+                ImageIcon gifFrame = new ImageIcon("src/GIF/villageois_marche/frame_" + i + ".gif");
+                gifVillagerWalk.add(gifFrame);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * GIF ennemie marche
+     */
+
+    public static final List<ImageIcon> gifZombieWalk;
+
+    static {
+        try {
+            // Charger les images du GIF
+            gifZombieWalk = new ArrayList<>();
+            for (int i = 0; i <= 11; i++) {
+                ImageIcon gifFrame = new ImageIcon("src/GIF/zombie_marche/frame_" + i + ".gif");
+                gifZombieWalk.add(gifFrame);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     /**
      * Image du layout ressource
@@ -23,7 +143,7 @@ public abstract class BanqueImage {
 
     static {
         try {
-            imgFondRessources = ImageIO.read(new File("src/Images/fond_jeu.jpg"));
+            imgFondRessources = ImageIO.read(new File("src/Images/fond_jeu.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -230,6 +350,16 @@ public abstract class BanqueImage {
     static {
         try {
             imgGuerrier = ImageIO.read(new File("src/Images/guerrier.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public final static BufferedImage imgEnnemy;
+
+    static {
+        try {
+            imgEnnemy = ImageIO.read(new File("src/Images/ennemy.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

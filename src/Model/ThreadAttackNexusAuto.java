@@ -28,7 +28,7 @@ public class ThreadAttackNexusAuto extends Thread{
                 }
             }
             if(target !=null){
-                target.attackedPersonnage(map.getNexus().getAttack());
+                target.receivesDamage(map.getNexus().getAttack());
             }
             try {
                 sleep(cooldown);

@@ -2,12 +2,8 @@ package Vue;
 
 import Model.Map;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 /**
  * Classe permettant d'afficher les ressources, elle est stockée dans un JPanel
@@ -16,6 +12,8 @@ public class VueRessources extends JPanel {
     private final Map map;
     private final int hauteur = 30;
     private final int longueur = Map.taille;
+
+    private int widthBarre = 200;
     /**
      * Création d'un Vue.Affichage pour les ressources (bois,blé,pierre).
      * @param map de type Modele.Map
@@ -38,7 +36,7 @@ public class VueRessources extends JPanel {
         paintWood(g);
         paintRocks(g);
         paintAstre(g);
-
+        timerRect(g);
     }
 
     /**
@@ -83,10 +81,33 @@ public class VueRessources extends JPanel {
      */
     private void paintAstre(Graphics g){
         if(map.getDay()) {
-            g.drawImage(BanqueImage.imgSoleil, 965, 0, 30, 30, null);
+            g.drawImage(BanqueImage.imgSoleil, map.taille/2, 0, 30, 30, null);
         }
         if(!map.getDay()) {
-            g.drawImage(BanqueImage.imgLune, 965, 0, 30, 30, null);
+            g.drawImage(BanqueImage.imgLune, map.taille/2, 0, 30, 30, null);
         }
+    }
+
+    /**
+     * Méthode pour dessiner le rectangle de progression du jour/nuit.
+     * @param g
+     */
+    private void timerRect(Graphics g){
+        int delai = map.getDelaiJourNuit(); // récupère la durée d'un cycle jour/nuit
+        long elapsedTime = System.currentTimeMillis() - map.getStartTime(); // calcule le temps écoulé depuis le début du cycle actuel
+        double ratio = (double) elapsedTime / delai; // calcule le ratio de progression (entre 0 et 1)
+        int barWidth = (int) (ratio * (widthBarre - 3)); // calcule la largeur du rectangle représentant la progression
+
+        // dessine le rectangle noir de la barre de progression
+        g.setColor(Color.BLACK);
+        g.drawRect(map.taille/2+39, 4, widthBarre, 21);
+
+        // dessine le rectangle vert ou rouge représentant la progression
+        if (map.getDay()) {
+            g.setColor(Color.GREEN);
+        } else {
+            g.setColor(Color.RED);
+        }
+        g.fillRect(map.taille/2+40, 5, barWidth, 20);
     }
 }

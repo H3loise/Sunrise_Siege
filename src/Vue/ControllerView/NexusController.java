@@ -13,12 +13,18 @@ public class NexusController extends VueController {
     public NexusController(Map map) {
         super(map);
         this.map=map;
+        int pdv = map.getCaserne().getPvMax();
+        int level = map.getCaserne().getLevel();
         JButton upgrade = new JButton("UPGRADE");
+        JLabel hp = new JLabel("HP : " + pdv);
+        JLabel lvl = new JLabel("Niveau : " + level);
         JButton acheterVillageois = new JButton("acheter villageois");
         JButton acheterArchers = new JButton("acheter archers");
         JButton acheterGuerriers = new JButton("acheter guerriers");
         JButton healNexus = new JButton("heal Nexus");
         this.add(upgrade);
+        this.add(hp);
+        this.add(lvl);
         this.add(acheterArchers);
         this.add(acheterGuerriers);
         this.add(acheterVillageois);

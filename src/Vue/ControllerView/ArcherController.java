@@ -21,6 +21,7 @@ public class ArcherController extends VueController {
         this.add(texte);
         this.add(attaquer);
         this.add(deplacement);
+
         upgrade.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -1,39 +1,31 @@
 import Controller.ActionPanel;
 import Model.Map;
-import Model.Obstacles.Obstacle;
-import Model.Personnages.Guerrier;
+import Model.Personnages.Archer;
+import Model.Personnages.Ennemy;
 import Model.Personnages.Villageois;
+import Model.ThreadWipeDeadCharacters;
 import Model.TimeChanger;
 import Vue.Affichage;
-import Vue.ControllerView.ArcherController;
-import Vue.ThreadAfficheur;
-import Vue.VueJeu;
-
-import javax.swing.*;
-import java.awt.*;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Map map = new Map();
-        /**JFrame fenetre=new JFrame("Sunrise Siege");
-        //fenetre.setPreferredSize(new Dimension(1500,1000));
-        VueJeu vueJeu=new VueJeu(map);
-        ArcherController archerController= new ArcherController(map);
-        fenetre.add(vueJeu,BorderLayout.CENTER);
-        fenetre.add(archerController,BorderLayout.EAST);
-        //new ThreadAfficheur(vueJeu).start();
-        //vueJeu.repaint();
-        //new TimeChanger(map).start();
-        fenetre.setPreferredSize(new Dimension(1300,1000));
-        fenetre.pack();
-        fenetre.setVisible(true);
-        fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-         **/
-        Villageois testDeplacement = new Villageois( 200,200);
+        Thread.sleep(800);
+        Ennemy z = new Ennemy(700,100,map);
+        Ennemy z1 = new Ennemy(100,100,map);
+        map.addEnnemy(z);
+        //Archer arch = new Archer(300,100,map);
+        //map.addCharacter(arch);
+        //Guerrier guer = new Guerrier(400,100,map);
+        //map.addCharacter(guer);
+        //new ThreadScanEnnemies(map,arch).start();
+        Villageois testDeplacement = new Villageois( 200,200,map);
         map.addCharacter(testDeplacement);
         Affichage affichage = new Affichage(map);
         ActionPanel actionPanel = new ActionPanel(map,affichage);
         affichage.addMouseListener(actionPanel);
         new TimeChanger(map).start();
+        new ThreadWipeDeadCharacters(map).start();
+        //System.out.println(Math.hypot(map.getNexus().getX(),));
     }
 }

@@ -1,7 +1,6 @@
 package Model.Personnages;
-import Model.Obstacles.Obstacle;
 
-import java.util.HashMap;
+import Model.Map;
 
 public class Villageois extends Personnage{
     private static final int health_points = 1;
@@ -12,8 +11,9 @@ public class Villageois extends Personnage{
     public static final int stonePrice = 0;
 
 
-    public Villageois(int x, int y){
-        super(health_points,x,y);
+    public Villageois(int x, int y, Map map){
+        super(health_points,x,y,0,0,map);
+        this.hpMax = this.getHealth_points();
     }
 
 

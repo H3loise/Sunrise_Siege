@@ -670,7 +670,7 @@ public class Map {
             int x = 10;
             int y = 10;
             boolean libre = false;
-            Villageois p = new Villageois(10, 10,this);
+            Villageois p = new Villageois(10, 10);
             for (Node[] n :
                     nodes) {
                 if (libre) {
@@ -702,7 +702,7 @@ public class Map {
             stone -= Guerrier.stonePrice;
             wood -= Guerrier.woodPrice;
             food -= Guerrier.wheatPrice;
-            Guerrier p = new Guerrier(caserne.getX(), caserne.getY(),this);
+            Guerrier p = new Guerrier(caserne.getX(), caserne.getY());
             for (int i = 1; i < caserne.getLevel(); i++) {
                 p.upgrade();
             }
@@ -767,9 +767,9 @@ public class Map {
         int x_or_y = random.nextInt(2);
         for (int i = 0; i < ennemy_number; i++) {
             if (x_or_y == 0) {
-                addEnnemy(new Ennemy(random.nextInt(800), 0,this));
+                addEnnemy(new Ennemy(random.nextInt(800), 0));
             } else {
-                addEnnemy(new Ennemy(800, random.nextInt(800),this));
+                addEnnemy(new Ennemy(800, random.nextInt(800)));
             }
         }
     }
@@ -848,6 +848,15 @@ public class Map {
         double distance = Math.sqrt((perso.getX() - ennemi.getX()) * (perso.getX() - ennemi.getX()) + (perso.getY() - ennemi.getY()) * (perso.getY() - ennemi.getY()));
         double sumRadius = perso.getRayon() + ennemi.getRayon();
         if (distance < perso.getRayon() || distance <= sumRadius - ennemi.getRayon()) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean scanFightNexusRange(Personnage ennemi) {
+        double distance = Math.sqrt((ennemi.getX() - this.nexus.getMiddleX()) * (ennemi.getX() - this.nexus.getMiddleX()) + (ennemi.getY() - this.nexus.getMiddleY()) * (ennemi.getY() - this.nexus.getMiddleY()));
+        double sumRadius = ennemi.getRayon() + this.nexus.getRange();
+        if (distance < ennemi.getRayon() || distance <= sumRadius - this.nexus.getRange()) {
             return true;
         }
         return false;

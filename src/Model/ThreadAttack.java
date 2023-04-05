@@ -1,5 +1,6 @@
 package Model;
 
+import Model.Personnages.Ennemy;
 import Model.Personnages.Personnage;
 
 /**
@@ -10,12 +11,14 @@ public class ThreadAttack extends Thread{
     private final Personnage perso;
     private final Personnage ennemi;
     private final Map map;
+    private boolean attackNexus = false;
     private final int cooldown = 500;
 
-    public ThreadAttack(Map map, Personnage perso, Personnage ennemi){
+    public ThreadAttack(Map map,Personnage perso, Personnage ennemi, boolean attackNexus){
         this.perso = perso;
         this.ennemi = ennemi;
         this.map = map;
+        this.attackNexus = attackNexus;
     }
 
 
@@ -26,12 +29,19 @@ public class ThreadAttack extends Thread{
      */
     @Override
     public void run() {
-        while (this.ennemi.getIsAlive() && this.perso.getIsAlive() && map.scanFightRange(perso,ennemi)) {
-            this.perso.attack(this.ennemi);
-            try {
-                sleep(cooldown);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        if(this.attackNexus){
+            while(this.perso.getIsAlive() && !this.map.testLoose()){
+                this.perso.attackNexus(map.getNexus());
+            }
+        }
+        else {
+            while (this.ennemi.getIsAlive() && this.perso.getIsAlive() && map.scanFightRange(perso, ennemi)) {
+                this.perso.attack(this.ennemi);
+                try {
+                    sleep(cooldown);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
         this.perso.setAttacking(false);

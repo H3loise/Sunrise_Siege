@@ -1,5 +1,6 @@
 package Model.Personnages;
 
+import Model.Batiments.Nexus;
 import Model.Map;
 import Model.ThreadScanEnnemies;
 
@@ -14,10 +15,11 @@ public class Ennemy extends Personnage {
 
 
 
-    public Ennemy(int x, int y, Map map){
-        super(health_points,x,y,rayon, attack_points, map);
+    public Ennemy(int x, int y){
+        super(health_points,x,y,rayon, attack_points);
         this.hpMax = this.getHealth_points();
-        //new ThreadScanEnnemies(map,this);
     }
+
+
 
 }

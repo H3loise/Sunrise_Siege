@@ -54,6 +54,8 @@ public abstract class Batiment {
     public void setY(int y) {
         this.y = y;
     }
+    public int getMiddleX(){return this.x+this.taille/2;}
+    public int getMiddleY(){return this.y+this.taille/2;}
 
     public int getLevel() {
         return level;

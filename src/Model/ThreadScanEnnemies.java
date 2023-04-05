@@ -37,15 +37,18 @@ public class ThreadScanEnnemies extends Thread{
             if(this.perso instanceof Ennemy){
                 for(Personnage gentil : map.getPersonnages()){
                     if(map.scanFightRange(this.perso,gentil) && !this.perso.isAttacking() && !(gentil instanceof Villageois)){
-                        new ThreadAttack(this.perso,gentil).start();
+                        new ThreadAttack(this.map,this.perso,gentil,false).start();
                     }
+                }
+                if(map.scanFightNexusRange(this.perso)){
+                    new ThreadAttack(this.map,this.perso,null,true);
                 }
             }
             else{
                 for (Ennemy ennemy : map.getEnnemies()) {
                     if (map.scanFightRange(this.perso, ennemy) && !this.perso.isAttacking()) {
                         //System.out.println("lezgo");
-                        new ThreadAttack(this.perso, ennemy).start();
+                        new ThreadAttack(this.map,this.perso, ennemy,false).start();
                     }
                 }
             }

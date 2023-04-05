@@ -1,5 +1,6 @@
 package Model.Personnages;
 
+import Model.Batiments.Nexus;
 import Model.Map;
 import Model.ThreadDeplacement;
 import Model.ThreadScanEnnemies;
@@ -117,6 +118,12 @@ public abstract class Personnage {
     public boolean isAttacking(){return this.attacking;}
 
     public void setAttacking(boolean attacking){this.attacking = attacking;}
+
+    public void attackNexus(Nexus nexus){
+        if(this instanceof Ennemy) {
+            nexus.receivesDamage(this.attack_points);
+        }
+    }
 
     /**
      * Fonction permettant de régenerer les points de vie du personnage

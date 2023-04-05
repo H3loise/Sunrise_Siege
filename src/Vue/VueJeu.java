@@ -169,7 +169,7 @@ public class VueJeu extends JPanel {
                 }
             }
         }
-    }
+        }
 
     public void paintBatiments(Graphics g) {
         for (Batiment b : map.getBatiments()) {

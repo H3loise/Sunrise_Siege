@@ -3,6 +3,10 @@ package Model;
 import Model.Personnages.Ennemy;
 import Model.Personnages.Personnage;
 
+/**
+ * ThreadAttack, permet d'attaquer en boucle un ennemi jusqu'à que mort s'en suive, ou que l'attaquant est lui-même mort.
+ * Ce Thread se lance grâce au ThreadScanEnnemies.
+ */
 public class ThreadAttack extends Thread{
     private final Personnage perso;
     private final Personnage ennemi;

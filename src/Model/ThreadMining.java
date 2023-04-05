@@ -6,6 +6,9 @@ import Model.Personnages.Personnage;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Thead similaire au ThreadDeplacemet, seulement cela fait deplacer pour miner sur un obstacle.
+ */
 public class ThreadMining extends Thread {
 
     private Map m;
@@ -26,6 +29,10 @@ public class ThreadMining extends Thread {
         this.o = o;
     }
 
+    /**
+     * Le personnage se déplace jusqu'à l'obstacle en question, le mine et récupere les mineraux grâce à la fonction
+     * Map.obstacleMined(Obstacle o).
+     */
     @Override
     public void run() {
         try {

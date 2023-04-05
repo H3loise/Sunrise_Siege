@@ -4,6 +4,10 @@ import Model.Personnages.Ennemy;
 import Model.Personnages.Personnage;
 import Model.Personnages.Villageois;
 
+/**
+ * Thread permettant de scanner les ennemis au alentours, selon la nature de l'ennemi et de l'attaquant, cela lance
+ * le threadAttack.
+ */
 public class ThreadScanEnnemies extends Thread{
     private final Map map;
     private final Personnage perso;

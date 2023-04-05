@@ -1,5 +1,10 @@
 package Model;
 
+
+/**
+ * Classe Node permettant de représenter notre carte à l'aide de Noeud. Un noeud solide répresente un obstacle ou un
+ * bâtiment, le hCost, fCost et gCost permette de calculer le chemin le plus court,grâce à l'algorithme A*.
+ */
 public class Node {
     Node parent;
     private int col;
@@ -97,6 +102,10 @@ public class Node {
         this.goal = false;
     }
 
+    /**
+     * Méthode permettant de réinitialiser le noeud, utilisée notammentn après son utilisaiton dans Map pour
+     * chercher un chemin.
+     */
     public void resetState(){
         open = false;
         checked = false;

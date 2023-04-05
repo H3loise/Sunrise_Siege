@@ -14,7 +14,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-
+/**
+ * Classe permettant le controle ou l'affichage d'information sur les unités controlables ou non controlable.
+ * Elle fonctionne via l'utilisation du MouseClicked(MouseEvent) et des coordonnées de la souris.
+ * Le jeu fonctionnant principalement au clic, cela est nécessaire d'avoir cette classe.
+ */
 public class ActionPanel implements MouseListener {
 
     private Map map;
@@ -26,6 +30,16 @@ public class ActionPanel implements MouseListener {
     }
 
 
+    /**
+     * Fonction permettant la selection d'objet sur la map, selon la coordonnée de la souris et l'objet le plus proche, elle choisit
+     * l'objet Selectionné.
+     * Selon instanceof de l'objet, cela lance la fonction adéquate et affiche le panneau correspondant.
+     * Pour les villageois, elle permet le deplacement sur un Obstacle en lançant Modele.Map.deplacementPersoMiner(Villageois,Obstacle).
+     * Pour les unités déplaçables elle lance le déplacement normal.
+     * Les villageois ne sont selectionnables que la journée, et les Guerrier/Archer que la nuit
+     * Les ennemis ont seulement un panneau d'information.
+     * @param e the event to be processed
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
         System.out.println("clique carte");

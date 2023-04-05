@@ -2,6 +2,11 @@ package Model.Personnages;
 
 import Model.Map;
 
+/**
+ * Classe Archer, permettant de modéliser un Archer, unité controlable qui puisse attaquer les ennemis avec une range
+ * précise. Un archer peut être améliorer grâce à @upgrade().
+ * Sous-classe de Personnage.
+ */
 public class Archer extends Personnage {
 
     private static int health_points = 1000;
@@ -21,11 +26,16 @@ public class Archer extends Personnage {
         level = 1;
     }
 
+    /**
+     * Permet l'amélioration de archer, de ses caractéristiques comme l'attaque et les pv.
+     */
+
     public void upgrade(){
         level ++;
         hpMax = (hpMax *  level) + (15*level);
         attack_points = (attack_points * level) + (50*level);
         health_points = hpMax;
+        System.out.println(health_points + " / " + hpMax);
     }
 
 }

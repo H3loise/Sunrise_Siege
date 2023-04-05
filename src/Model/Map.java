@@ -128,6 +128,7 @@ public class Map {
         this.caserne = new Caserne(500,600);
         rendreCasesImpossibleBats(caserne);
         batiments.add(caserne);
+        new ThreadAttackNexusAuto(this);
     }
     public Map(ArrayList<Obstacle> o, ArrayList<Personnage> c, ArrayList<Batiment> b){
         this.batiments=b;
@@ -975,12 +976,16 @@ public class Map {
                     if (p instanceof Guerrier) {
                         Guerrier g = (Guerrier) p;
                         for (int i = 1; i < caserne.getLevel(); i++) {
-                            g.upgrade();
+                            if(g.getLevel()<caserne.getLevel()) {
+                                g.upgrade();
+                            }
                         }
                     } else if (p instanceof Archer) {
                         Archer a = (Archer) p;
                         for (int i = 1; i < caserne.getLevel(); i++) {
-                            a.upgrade();
+                            if(a.getLevel()<caserne.getLevel()) {
+                                a.upgrade();
+                            }
                         }
                     }
                 }

@@ -4,6 +4,10 @@ import Model.Map;
 import Model.ThreadDeplacement;
 import Model.ThreadScanEnnemies;
 
+/**
+ * Classe Personnage permettant de modéliser un personnage,  classe abstraite ne pouvant être instancier,
+ * elle permet la défintion des sous-classes Ennemy,Archer, Guerrier et Villageois.
+ */
 public abstract class Personnage {
     private int x;
     private int y;
@@ -45,6 +49,10 @@ public abstract class Personnage {
         }
     }
 
+    /**
+     * Méthode permet
+     * @param perso
+     */
     public void attack(Personnage perso){
         this.attacking = true;
         perso.receivesDamage(this.getAttack_points());

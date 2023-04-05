@@ -2,6 +2,7 @@ package Model;
 
 import Model.Personnages.Ennemy;
 import Model.Personnages.Personnage;
+import Model.Personnages.Villageois;
 
 public class ThreadScanEnnemies extends Thread{
     private final Map map;
@@ -31,9 +32,8 @@ public class ThreadScanEnnemies extends Thread{
         while(perso.getIsAlive()) {
             if(this.perso instanceof Ennemy){
                 for(Personnage gentil : map.getPersonnages()){
-                    if(map.scanFightRange(this.perso,gentil) && !this.perso.isAttacking()){
-                        System.out.println("lezgo");
-                        new ThreadAttack(this.perso,gentil).start();
+                    if(map.scanFightRange(this.perso,gentil) && !this.perso.isAttacking() && !(gentil instanceof Villageois)){
+                        new ThreadAttack(map,this.perso,gentil).start();
                     }
                 }
             }
@@ -41,7 +41,7 @@ public class ThreadScanEnnemies extends Thread{
                 for (Ennemy ennemy : map.getEnnemies()) {
                     if (map.scanFightRange(this.perso, ennemy) && !this.perso.isAttacking()) {
                         //System.out.println("lezgo");
-                        new ThreadAttack(this.perso, ennemy).start();
+                        new ThreadAttack(map,this.perso, ennemy).start();
                     }
                 }
             }

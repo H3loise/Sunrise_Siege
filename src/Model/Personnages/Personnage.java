@@ -18,13 +18,12 @@ public abstract class Personnage {
     private boolean attacking = false;
     private ThreadDeplacement thread_deplacement = null;
 
-    public Personnage(int health_points, int x, int y, int rayon, int attack_points, Map map){
+    public Personnage(int health_points, int x, int y, int rayon, int attack_points){
         this.health_points = health_points;
         this.x = x;
         this.y = y;
         this.rayon = rayon;
         this.attack_points = attack_points;
-        new ThreadScanEnnemies(map,this).start();
     }
 
     public int getAttack_points(){

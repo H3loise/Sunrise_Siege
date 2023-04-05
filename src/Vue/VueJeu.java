@@ -106,6 +106,8 @@ public class VueJeu extends JPanel {
                     g.fillRect(p.getX()+Personnage.taille/4+1, p.getY()-2, Personnage.taille/2,5) ;
                     g.setColor(Color.GREEN);
                     g.fillRect(p.getX()+Personnage.taille/4+1, p.getY()-2, hpWidth,5);
+                    g.setColor(Color.white);
+                    g.drawString(String.valueOf(p.getLevel()),p.getX()+Personnage.taille, p.getY()-1);
                     if (p.isMoving()) {
                         g.drawImage(BanqueImage.gifArcherWalk.get(frameIndexGA).getImage(), p.getX(), p.getY(), Personnage.taille, Personnage.taille, null);
                     }else if(p.isAttacking()){
@@ -123,6 +125,8 @@ public class VueJeu extends JPanel {
                         g.fillRect(p.getX()+Personnage.taille/4-6, p.getY()-2, Personnage.taille/2,5) ;
                         g.setColor(Color.GREEN);
                         g.fillRect(p.getX()+Personnage.taille/4-6, p.getY()-2, hpWidth,5);
+                        g.setColor(Color.white);
+                        g.drawString(String.valueOf(p.getLevel()),p.getX()+Personnage.taille, p.getY()-1);
                         if(p.isMoving()) {
                             g.drawImage(BanqueImage.gifGuerrierWalk.get(frameIndexGA).getImage(), p.getX(), p.getY(), Personnage.taille, Personnage.taille, null);
                         }else if(p.isAttacking()){
@@ -175,26 +179,17 @@ public class VueJeu extends JPanel {
         for (Batiment b : map.getBatiments()) {
             //g.drawImage(BanqueImage.imgNexus1,b.getX(),b.getY(),150,150,null);
             if (b.getLevel() == 1) {
-                g.drawImage(BanqueImage.imgNexus1, b.getX(), b.getY(), 150, 150, null);
+                g.drawImage(BanqueImage.imgNexus1, b.getX(), b.getY(), map.getNexus().getTaille(), map.getNexus().getTaille(), null);
             }
             if (b.getLevel() == 2) {
-                g.drawImage(BanqueImage.imgNexus2, b.getX(), b.getY(), 150, 150, null);
+                g.drawImage(BanqueImage.imgNexus2, b.getX(), b.getY(), map.getNexus().getTaille(), map.getNexus().getTaille(), null);
             }
-            if (b.getLevel() == 3) {
-                g.drawImage(BanqueImage.imgNexus3, b.getX(), b.getY(), 150, 150, null);
+            if (b.getLevel() >= 3) {
+                g.drawImage(BanqueImage.imgNexus3, b.getX(), b.getY(), map.getNexus().getTaille(), map.getNexus().getTaille(), null);
             }
         }
     }
 
-    private void funTest(Graphics g) {
-    g.setColor(Color.black);
-        for (Node[] c: map.getNodes()) {
-            for (Node node: c) {
-                if(node.isSolid())
-                g.drawRect(node.getCol(),node.getRow(),1,1);
-            }
-        }
-    }
 
 
 }

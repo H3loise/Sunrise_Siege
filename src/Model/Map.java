@@ -50,6 +50,7 @@ public class Map {
 
     public void setActionner(Personnage actionner) {
         this.actionner = actionner;
+        System.out.println("zebi zebi :" + actionner);
     }
 
     private final ArrayList<Ennemy> ennemies = new ArrayList<>();
@@ -101,7 +102,7 @@ public class Map {
     boolean goalReached = false;
     private Caserne caserne;
 
-    private int delaiJourNuit = 50000;
+    private int delaiJourNuit = 5000;
 
     private long startTime = 0;
     public Map(){
@@ -433,12 +434,12 @@ public class Map {
      */
     public void addCharacter(Personnage p ){
         characters.add(p);
-        //new ThreadScanEnnemies(this,p).start();
+        new ThreadScanEnnemies(this,p).start();
     }
 
     public void addEnnemy(Ennemy e){
         this.ennemies.add(e);
-        //new ThreadScanEnnemies(this,e).start();
+        new ThreadScanEnnemies(this,e).start();
     }
 
     /**
@@ -459,21 +460,14 @@ public class Map {
      * @param x
      * @param y
      */
-    /*public void deplacementPerso(Personnage p ,int x,int y){
-        if(!p.isMoving()) {
-            p.setMoving(true);
-            ArrayList<Point> points = cheminLePluscourt(p, x, y);
-            resetNoeudsAprèsUtilisation();
-            new ThreadDeplacement(this, p, points).start();
-        }
-    }*/
+
     public void deplacementPerso(Personnage p ,int x,int y){
         if(!p.isMoving()) {
             ArrayList<Point> points = cheminLePluscourt(p, x, y);
             ThreadDeplacement thread_dep = new ThreadDeplacement(this, p, points);
             p.setMoving(true);
             p.setThread_deplacement(thread_dep);
-            resetNoeudsAprèsUtilisation();
+            resetNoeudsApresUtilisation();
             thread_dep.start();
         }
     }
@@ -482,7 +476,7 @@ public class Map {
      * Après utilisation, les champs Checked,Open,Start,Goal doivent etre remis à 0 et ce pour chaque neouds, on parcourt
      * donc tout les noeuds et on reset chacun d'entre eux
      */
-    private void resetNoeudsAprèsUtilisation(){
+    private void resetNoeudsApresUtilisation(){
         int col = 0;
         int row =0;
         while (col < maxCol && row < maxRow) {
@@ -505,7 +499,7 @@ public class Map {
             p.setMoving(true);
             rendreCasePossibleObstacles(o);
             ArrayList<Point> points = cheminLePluscourt(p, o.getX(), o.getY());
-            resetNoeudsAprèsUtilisation();
+            resetNoeudsApresUtilisation();
             new ThreadMining(this, p, o, points).start();
             System.out.println("coucou");
         }
@@ -714,7 +708,7 @@ public class Map {
             int x = 10;
             int y = 10;
             boolean libre = false;
-            Villageois p = new Villageois(10, 10,this);
+            Villageois p = new Villageois(10, 10);
             for (Node[] n :
                     nodes) {
                 if (libre) {
@@ -746,7 +740,7 @@ public class Map {
             stone -= Guerrier.stonePrice;
             wood -= Guerrier.woodPrice;
             food -= Guerrier.wheatPrice;
-            Guerrier p = new Guerrier(caserne.getX(), caserne.getY(),this);
+            Guerrier p = new Guerrier(caserne.getX(), caserne.getY());
             for (int i = 1; i < caserne.getLevel(); i++) {
                 p.upgrade();
             }
@@ -767,7 +761,7 @@ public class Map {
             stone -= Archer.stonePrice;
             wood -= Archer.woodPrice;
             food -= Archer.wheatPrice;
-            Archer p = new Archer(caserne.getX(), caserne.getY(),this);
+            Archer p = new Archer(caserne.getX(), caserne.getY());
             addCharacter(p);
             //petit message sur le panel please
         }
@@ -845,9 +839,9 @@ public class Map {
         int x_or_y = random.nextInt(2);
         for (int i = 0; i < ennemy_number; i++) {
             if (x_or_y == 0) {
-                addEnnemy(new Ennemy(random.nextInt(taille), 0,this));
+                addEnnemy(new Ennemy(random.nextInt(taille), 0));
             } else {
-                addEnnemy(new Ennemy(900, random.nextInt(taille),this));
+                addEnnemy(new Ennemy(900, random.nextInt(taille)));
             }
         }
     }
@@ -858,10 +852,7 @@ public class Map {
      */
     private void moveEnnemies(){
         for(Ennemy ennemi : this.ennemies){
-            //deplacementPerso(ennemi,closestNexusPoint(ennemi).x,closestNexusPoint(ennemi).y);
-            Point p_ennemy = new Point(ennemi.getX(),ennemi.getY());
-            Point closest = getClosestPoint(p_ennemy,getPerimeterOfNexus());
-            deplacementPerso(ennemi,closest.x,closest.y);
+            deplacementPerso(ennemi,closestNexusPoint(ennemi).x,closestNexusPoint(ennemi).y);
         }
     }
 
@@ -873,15 +864,14 @@ public class Map {
      * @return
      */
     private Point closestNexusPoint(Ennemy ennemi){
-        double min = 100;
+        double max = 100;
         Point middleNexus = new Point(nexus.getX() + nexus.getTaille()/2, nexus.getY()+nexus.getTaille()/2);
         ArrayList<Point> res_array = new ArrayList<>();
         for (Node[] n : nodes) {
             for (Node res : n) {
                 if(!res.isSolid()){
-                    if(Math.hypot((middleNexus.getX()-res.getRow()),(middleNexus.getY()- res.getCol())) < min){
+                    if(Math.hypot((middleNexus.getX()-res.getRow()),(middleNexus.getY()- res.getCol())) < max){
                         res_array.add(new Point(res.getRow(),res.getCol()));
-                        System.out.println(res.getCol() + "   " + res.getRow());
                     }
                 }
             }
@@ -909,38 +899,6 @@ public class Map {
         return res;
     }
 
-    private int calculateDistanceBetweenTwoPoints(Point p1, Point p2){
-        return (int)Math.sqrt((p2.getY() - p1.getY()) * (p2.getY() - p1.getY()) + (p2.getX() - p1.getX()) * (p2.getX()-p1.getX()));
-    }
-
-    private ArrayList<Point> getPerimeterOfNexus(){
-        Point nexus_point = new Point(getNexus().getX(),getNexus().getY());
-        ArrayList<Point> res = new ArrayList<>();
-        res.add(new Point((int)nexus_point.getX(),(int)nexus_point.getY()-20)); // coin haut gauche
-        res.add(new Point((int)nexus_point.getX(),nexus_point.y+getNexus().getTaille()+20)); // coin bas gauche
-        res.add(new Point((int)nexus_point.getX()-10,(int)nexus_point.getY())); //
-        res.add(new Point(nexus_point.x+getNexus().getTaille()+20,(int)nexus_point.getY()));
-        for (int i = 1; i <= getNexus().getTaille(); i++) {
-            res.add(new Point((int)nexus_point.getX()+i,(int)nexus_point.getY()-20)); // barre du haut
-            res.add(new Point((int)nexus_point.getX()+i,nexus_point.y+getNexus().getTaille()+20)); // barre du bas
-            res.add(new Point((int)nexus_point.getX()-10,(int)nexus_point.getY()+i)); // barre de gauche
-            res.add(new Point(nexus_point.x+getNexus().getTaille()+20,(int)nexus_point.getY()+i));  // barre de droite
-        }
-        return res;
-    }
-
-    private Point getClosestPoint(Point p1, ArrayList<Point> points_array){
-        int min = calculateDistanceBetweenTwoPoints(p1,points_array.get(0));
-        Point res = new Point(0,0);
-        for(Point temp_point : points_array){
-            if(calculateDistanceBetweenTwoPoints(p1,temp_point) < min){
-                min = calculateDistanceBetweenTwoPoints(p1,temp_point);
-                res = temp_point;
-            }
-        }
-        return res;
-    }
-
     /** ------------------------------------------------------------------
      *                                              BAGARRE
      *  ------------------------------------------------------------------
@@ -953,6 +911,15 @@ public class Map {
         double distance = Math.sqrt((perso.getX() - ennemi.getX()) * (perso.getX() - ennemi.getX()) + (perso.getY() - ennemi.getY()) * (perso.getY() - ennemi.getY()));
         double sumRadius = perso.getRayon() + ennemi.getRayon();
         if (distance < perso.getRayon() || distance <= sumRadius - ennemi.getRayon()) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean scanFightNexusRange(Personnage perso){
+        double distance = Math.sqrt((perso.getX() - this.getNexus().getX()) * (perso.getX() - this.getNexus().getX()) + (perso.getY() - this.getNexus().getY()) * (perso.getY() - this.getNexus().getY()));
+        double sumRadius = perso.getRayon() + this.getNexus().getRange();
+        if (distance < perso.getRayon() || distance <= sumRadius - this.getNexus().getRange()) {
             return true;
         }
         return false;
@@ -979,10 +946,8 @@ public class Map {
         }
         else {
             rendreCasePossibleBatiment(caserne);
-            generateEnnemies();
+            //generateEnnemies();
             moveEnnemies();
-            //System.out.println(getPerimeterOfNexus());
-            Point p_ennemy = new Point(this.ennemies.get(0).getX(),this.ennemies.get(0).getY());
         }
     }
 
@@ -1003,12 +968,16 @@ public class Map {
                     if (p instanceof Guerrier) {
                         Guerrier g = (Guerrier) p;
                         for (int i = 1; i < caserne.getLevel(); i++) {
-                            g.upgrade();
+                            if(g.getLevel()<caserne.getLevel()) {
+                                g.upgrade();
+                            }
                         }
                     } else if (p instanceof Archer) {
                         Archer a = (Archer) p;
                         for (int i = 1; i < caserne.getLevel(); i++) {
-                            a.upgrade();
+                            if(a.getLevel()<caserne.getLevel()) {
+                                a.upgrade();
+                            }
                         }
                     }
                 }

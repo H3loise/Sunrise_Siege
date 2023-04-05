@@ -7,12 +7,14 @@ import Model.Personnages.Guerrier;
 import Model.Personnages.Personnage;
 import Model.Personnages.Villageois;
 import Vue.Affichage;
+import Vue.ControllerView.ArcherController;
 import Vue.ControllerView.NoneController;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+
 
 public class ActionPanel implements MouseListener {
 
@@ -49,12 +51,10 @@ public class ActionPanel implements MouseListener {
             for (Personnage p : personnages) {
                 if (e.getX() >= p.getX() && e.getX() <= p.getX() + 80 && e.getY() >= p.getY() && e.getY() <= p.getY() + 80) {
                     if (p instanceof Archer && !map.getDay()) {
-
                         this.affichage.card.show(this.affichage.getController(), "archer");
                         this.map.setActionner(p);
                     }
                     if (p instanceof Guerrier && !map.getDay()) {
-
                         this.affichage.card.show(this.affichage.getController(), "guerrier");
                         this.map.setActionner(p);
                     }
@@ -95,12 +95,6 @@ public class ActionPanel implements MouseListener {
                 this.affichage.card.show(this.affichage.getController(), "none");
             }
         }
-        //this.affichage.setNone();
-        //this.affichage.getController().revalidate();
-        //this.affichage.getController().repaint();
-        //this.affichage.repaint();
-        //this.affichage.add(none, BorderLayout.EAST);
-        //this.affichage.card.previous(affichage.getController());
     }
 
     @Override

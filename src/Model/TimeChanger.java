@@ -47,13 +47,12 @@ public class TimeChanger extends Thread {
             if (clip != null && clip.isRunning()) {
                 clip.stop();
             }
-            if (this.m.getDay()) {
-                //clip = playMusic("src/Music/NightSong.wav");
+           /* if (this.m.getDay()) {
+                clip = playMusic("src/Music/NightSong.wav");
 
             } else {
-                //clip = playMusic("src/Music/DaySong.wav");
-            }
-
+                clip = playMusic("src/Music/DaySong.wav");
+            }*/
             m.setDay(m.getDay());
             m.update();
 
@@ -64,6 +63,7 @@ public class TimeChanger extends Thread {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
         }
     }
 

@@ -1,16 +1,17 @@
 package Model;
 
-import Model.Personnages.Ennemy;
 import Model.Personnages.Personnage;
 
 public class ThreadAttack extends Thread{
     private final Personnage perso;
     private final Personnage ennemi;
+    private final Map map;
     private final int cooldown = 500;
 
-    public ThreadAttack(Personnage perso, Personnage ennemi){
+    public ThreadAttack(Map map, Personnage perso, Personnage ennemi){
         this.perso = perso;
         this.ennemi = ennemi;
+        this.map = map;
     }
 
 
@@ -21,7 +22,7 @@ public class ThreadAttack extends Thread{
      */
     @Override
     public void run() {
-        while (this.ennemi.getIsAlive() && this.perso.getIsAlive()) {
+        while (this.ennemi.getIsAlive() && this.perso.getIsAlive() && map.scanFightRange(perso,ennemi)) {
             this.perso.attack(this.ennemi);
             try {
                 sleep(cooldown);
@@ -30,6 +31,5 @@ public class ThreadAttack extends Thread{
             }
         }
         this.perso.setAttacking(false);
-        System.out.println("qsdjklqjdhfalkzjdfhlakjzdhlakjzdhljk"+this.perso.isAttacking());
     }
 }

@@ -15,9 +15,12 @@ public class Caserne extends Batiment{
      */
     public Caserne(int x, int y) {
         super(x, y);
+        this.setPv(this.pvMax);
     }
     public void upgrade(){
-        this.level ++;
+        setLevel(getLevel()+1);
+        setPvMax(pvMax+100);
+        setPv(pvMax);
     }
 
 }

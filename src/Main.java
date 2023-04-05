@@ -14,8 +14,8 @@ public class Main {
         //Ennemy z = new Ennemy(700,900,map);
         Ennemy z1 = new Ennemy(100,100);
         //map.addEnnemy(z);
-        Archer arch = new Archer(300,100,map);
-        map.addCharacter(arch);
+        //Archer arch = new Archer(300,100,map);
+        //map.addCharacter(arch);
         //Guerrier guer = new Guerrier(400,100,map);
         //map.addCharacter(guer);
         //new ThreadScanEnnemies(map,arch).start();

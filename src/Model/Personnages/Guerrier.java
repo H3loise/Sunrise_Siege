@@ -10,7 +10,7 @@ import Model.Map;
 public class Guerrier extends Personnage {
     private  static int health_points = 1000;        // apparemment faut mettre static pour que ça rentre dans le super
 
-    private static int attack_points = 50;               // apparemment faut mettre static pour que ça rentre dans le super
+    private static int attack_points = 150;               // apparemment faut mettre static pour que ça rentre dans le super
     private static final int rayon = 50;
 
     public static final int woodPrice = 0;

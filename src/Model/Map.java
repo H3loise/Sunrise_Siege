@@ -122,12 +122,12 @@ public class Map {
         Nexus chateau = new Nexus( 50,400);
         this.nexus = chateau;
         batiments.add(chateau);
-        this.food=50;
-        this.wood=50;
-        this.stone=50;
-        //this.obstacles.add(new Obstacle(700, 500));
-       // this.obstacles.add(new Obstacle(700,500));
 
+        this.obstacles.add(new Obstacle(500, 500));
+       this.obstacles.add(new Obstacle(600,500));
+        this.food = 5;
+        this.wood = 5;
+        this.stone = 5;
         initializeNodes();
         rendreCasesImpossibleBats(nexus);
         for (Obstacle b:
@@ -248,7 +248,7 @@ public class Map {
      */
     private void generateNewObstacles(){
         Random random = new Random();
-        int n = random.nextInt((score%150) + 4);
+        int n = random.nextInt((score%150))+ 3;
         for (int i = 0; i < n; i++) {
             int x = random.nextInt(0,taille);
             int y = random.nextInt(0,taille);
@@ -797,13 +797,13 @@ public class Map {
      * @return
      */
     private Point closestNexusPoint(Ennemy ennemi){
-        double max = 100;
+        double max = 150;
         Point middleNexus = new Point(nexus.getX() + nexus.getTaille()/2, nexus.getY()+nexus.getTaille()/2);
         ArrayList<Point> res_array = new ArrayList<>();
         for (Node[] n : nodes) {
             for (Node res : n) {
                 if(!res.isSolid()){
-                    if(Math.hypot((middleNexus.getX()-res.getRow()),(middleNexus.getY()- res.getCol())) < max){
+                    if(Math.hypot((middleNexus.getX()-res.getRow()),(middleNexus.getY()- res.getCol())) < max && (res.getRow()!=0 && res.getCol()!=0)){
                         res_array.add(new Point(res.getRow(),res.getCol()));
                         System.out.println(res.isSolid());
                     }
@@ -826,11 +826,12 @@ public class Map {
         double min = 10000;
         for(Point p : points){
             if(min > Math.hypot((ennemi.getX()-p.x),(ennemi.getY()- p.y))){
+                if(!nodes[p.x][p.y].isSolid())
                 res = p;
-                min = Math.hypot((ennemi.getX()-p.y),(ennemi.getY()- p.x));
+                min = Math.hypot((ennemi.getX()-p.x),(ennemi.getY()- p.y));
             }
         }
-        //System.out.println(res);
+        System.out.println(res);
         System.out.println(nodes[(int) res.getX()][(int) res.getY()].isSolid());
         return res;
     }

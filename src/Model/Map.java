@@ -115,8 +115,8 @@ public class Map {
         this.food=50;
         this.wood=50;
         this.stone=50;
-        this.obstacles.add(new Obstacle(350, 350));
-        this.obstacles.add(new Obstacle(400,350));
+        //this.obstacles.add(new Obstacle(700, 500));
+       // this.obstacles.add(new Obstacle(700,500));
 
         initializeNodes();
         rendreCasesImpossibleBats(nexus);
@@ -556,20 +556,6 @@ public class Map {
         node.setfCost(node.getgCost() + node.gethCost());
     }
 
-    /**
-     * fun for devs
-     */
-    private void afficheNodesDifferents(){
-        for (Node[] n:
-                nodes) {
-            for (Node res:
-                    n) {
-                if (res.isStart() /*|| res.isChecked() || res.isOpen() || res.isGoal()*/){
-                    System.out.println("probleme ici");
-                }
-            }
-        }
-    }
 
     /**
      * Permet d'attribuer à chaque Noeud son cout, on parcourt donc tout le double tableau nodes et on lance
@@ -586,7 +572,6 @@ public class Map {
     }
 
     public ArrayList<Node> recherche(Personnage p,int x,int y){
-        Node tempStart = startNode;
         ArrayList<Node> tempOpen = openList;
 
         ArrayList<Node>tempChecked = checkedList;
@@ -643,7 +628,11 @@ public class Map {
     }
 
 
-
+    /**
+     * Méthode permettant d'ouvrir un Noeud, cela dit que le noeud a été exploré et est retenu dans la liste des noeuds sur le chemin, de plus on initialise son parent,
+     * de sort à remonter le chemin une fois fini avec Model.Map#trackThePath();
+     * @param node
+     */
     private void openNode(Node node){
         if(!node.isOpen() && !node.isChecked() && !node.isSolid()){
             node.setAsOpen();
@@ -803,7 +792,8 @@ public class Map {
     }
 
     /**
-     * Proc permet d'upgrade un guerrier, on va lamodifier pour upgrade le niveau de création des guerriers.
+     * Proc permet d'upgrade un guerrier, on va la modifier pour upgrade le niveau de création des guerriers.
+     * Function deprecated, unused
      * @param g
      */
     public void upgradeGuerrier(Guerrier g){
@@ -862,6 +852,10 @@ public class Map {
         }
     }
 
+    /**
+     * Initialisation  du déplacement de tout les ennemis, on calcule le point le plus proche d'eux pour frapper le nexus
+     * grâce à closestNexusPoint(Ennmy) et on lance le déplacement grâce au threadDéplacement et A*;
+     */
     private void moveEnnemies(){
         for(Ennemy ennemi : this.ennemies){
             //deplacementPerso(ennemi,closestNexusPoint(ennemi).x,closestNexusPoint(ennemi).y);
@@ -871,22 +865,38 @@ public class Map {
         }
     }
 
+    /**
+     * On calcule les points libre par rapport au CENTRE du nexus ( et non en haut à gauche), puis on transmet les liste
+     * à la méthode searchMinDistArray(ArrayList<Point>,Ennemy) pour prendre le point le plus proche de l'ennemi.
+     * On prend une distance maximale de 100, totalement arbitraire
+     * @param ennemi
+     * @return
+     */
     private Point closestNexusPoint(Ennemy ennemi){
-        double min = 50;
+        double min = 100;
+        Point middleNexus = new Point(nexus.getX() + nexus.getTaille()/2, nexus.getY()+nexus.getTaille()/2);
         ArrayList<Point> res_array = new ArrayList<>();
         for (Node[] n : nodes) {
             for (Node res : n) {
                 if(!res.isSolid()){
-                    if(Math.hypot((nexus.getX()-res.getCol()),(nexus.getY()- res.getRow())) < min){
+                    if(Math.hypot((middleNexus.getX()-res.getRow()),(middleNexus.getY()- res.getCol())) < min){
                         res_array.add(new Point(res.getRow(),res.getCol()));
+                        System.out.println(res.getCol() + "   " + res.getRow());
                     }
                 }
             }
         }
-        System.out.println(res_array.contains(new Point(0,0)));
+
         return searchMinDistArray(res_array, ennemi);
     }
 
+    /**
+     * Cherche le point à distance minimal de l'ennemi dans l'ArrayList, fonction classique de recherche de minimum,
+     * on instancie min à 10000 de façon arbitraire.
+     * @param points
+     * @param ennemi
+     * @return
+     */
     private Point searchMinDistArray(ArrayList<Point> points, Ennemy ennemi){
         Point res = new Point();
         double min = 10000;
@@ -896,7 +906,6 @@ public class Map {
                 min = Math.hypot((ennemi.getX()-p.x),(ennemi.getY()- p.y));
             }
         }
-        System.out.println(res);
         return res;
     }
 
@@ -977,15 +986,19 @@ public class Map {
         }
     }
 
+    /**
+     * On upgrade la caserne, faisant en sorte d'upgrade tout les Archer et Guerrier ayant été créee jusque là,
+     * de plus cela nous coûte des ressources, donc nous soustrayons les ressources si cela est possible avec un if
+     * faisant le calcul. Cette méthode se raprooche de Modele.Map.upgradeNexus();
+     */
     public void upgradeCaserne() {
-        //Besoin de faire un calcul pour vérifier si on peut l'upgrade ou pas, bastos
-
         if(caserne.getLevel()< 3 ) {
             int n = caserne.getMinimumOfEach();
             if (wood >= n * caserne.getLevel() && food >= n * caserne.getLevel() && stone >= n * caserne.getLevel()) {
                 wood -= n * caserne.getLevel();
                 food -= n * caserne.getLevel();
                 stone -= n * caserne.getLevel();
+                caserne.upgrade();
                 for (Personnage p : characters) {
                     if (p instanceof Guerrier) {
                         Guerrier g = (Guerrier) p;
@@ -999,7 +1012,7 @@ public class Map {
                         }
                     }
                 }
-                caserne.upgrade();
+
             }
         }
     }

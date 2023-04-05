@@ -106,6 +106,8 @@ public class VueJeu extends JPanel {
                     g.fillRect(p.getX()+Personnage.taille/4+1, p.getY()-2, Personnage.taille/2,5) ;
                     g.setColor(Color.GREEN);
                     g.fillRect(p.getX()+Personnage.taille/4+1, p.getY()-2, hpWidth,5);
+                    System.out.println(hpWidth);
+
                     if (p.isMoving()) {
                         g.drawImage(BanqueImage.gifArcherWalk.get(frameIndexGA).getImage(), p.getX(), p.getY(), Personnage.taille, Personnage.taille, null);
                     }else if(p.isAttacking()){

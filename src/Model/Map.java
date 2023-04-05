@@ -111,7 +111,7 @@ public class Map {
     boolean goalReached = false;
     private Caserne caserne;
 
-    private int delaiJourNuit = 5000;
+    private int delaiJourNuit = 50000;
 
     private long startTime = 0;
     public Map(){
@@ -119,7 +119,6 @@ public class Map {
         this.characters = new ArrayList<>();
         this.obstacles = new ArrayList<>();
         Nexus chateau = new Nexus( 50,400);
-        chateau.setPv(100);
         this.nexus = chateau;
         batiments.add(chateau);
         this.food=50;

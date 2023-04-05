@@ -24,7 +24,7 @@ public class EnnemyController extends VueController {
         super(map);
         this.map = map;
 
-        nom = new JLabel("Guerrier");
+        nom = new JLabel("Ennemi");
         setBackground(Color.gray);
         nom.setHorizontalAlignment(JLabel.CENTER);
         setLayout(new BorderLayout());

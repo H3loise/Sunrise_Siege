@@ -53,7 +53,7 @@ public class TimeChanger extends Thread {
             } else {
                 clip = playMusic("src/Music/DaySong.wav");
             }*/
-            m.setDay(m.getDay());
+            m.setDay(!m.getDay());
             m.update();
 
             m.setStartTime(System.currentTimeMillis());

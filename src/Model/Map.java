@@ -305,14 +305,21 @@ public class Map {
     public void healingNexus() {
         int n = nexus.getMinimumOfEach();
         if (wood >= n * (nexus.getLevel()-1) && food >= n * (nexus.getLevel()-1) && stone >= n * (nexus.getLevel()-1)) {
-            nexus.setPv(nexus.getPvMax());
-            wood -= n * (nexus.getLevel()-1);
-            food -= n * (nexus.getLevel()-1);
-            stone -= n * (nexus.getLevel()-1);
-            System.out.println(nexus.toString());
-
-        }
-        else{
+            if(nexus.getLevel() == 1){
+                if(wood >= 4 && food >= 4 && stone >= 4) {
+                    wood -= 4;
+                    food -= 4;
+                    stone -= 4;
+                    nexus.setPv(nexus.getPvMax());
+                }
+            }else {
+                nexus.setPv(nexus.getPvMax());
+                wood -= n * (nexus.getLevel() - 1);
+                food -= n * (nexus.getLevel() - 1);
+                stone -= n * (nexus.getLevel() - 1);
+                System.out.println(nexus.toString());
+            }
+        } else{
             System.out.println("Pas assez d'argent pour réparer le Nexus");
         }
     }

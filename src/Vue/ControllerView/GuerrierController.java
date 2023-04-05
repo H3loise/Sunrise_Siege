@@ -34,7 +34,7 @@ public class GuerrierController extends VueController {
             pdvMax = map.getActionner().getHpMax();
         }
         hp = new JLabel("HP : " + pdv + "/" +  pdvMax );
-        atk = new JLabel("Dégat : " + atk);
+        atk = new JLabel("Dégat : " + attack);
         JPanel contentPanel = new JPanel();
         contentPanel.setBackground(Color.lightGray);
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
@@ -62,8 +62,9 @@ public class GuerrierController extends VueController {
             pdv = map.getActionner().getHealth_points();
             pdvMax = map.getActionner().getHpMax();
             attack = map.getActionner().getAttack_points();
+            hp.setText("HP : " + pdv + "/" + pdvMax);
+            atk.setText("Dégats : " + attack);
         }
-
     }
     @Override
     public void paint(Graphics g) {

@@ -1,10 +1,0 @@
-
-C
-java:S1604*"(Make this anonymous inner class a lambda(ÓÂ¡™ÿÿÿÿÿ
-t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Ì—¦äúÿÿÿÿ
-;
-java:S1948"%Make "map" transient or serializable.(³å„Õ
-\
-java:S3252"AUse static access with "javax.swing.SwingConstants" for "CENTER".(ğ³îîùÿÿÿÿ
->
-java:S1185="(Remove this method to simply inherit it.(¶øÂÁ

@@ -89,6 +89,10 @@ public abstract class Personnage {
         setY(y);
     }
 
+    public void setHealth_points(int health_points) {
+        this.health_points = health_points;
+    }
+
     public synchronized  void  setX(int new_x){
         this.x = new_x;
     }

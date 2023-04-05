@@ -52,6 +52,16 @@ public class Map {
         this.actionner = actionner;
     }
 
+    public int getActionnerHealth_Points(){
+        return this.actionner.getHealth_points();
+    }
+    public int getActionnerHpMax(){
+        return this.actionner.getHpMax();
+    }
+    public int getActionnerAttack(){
+        return this.actionner.getAttack_points();
+    }
+
     private final ArrayList<Ennemy> ennemies = new ArrayList<>();
 
     public ArrayList<Obstacle> getObstacles() {
@@ -978,6 +988,7 @@ public class Map {
                         for (int i = 1; i < caserne.getLevel(); i++) {
                             if(g.getLevel()<caserne.getLevel()) {
                                 g.upgrade();
+
                             }
                         }
                     } else if (p instanceof Archer) {

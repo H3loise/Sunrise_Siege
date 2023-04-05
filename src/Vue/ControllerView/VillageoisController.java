@@ -56,6 +56,7 @@ public class VillageoisController extends VueController {
         if (map.getActionner() != null) {
             pdv = map.getActionner().getHealth_points();
             pdvMax = map.getActionner().getHpMax();
+            hp.setText("HP : " + pdv + "/" + pdvMax);
         }
     }
     @Override

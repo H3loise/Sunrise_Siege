@@ -31,6 +31,6 @@ public class Guerrier extends Personnage {
         level ++;
         hpMax = (hpMax *  level) + (50*level);
         attack_points = (attack_points * level) + (15*level);
-        health_points = hpMax;
+        setHealth_points(getHpMax());
     }
 }

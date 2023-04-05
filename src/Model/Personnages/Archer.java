@@ -35,7 +35,7 @@ public class Archer extends Personnage {
         hpMax = (hpMax *  level) + (15*level);
         attack_points = (attack_points * level) + (50*level);
         health_points = hpMax;
-        System.out.println(health_points + " / " + hpMax);
+        setHealth_points(getHpMax());
     }
 
 }

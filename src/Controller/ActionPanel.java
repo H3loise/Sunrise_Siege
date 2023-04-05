@@ -46,7 +46,7 @@ public class ActionPanel implements MouseListener {
         NoneController none = new NoneController(map);
         ArrayList<Personnage> personnages = map.getPersonnages();
         boolean changed =true;
-        System.out.println("le perso actionner"+map.getActionner());
+        System.out.println("le perso actionner "+map.getActionner());
 
         System.out.println("coordonnées chateau : x= "+this.map.getNexus().getX()+" y="+this.map.getNexus().getY());
         System.out.println("coordonnées click souris : x="+e.getX()+" y = "+e.getY());
@@ -57,23 +57,25 @@ public class ActionPanel implements MouseListener {
                 changed = false;
             }
             if (e.getX() >= map.getCaserne().getX() && e.getX() <= (map.getCaserne().getX() + 150) && e.getY() >= map.getCaserne().getY() && e.getY() <= (map.getCaserne().getY() + 150)) {
-                System.out.println("change pour le chateau");
+                System.out.println("change pour le caserne");
                 this.affichage.card.show(this.affichage.getController(), "caserne");
                 changed = false;
             }
             for (Personnage p : personnages) {
                 if (e.getX() >= p.getX() && e.getX() <= p.getX() + 80 && e.getY() >= p.getY() && e.getY() <= p.getY() + 80) {
                     if (p instanceof Archer && !map.getDay()) {
-
+                        System.out.println("change pour l'archer");
                         this.affichage.card.show(this.affichage.getController(), "archer");
                         this.map.setActionner(p);
+                        System.out.println("HPPPPPPPPPPPPPPPPPPPPP "+map.getActionner().getHealth_points());
                     }
                     if (p instanceof Guerrier && !map.getDay()) {
-
+                        System.out.println("change pour le guerrier");
                         this.affichage.card.show(this.affichage.getController(), "guerrier");
                         this.map.setActionner(p);
                     }
                     if (p instanceof Villageois && map.getDay()) {
+                        System.out.println("change pour le villageois");
                         this.affichage.card.show(this.affichage.getController(), "villageois");
                         this.map.setActionner(p);
                     }

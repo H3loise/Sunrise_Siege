@@ -97,7 +97,6 @@ public class VueJeu extends JPanel {
             int hpCurrent = p.getHealth_points(); // récupère les hp actuel
             double ratio = (double) hpCurrent / hpMax; // calcule le ratio des hps (entre 0 et 1)
             int hpWidth = (int) (ratio * (Personnage.taille/2)); // calcule la largeur du rectangle représentant la progression
-
             if (p instanceof Archer) {
                 if (!map.getDay() || (p.getX()!=map.getCaserne().getX() && p.getY()!=map.getCaserne().getY())) {
                     g.setColor(Color.BLACK);
@@ -106,7 +105,6 @@ public class VueJeu extends JPanel {
                     g.fillRect(p.getX()+Personnage.taille/4+1, p.getY()-2, Personnage.taille/2,5) ;
                     g.setColor(Color.GREEN);
                     g.fillRect(p.getX()+Personnage.taille/4+1, p.getY()-2, hpWidth,5);
-                    System.out.println(hpWidth);
 
                     if (p.isMoving()) {
                         g.drawImage(BanqueImage.gifArcherWalk.get(frameIndexGA).getImage(), p.getX(), p.getY(), Personnage.taille, Personnage.taille, null);

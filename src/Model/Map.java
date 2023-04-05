@@ -101,7 +101,7 @@ public class Map {
     boolean goalReached = false;
     private Caserne caserne;
 
-    private int delaiJourNuit = 50000;
+    private int delaiJourNuit = 5000;
 
     private long startTime = 0;
     public Map(){
@@ -870,15 +870,14 @@ public class Map {
      * @return
      */
     private Point closestNexusPoint(Ennemy ennemi){
-        double min = 100;
+        double max = 100;
         Point middleNexus = new Point(nexus.getX() + nexus.getTaille()/2, nexus.getY()+nexus.getTaille()/2);
         ArrayList<Point> res_array = new ArrayList<>();
         for (Node[] n : nodes) {
             for (Node res : n) {
                 if(!res.isSolid()){
-                    if(Math.hypot((middleNexus.getX()-res.getRow()),(middleNexus.getY()- res.getCol())) < min){
+                    if(Math.hypot((middleNexus.getX()-res.getRow()),(middleNexus.getY()- res.getCol())) < max){
                         res_array.add(new Point(res.getRow(),res.getCol()));
-                        System.out.println(res.getCol() + "   " + res.getRow());
                     }
                 }
             }

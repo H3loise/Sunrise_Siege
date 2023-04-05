@@ -175,26 +175,17 @@ public class VueJeu extends JPanel {
         for (Batiment b : map.getBatiments()) {
             //g.drawImage(BanqueImage.imgNexus1,b.getX(),b.getY(),150,150,null);
             if (b.getLevel() == 1) {
-                g.drawImage(BanqueImage.imgNexus1, b.getX(), b.getY(), 150, 150, null);
+                g.drawImage(BanqueImage.imgNexus1, b.getX(), b.getY(), map.getNexus().getTaille(), map.getNexus().getTaille(), null);
             }
             if (b.getLevel() == 2) {
-                g.drawImage(BanqueImage.imgNexus2, b.getX(), b.getY(), 150, 150, null);
+                g.drawImage(BanqueImage.imgNexus2, b.getX(), b.getY(), map.getNexus().getTaille(), map.getNexus().getTaille(), null);
             }
-            if (b.getLevel() == 3) {
-                g.drawImage(BanqueImage.imgNexus3, b.getX(), b.getY(), 150, 150, null);
+            if (b.getLevel() >= 3) {
+                g.drawImage(BanqueImage.imgNexus3, b.getX(), b.getY(), map.getNexus().getTaille(), map.getNexus().getTaille(), null);
             }
         }
     }
 
-    private void funTest(Graphics g) {
-    g.setColor(Color.black);
-        for (Node[] c: map.getNodes()) {
-            for (Node node: c) {
-                if(node.isSolid())
-                g.drawRect(node.getCol(),node.getRow(),1,1);
-            }
-        }
-    }
 
 
 }

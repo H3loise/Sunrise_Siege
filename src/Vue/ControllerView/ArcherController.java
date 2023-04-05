@@ -1,6 +1,8 @@
 package Vue.ControllerView;
 
 import Model.Map;
+import Model.Personnages.Archer;
+import Model.Personnages.Personnage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,26 +11,63 @@ import java.awt.event.ActionListener;
 
 public class ArcherController extends VueController {
 
-
+    Map map;
+    int pdv = 0;
+    int pdvMax = 0;
+    int attack = 0;
+    private JLabel nom;
+    private JLabel hp;
+    private JLabel atk;
+    /**
+     * Controleur de l'Archer (layout de droite) qui permet de fournir les informations sur les archers notamment celui selectionné
+     * @param map
+     */
     public ArcherController(Map map) {
         super(map);
-        JLabel texte = new JLabel("Archer");
-        JButton attaquer = new JButton("ATTAQUER");
-        JButton deplacement = new JButton("DÉPLACEMENT");
-        JButton upgrade = new JButton("Ameliorer");
+        this.map = map;
 
-        this.add(upgrade);
-        this.add(texte);
-        this.add(attaquer);
-        this.add(deplacement);
+        nom = new JLabel("Archer");
+        setBackground(Color.gray);
+        nom.setHorizontalAlignment(JLabel.CENTER);
+        setLayout(new BorderLayout());
+        add(nom, BorderLayout.NORTH);
 
-        upgrade.addActionListener(new ActionListener() {
+        if (map.getActionner() != null) {
+            pdv = map.getActionner().getHealth_points()+1;
+            pdvMax = map.getActionner().getHpMax();
+        }
+        hp = new JLabel("HP : " + pdv + "/" +  pdvMax );
+        atk = new JLabel("Dégat : " + atk);
+        JPanel contentPanel = new JPanel();
+        contentPanel.setBackground(Color.lightGray);
+        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
+        contentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+        contentPanel.add(hp);
+        contentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+        contentPanel.add(atk);
+        add(contentPanel, BorderLayout.CENTER);
+
+        int delay = 100;
+        Timer timer = new Timer(delay, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Achete archer");
-                //map.upgradeGuerrier(Le guerrier sur lequel j'ai cliqué);
+                updateContent();
             }
         });
+        timer.start();
+    }
+
+    /**
+     * Permet d'actualiser les statistiques de l'archer selectionnée
+     */
+    private void updateContent() {
+
+        if (map.getActionner() != null) {
+            pdv = map.getActionner().getHealth_points();
+            pdvMax = map.getActionner().getHpMax();
+            attack = map.getActionner().getAttack_points();
+        }
+
     }
 
     @Override

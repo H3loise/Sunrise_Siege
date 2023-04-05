@@ -31,6 +31,7 @@ public class VillageoisController extends VueController {
             pdvMax = map.getActionner().getHpMax();
         }
         hp = new JLabel("HP : " + pdv + "/" +  pdvMax );
+        JLabel Info = new JLabel("");
         JPanel contentPanel = new JPanel();
         contentPanel.setBackground(Color.lightGray);
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));

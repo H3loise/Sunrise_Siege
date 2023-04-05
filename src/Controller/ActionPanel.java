@@ -14,6 +14,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+
 public class ActionPanel implements MouseListener {
 
     private Map map;
@@ -95,12 +96,6 @@ public class ActionPanel implements MouseListener {
                 this.affichage.card.show(this.affichage.getController(), "none");
             }
         }
-        //this.affichage.setNone();
-        //this.affichage.getController().revalidate();
-        //this.affichage.getController().repaint();
-        //this.affichage.repaint();
-        //this.affichage.add(none, BorderLayout.EAST);
-        //this.affichage.card.previous(affichage.getController());
     }
 
     @Override

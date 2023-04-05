@@ -8,6 +8,9 @@ public class ThreadWipeDeadCharacters extends Thread{
         this.map = map;
     }
 
+    /**
+     * Thread permettant d'effacer les monstres morts, pour qu'il disparaissent du jeu
+     */
     @Override
     public void run() {
         while(!map.testLoose()) {

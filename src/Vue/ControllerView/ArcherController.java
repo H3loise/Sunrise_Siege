@@ -41,12 +41,19 @@ public class ArcherController extends VueController {
         }
         hp = new JLabel("HP : " + pdv + "/" +  pdvMax );
         atk = new JLabel("Dégat : " + attack);
+        JLabel infos = new JLabel();
+        infos.setText("Un archer est une classe de combat, vous pouvez cliquer quelque part pour vous déplacer" +
+                ". A la rencontre d'un ennemi dans son champ de tir, il commencera automatique à l'attaquer."
+        + "Pour améliorer cette unité, veuillez améliorer le Nexus." +
+                "Ses points de vies seront restaurés au levé du jour.");
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
         contentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
         contentPanel.add(hp);
         contentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
         contentPanel.add(atk);
+        contentPanel.add(infos);
         add(contentPanel, BorderLayout.CENTER);
+
 
 
         int delay = 100;

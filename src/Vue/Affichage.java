@@ -21,6 +21,10 @@ public class Affichage extends JFrame {
 
     public CardLayout card;
 
+    /***
+     * La classe crée les controller, elle switch de controller selon le clic dans ACTIONPANERL
+     * @param m
+     */
     public Affichage(Map m){
         super("Sunrise Siege");
         VueJeu vueJeu = new VueJeu(m);

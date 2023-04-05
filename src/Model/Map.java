@@ -9,6 +9,8 @@ import Model.Personnages.*;
 import java.awt.*;
 import java.util.*;
 
+import static java.lang.Thread.sleep;
+
 public class Map {
     private ArrayList<Obstacle> obstacles;
     private ArrayList<Personnage> characters;
@@ -19,8 +21,7 @@ public class Map {
     private Personnage actionner;
 
     private int score = 0;
-    public static final int windowWidth = 1480;
-    public static final int windowHeight = 920;
+
     //private int food;
 
     private int food;
@@ -111,7 +112,7 @@ public class Map {
     boolean goalReached = false;
     private Caserne caserne;
 
-    private int delaiJourNuit = 5000;
+    private int delaiJourNuit = 25000;
 
     private long startTime = 0;
     public Map(){
@@ -119,7 +120,6 @@ public class Map {
         this.characters = new ArrayList<>();
         this.obstacles = new ArrayList<>();
         Nexus chateau = new Nexus( 50,400);
-        chateau.setPv(100);
         this.nexus = chateau;
         batiments.add(chateau);
         this.food=50;
@@ -162,16 +162,7 @@ public class Map {
         }
     }
 
-    /**
-     * Procédure permettant de miner une ressource, le matériau est récupéré et le minerai est détruit.
-     * La place occupée par le matériaux dans les noeuds est alors libérée
-     * @param v
-     * @param o
-     */
-    public void mining(Villageois v,Obstacle o){
-        rendreCasePossibleObstacles(o);
-        deplacementPersoMiner(v,o);
-    }
+
 
     /**
      * Getter du delaiJourNuit
@@ -241,15 +232,7 @@ public class Map {
         this.ennemies.removeIf(ennemy -> !ennemy.getIsAlive());
     }
     /**
-     * Procédure qui se lance au moment de l'update, elle permet de vider l'ArrayList batiments des batiments détruits
-     */
-    /*private void eraseDestroyedBuildings(){
-        for(Batiment b : batiments){
-            if(b.getPv() <= 0 ){
-                batiments.remove(b);
-            }
-        }
-    }*/
+
 
     /**
      * Fonction calculant si la partie est perdu, autrement dit si le nexus a été détruit.
@@ -334,13 +317,7 @@ public class Map {
         }
     }
 
-    /**
-     * Permettant de mettre directement des personnages, ceci est une fonction pour les dev
-     * @param characters
-     */
-    public void setCharacters(ArrayList<Personnage> characters) {
-        this.characters = characters;
-    }
+
 
 
     /**
@@ -423,14 +400,6 @@ public class Map {
         }
     }
 
-    /**
-     * Fun test dev
-     */
-    private void testCaseImpossible(){
-        for(int i = 0;i<taille-200;i++){
-            nodes[i][400].setAsSolid();
-        }
-    }
 
 
     /** ------------------------------------------------------------------
@@ -460,24 +429,7 @@ public class Map {
         obstacles.add(o);
     }
 
-    /**
-     * Fonction  de deplacement du personnage, on prends un personnage, la destination souhaitée, on calcule le 
-     * cheminLePluscourt puis on lance le thread de déplacement, si chemin vide ou non trouvé le thread ne fait rien.
-     * De plus on remet à l'état initial les noeuds modifiés pour la recherche de ce parcours
-     * ----------------------------
-     * Note Yanis :
-     * @param p
-     * @param x
-     * @param y
-     */
-    /*public void deplacementPerso(Personnage p ,int x,int y){
-        if(!p.isMoving()) {
-            p.setMoving(true);
-            ArrayList<Point> points = cheminLePluscourt(p, x, y);
-            resetNoeudsAprèsUtilisation();
-            new ThreadDeplacement(this, p, points).start();
-        }
-    }*/
+
     public void deplacementPerso(Personnage p ,int x,int y){
         if(!p.isMoving()) {
             ArrayList<Point> points = cheminLePluscourt(p, x, y);
@@ -702,14 +654,7 @@ public class Map {
         }
     }
 
-    /**
-     * Prend tous les ennemis de la partie et les déplace vers le nexus
-     */
-    private void moveEnnemiesToNexus(){
-        for (Ennemy ennemi : this.ennemies){
-            deplacementPerso(ennemi,this.nexus.getX(),this.nexus.getY());
-        }
-    }
+
 
 
     /**
@@ -762,11 +707,9 @@ public class Map {
                 p.upgrade();
             }
             addCharacter(p);
-            //petit message sur le panel please
         }
             else{
                 System.out.println("Vous n'avez pas assez de ressources");
-                //on pourra afficher la différence de ce qu'il manque
             }
     }
 
@@ -780,11 +723,9 @@ public class Map {
             food -= Archer.wheatPrice;
             Archer p = new Archer(caserne.getX(), caserne.getY(),this);
             addCharacter(p);
-            //petit message sur le panel please
         }
         else{
             System.out.println("Vous n'avez pas assez de ressources");
-            //on pourra afficher la différence de ce qu'il manque
         }
     }
 
@@ -802,37 +743,7 @@ public class Map {
         return ennemies;
     }
 
-    /**
-     * Proc permet d'upgrade un guerrier, on va la modifier pour upgrade le niveau de création des guerriers.
-     * Function deprecated, unused
-     * @param g
-     */
-    public void upgradeGuerrier(Guerrier g){
-        if(stone >= Guerrier.stonePrice * g.getLevel() && food >= Guerrier.wheatPrice * g.getLevel() & wood >= Guerrier.woodPrice * g.getLevel() ){
-            stone -= Guerrier.stonePrice * g.getLevel();
-            food -= Guerrier.wheatPrice * g.getLevel();
-            wood -= Guerrier.woodPrice * g.getLevel();
-            g.upgrade();
-        }else{
-            System.out.println("Vous n'avez pas assez de ressources");
-        }
-    }
 
-    /**
-     * idem
-     *
-     * @param g
-     */
-    public void upgradeArcher(Guerrier g){
-        if(stone >= Archer.stonePrice * g.getLevel() && food >= Archer.wheatPrice * g.getLevel() & wood >= Archer.woodPrice * g.getLevel() ){
-            stone -= Archer.stonePrice * g.getLevel();
-            food -= Archer.wheatPrice * g.getLevel();
-            wood -= Archer.woodPrice * g.getLevel();
-            g.upgrade();
-        }else{
-            System.out.println("Vous n'avez pas assez de ressources");
-        }
-    }
 
 
     public Personnage getActionner(){
@@ -852,13 +763,13 @@ public class Map {
      */
     private void generateEnnemies(){
         Random random = new Random();
-        int ennemy_number = random.nextInt((score%150+1))+4;
+        int ennemy_number = random.nextInt((score%150+1))+1;
         int x_or_y = random.nextInt(2);
         for (int i = 0; i < ennemy_number; i++) {
             if (x_or_y == 0) {
-                addEnnemy(new Ennemy(random.nextInt(taille), 0,this));
+                addEnnemy(new Ennemy(random.nextInt(800), 0,this));
             } else {
-                addEnnemy(new Ennemy(900, random.nextInt(taille),this));
+                addEnnemy(new Ennemy(800, random.nextInt(800),this));
             }
         }
     }
@@ -868,9 +779,14 @@ public class Map {
      * grâce à closestNexusPoint(Ennmy) et on lance le déplacement grâce au threadDéplacement et A*;
      */
     private void moveEnnemies(){
-        for(Ennemy ennemi : this.ennemies){
+         for(Ennemy ennemi : this.ennemies){
             deplacementPerso(ennemi,closestNexusPoint(ennemi).x,closestNexusPoint(ennemi).y);
-        }
+             try {
+                 sleep(2000);
+             } catch (InterruptedException e) {
+                 throw new RuntimeException(e);
+             }
+         }
     }
 
     /**
@@ -889,6 +805,7 @@ public class Map {
                 if(!res.isSolid()){
                     if(Math.hypot((middleNexus.getX()-res.getRow()),(middleNexus.getY()- res.getCol())) < max){
                         res_array.add(new Point(res.getRow(),res.getCol()));
+                        System.out.println(res.isSolid());
                     }
                 }
             }
@@ -910,9 +827,11 @@ public class Map {
         for(Point p : points){
             if(min > Math.hypot((ennemi.getX()-p.x),(ennemi.getY()- p.y))){
                 res = p;
-                min = Math.hypot((ennemi.getX()-p.x),(ennemi.getY()- p.y));
+                min = Math.hypot((ennemi.getX()-p.y),(ennemi.getY()- p.x));
             }
         }
+        //System.out.println(res);
+        System.out.println(nodes[(int) res.getX()][(int) res.getY()].isSolid());
         return res;
     }
 
@@ -921,15 +840,6 @@ public class Map {
      *  ------------------------------------------------------------------
      */
 
-    /*public boolean scanFightRange(Personnage perso, Personnage ennemi){
-        double diam = Math.sqrt((perso.getX() - ennemi.getX()) * (perso.getX() - ennemi.getX()) + (perso.getY() - ennemi.getY()) * (perso.getY() - ennemi.getY()));
-        int r1 = perso.getRayon();
-        int r2 = ennemi.getRayon();
-        if(diam <= r1-r2 || diam <= r2-r1 || diam < r1+r2 || diam == r1+r2){
-            return true;
-        }
-        return false;
-    }*/
 
     /**
      * Lorsque la zone du perso touche le centre de "ennemi" la fonction renvoie true
@@ -957,14 +867,13 @@ public class Map {
             resetPositionWarriors();
             rendreCasesImpossibleBats(caserne);
             eraseDeadPeople();
-            //eraseDestroyedBuildings();
             generateNewObstacles();
             upScore();
             healEveryone();
         }
         else {
             rendreCasePossibleBatiment(caserne);
-            //generateEnnemies();
+            generateEnnemies();
             moveEnnemies();
         }
     }
@@ -1007,5 +916,119 @@ public class Map {
 
     public Caserne getCaserne() {
         return this.caserne;
+    }
+
+
+    /**
+     * Code non utilisé
+     */
+
+    /**
+     * Procédure permettant de miner une ressource, le matériau est récupéré et le minerai est détruit.
+     * La place occupée par le matériaux dans les noeuds est alors libérée
+     * @param v
+     * @param o
+     */
+    public void mining(Villageois v,Obstacle o){
+        rendreCasePossibleObstacles(o);
+        deplacementPersoMiner(v,o);
+    }
+
+       /*public boolean scanFightRange(Personnage perso, Personnage ennemi){
+        double diam = Math.sqrt((perso.getX() - ennemi.getX()) * (perso.getX() - ennemi.getX()) + (perso.getY() - ennemi.getY()) * (perso.getY() - ennemi.getY()));
+        int r1 = perso.getRayon();
+        int r2 = ennemi.getRayon();
+        if(diam <= r1-r2 || diam <= r2-r1 || diam < r1+r2 || diam == r1+r2){
+            return true;
+        }
+        return false;
+    }*/
+
+     /*Procédure qui se lance au moment de l'update, elle permet de vider l'ArrayList batiments des batiments détruits
+     */
+    /*private void eraseDestroyedBuildings(){
+        for(Batiment b : batiments){
+            if(b.getPv() <= 0 ){
+                batiments.remove(b);
+            }
+        }
+    }*/
+
+    /**
+     * Permettant de mettre directement des personnages, ceci est une fonction pour les dev
+     * @param characters
+     */
+    public void setCharacters(ArrayList<Personnage> characters) {
+        this.characters = characters;
+    }
+
+
+    /**
+     * Fun test dev
+     */
+    private void testCaseImpossible(){
+        for(int i = 0;i<taille-200;i++){
+            nodes[i][400].setAsSolid();
+        }
+    }
+
+    /**
+     * Fonction  de deplacement du personnage, on prends un personnage, la destination souhaitée, on calcule le
+     * cheminLePluscourt puis on lance le thread de déplacement, si chemin vide ou non trouvé le thread ne fait rien.
+     * De plus on remet à l'état initial les noeuds modifiés pour la recherche de ce parcours
+     * ----------------------------
+     * Note Yanis :
+     * @param p
+     * @param x
+     * @param y
+     */
+    /*public void deplacementPerso(Personnage p ,int x,int y){
+        if(!p.isMoving()) {
+            p.setMoving(true);
+            ArrayList<Point> points = cheminLePluscourt(p, x, y);
+            resetNoeudsAprèsUtilisation();
+            new ThreadDeplacement(this, p, points).start();
+        }
+    }*/
+
+    /**
+     * Prend tous les ennemis de la partie et les déplace vers le nexus
+     */
+    private void moveEnnemiesToNexus(){
+        for (Ennemy ennemi : this.ennemies){
+            deplacementPerso(ennemi,this.nexus.getX(),this.nexus.getY());
+        }
+    }
+
+    /**
+     * Proc permet d'upgrade un guerrier, on va la modifier pour upgrade le niveau de création des guerriers.
+     * Function deprecated, unused
+     * @param g
+     */
+    public void upgradeGuerrier(Guerrier g){
+        if(stone >= Guerrier.stonePrice * g.getLevel() && food >= Guerrier.wheatPrice * g.getLevel() & wood >= Guerrier.woodPrice * g.getLevel() ){
+            stone -= Guerrier.stonePrice * g.getLevel();
+            food -= Guerrier.wheatPrice * g.getLevel();
+            wood -= Guerrier.woodPrice * g.getLevel();
+            g.upgrade();
+        }else{
+            System.out.println("Vous n'avez pas assez de ressources");
+        }
+    }
+
+    /**
+     * idem
+     *
+     * @param g
+     */
+    public void upgradeArcher(Guerrier g){
+        if(stone >= Archer.stonePrice * g.getLevel() && food >= Archer.wheatPrice * g.getLevel() & wood >= Archer.woodPrice * g.getLevel() ){
+            stone -= Archer.stonePrice * g.getLevel();
+            food -= Archer.wheatPrice * g.getLevel();
+            wood -= Archer.woodPrice * g.getLevel();
+            g.upgrade();
+        }else{
+            System.out.println("Vous n'avez pas assez de ressources");
+        }
     }
 }

@@ -30,7 +30,7 @@ public abstract class Batiment {
 
 
     public int getPv() {
-        return pv;
+        return this.pv;
     }
     public void setPv(int pv) {
         this.pv = pv;

@@ -17,7 +17,8 @@ public class Nexus extends Batiment {
      */
     public Nexus(int x, int y) {
         super(x, y);
-        this.setPv(this.pvMax);
+        setPv(getPvMax());
+        System.out.println(pv);
         this.attack = 50;
     }
 

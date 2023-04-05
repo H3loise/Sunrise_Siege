@@ -2,10 +2,7 @@ package Controller;
 
 import Model.Map;
 import Model.Obstacles.Obstacle;
-import Model.Personnages.Archer;
-import Model.Personnages.Guerrier;
-import Model.Personnages.Personnage;
-import Model.Personnages.Villageois;
+import Model.Personnages.*;
 import Vue.Affichage;
 import Vue.ControllerView.NoneController;
 
@@ -83,6 +80,14 @@ public class ActionPanel implements MouseListener {
 
                 }
             }
+            for(Ennemy mechant : map.getEnnemies()){
+                if (e.getX() >= mechant.getX() && e.getX() <= mechant.getX() + 80 && e.getY() >= mechant.getY() && e.getY() <= mechant.getY() + 80){
+                        System.out.println("change pour le méchant");
+                        this.affichage.card.show(this.affichage.getController(), "ennemy");
+                        this.map.setActionner(mechant);
+                    changed = false;
+                }
+            }
             if (changed) {
                 this.affichage.card.show(this.affichage.getController(), "none");
             }
@@ -103,11 +108,13 @@ public class ActionPanel implements MouseListener {
                     this.affichage.card.show(this.affichage.getController(), "none");
                 }
             }else {
+                if(!(map.getActionner() instanceof  Ennemy)) {
+                    System.out.println("On change les coordonnées du pointeur");
+                    this.map.setyActionner(e.getY());
+                    this.map.setxActionner(e.getX());
 
-                System.out.println("On change les coordonnées du pointeur");
-                this.map.setyActionner(e.getY());
-                this.map.setxActionner(e.getX());
-                map.deplacementPerso(map.getActionner(), e.getX(), e.getY());
+                    map.deplacementPerso(map.getActionner(), e.getX(), e.getY());
+                }
                 map.setActionner(null);
                 this.affichage.card.show(this.affichage.getController(), "none");
             }

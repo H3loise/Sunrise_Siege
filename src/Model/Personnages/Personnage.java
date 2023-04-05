@@ -1,5 +1,6 @@
 package Model.Personnages;
 
+import Model.Batiments.Nexus;
 import Model.Map;
 import Model.ThreadDeplacement;
 import Model.ThreadScanEnnemies;
@@ -22,13 +23,12 @@ public abstract class Personnage {
     private boolean attacking = false;
     private ThreadDeplacement thread_deplacement = null;
 
-    public Personnage(int health_points, int x, int y, int rayon, int attack_points, Map map){
+    public Personnage(int health_points, int x, int y, int rayon, int attack_points){
         this.health_points = health_points;
         this.x = x;
         this.y = y;
         this.rayon = rayon;
         this.attack_points = attack_points;
-        new ThreadScanEnnemies(map,this).start();
     }
 
     public int getAttack_points(){
@@ -118,6 +118,14 @@ public abstract class Personnage {
     public boolean isAttacking(){return this.attacking;}
 
     public void setAttacking(boolean attacking){this.attacking = attacking;}
+
+    public void attackNexus(Nexus nexus){
+        if(this instanceof Ennemy) {
+            System.out.println("boum");
+            this.attacking = true;
+            nexus.receivesDamage(this.attack_points);
+        }
+    }
 
     /**
      * Fonction permettant de régenerer les points de vie du personnage

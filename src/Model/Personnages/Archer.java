@@ -21,7 +21,7 @@ public class Archer extends Personnage {
 
 
     public Archer(int x, int y, Map map) {
-        super(health_points,x,y,rayon,attack_points,map);
+        super(health_points,x,y,rayon,attack_points);
         this.hpMax = this.getHealth_points();
         level = 1;
     }

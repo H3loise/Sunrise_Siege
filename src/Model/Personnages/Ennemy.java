@@ -1,5 +1,6 @@
 package Model.Personnages;
 
+import Model.Batiments.Nexus;
 import Model.Map;
 import Model.ThreadScanEnnemies;
 
@@ -8,16 +9,17 @@ import Model.ThreadScanEnnemies;
  * Un ennemy est non controlable
  */
 public class Ennemy extends Personnage {
-    private static final int health_points = 1000;
+    private static final int health_points = 100000;
     private static final int attack_points = 150;
     private static final int rayon = 50;
 
 
 
-    public Ennemy(int x, int y, Map map){
-        super(health_points,x,y,rayon, attack_points, map);
+    public Ennemy(int x, int y){
+        super(health_points,x,y,rayon, attack_points);
         this.hpMax = this.getHealth_points();
-        //new ThreadScanEnnemies(map,this);
     }
+
+
 
 }

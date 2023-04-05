@@ -42,6 +42,10 @@ public class Nexus extends Batiment {
         this.attack = attack;
     }
 
+    public void receivesDamage(int damage){
+        this.pv -= damage;
+    }
+
     /**
      * permet d'améliorer le Nexus, pour l'instant on met 50 en attaque et 100 en pv pour chaque niveau obtenu.
      * l'amélioration du nexus se fera pas matériaux, que l'on gèrera dans le modèle.

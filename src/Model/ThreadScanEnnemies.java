@@ -22,7 +22,7 @@ public class ThreadScanEnnemies extends Thread{
     /**
      * sleep au tout début pour donner le temps aux persos d'être bien instanciés et bien rentré dans les arrays
      * boucle while qui tourne tant que le perso est en vie
-     * check si perso est un "monstre" il attaque les alliés (guerrier archers)
+     * check si perso est un "monstre" il attaque les alliés (guerrier archers) et si le monstre est arrivé au nexus il attaque le nexus
      * si perso "allié" (guerrier archer) il attaque les monstres
      */
 
@@ -34,18 +34,22 @@ public class ThreadScanEnnemies extends Thread{
             e.printStackTrace();
         }
         while(perso.getIsAlive()) {
+
             if(this.perso instanceof Ennemy){
+
                 for(Personnage gentil : map.getPersonnages()){
                     if(map.scanFightRange(this.perso,gentil) && !this.perso.isAttacking() && !(gentil instanceof Villageois)){
-                        new ThreadAttack(this.perso,gentil).start();
+                        new ThreadAttack(this.map,this.perso,gentil,false).start();
                     }
+                }
+                if(map.ennemyArrivedToNexus(this.perso) && !this.perso.isAttacking()){
+                    new ThreadAttack(this.map,this.perso,null,true).start();
                 }
             }
             else{
                 for (Ennemy ennemy : map.getEnnemies()) {
                     if (map.scanFightRange(this.perso, ennemy) && !this.perso.isAttacking()) {
-                        //System.out.println("lezgo");
-                        new ThreadAttack(this.perso, ennemy).start();
+                        new ThreadAttack(this.map,this.perso, ennemy,false).start();
                     }
                 }
             }

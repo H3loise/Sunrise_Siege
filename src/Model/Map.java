@@ -248,7 +248,7 @@ public class Map {
      */
     private void generateNewObstacles(){
         Random random = new Random();
-        int n = random.nextInt((score%150)+1)+ 3;
+        int n = random.nextInt((score%150))+ 3;
         for (int i = 0; i < n; i++) {
             int x = random.nextInt(0,taille);
             int y = random.nextInt(0,taille);
@@ -296,7 +296,6 @@ public class Map {
             System.out.println("t'as pas assez clochard va, au travail !!!!!");
         }
     }
-
 
 
     /**
@@ -426,7 +425,7 @@ public class Map {
 
     public void addEnnemy(Ennemy e){
         this.ennemies.add(e);
-        //new ThreadScanEnnemies(this,e).start();
+        new ThreadScanEnnemies(this,e).start();
     }
 
     /**
@@ -678,7 +677,7 @@ public class Map {
             int x = 10;
             int y = 10;
             boolean libre = false;
-            Villageois p = new Villageois(10, 10,this);
+            Villageois p = new Villageois(10, 10);
             for (Node[] n :
                     nodes) {
                 if (libre) {
@@ -710,7 +709,7 @@ public class Map {
             stone -= Guerrier.stonePrice;
             wood -= Guerrier.woodPrice;
             food -= Guerrier.wheatPrice;
-            Guerrier p = new Guerrier(caserne.getX(), caserne.getY(),this);
+            Guerrier p = new Guerrier(caserne.getX(), caserne.getY());
             for (int i = 1; i < caserne.getLevel(); i++) {
                 p.upgrade();
             }
@@ -775,9 +774,9 @@ public class Map {
         int x_or_y = random.nextInt(2);
         for (int i = 0; i < ennemy_number; i++) {
             if (x_or_y == 0) {
-                addEnnemy(new Ennemy(random.nextInt(800), 0,this));
+                addEnnemy(new Ennemy(random.nextInt(800), 0));
             } else {
-                addEnnemy(new Ennemy(800, random.nextInt(800),this));
+                addEnnemy(new Ennemy(800, random.nextInt(800)));
             }
         }
     }
@@ -804,7 +803,7 @@ public class Map {
      * @param ennemi
      * @return
      */
-    private Point closestNexusPoint(Ennemy ennemi){
+    private Point closestNexusPoint(Personnage ennemi){
         double max = 150;
         Point middleNexus = new Point(nexus.getX() + nexus.getTaille()/2, nexus.getY()+nexus.getTaille()/2);
         ArrayList<Point> res_array = new ArrayList<>();
@@ -813,6 +812,7 @@ public class Map {
                 if(!res.isSolid()){
                     if(Math.hypot((middleNexus.getX()-res.getRow()),(middleNexus.getY()- res.getCol())) < max && (res.getRow()!=0 && res.getCol()!=0)){
                         res_array.add(new Point(res.getRow(),res.getCol()));
+                        System.out.println(res.isSolid());
                     }
                 }
             }
@@ -828,7 +828,7 @@ public class Map {
      * @param ennemi
      * @return
      */
-    private Point searchMinDistArray(ArrayList<Point> points, Ennemy ennemi){
+    private Point searchMinDistArray(ArrayList<Point> points, Personnage ennemi){
         Point res = new Point();
         double min = 10000;
         for(Point p : points){
@@ -838,7 +838,6 @@ public class Map {
                 min = Math.hypot((ennemi.getX()-p.x),(ennemi.getY()- p.y));
             }
         }
-        System.out.println(nodes[(int) res.getX()][(int) res.getY()].isSolid());
         return res;
     }
 
@@ -855,6 +854,22 @@ public class Map {
         double distance = Math.sqrt((perso.getX() - ennemi.getX()) * (perso.getX() - ennemi.getX()) + (perso.getY() - ennemi.getY()) * (perso.getY() - ennemi.getY()));
         double sumRadius = perso.getRayon() + ennemi.getRayon();
         if (distance < perso.getRayon() || distance <= sumRadius - ennemi.getRayon()) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Lorsque ennemi est arrivé au Nexus (avec une marge d'erreur de 5 pixels a cause des conversions de double en int..etc) retourne true
+     * sinon false
+     * @param ennemi
+     * @return
+     */
+    public boolean ennemyArrivedToNexus(Personnage ennemi){
+        Point ennemy_arrival_point = closestNexusPoint(ennemi);
+        int subX= ennemy_arrival_point.x - ennemi.getX();
+        int subY = ennemy_arrival_point.y - ennemi.getY();
+        if ((-5<=subX && subX <=5)  && (-5<=subY && subY<=5)){
             return true;
         }
         return false;

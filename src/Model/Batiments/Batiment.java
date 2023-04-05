@@ -9,9 +9,8 @@ import java.awt.*;
  * un batiment est un Nexus pour l'instant, mais pas un obstacle attention.
  */
 public abstract class Batiment {
+    protected int pv;
     protected int pvMax = 2000;
-    protected int pv = pvMax;
-
     private int x;
     private int y;
     protected int level;
@@ -55,6 +54,8 @@ public abstract class Batiment {
     public void setY(int y) {
         this.y = y;
     }
+    public int getMiddleX(){return this.x+this.taille/2;}
+    public int getMiddleY(){return this.y+this.taille/2;}
 
     public int getLevel() {
         return level;

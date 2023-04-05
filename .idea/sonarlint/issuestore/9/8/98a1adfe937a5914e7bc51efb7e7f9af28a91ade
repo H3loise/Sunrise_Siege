@@ -1,0 +1,30 @@
+
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(º›°Î
+£
+java:S1186v"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(®î’×üÿÿÿÿ8—Æª“õ0
+
+java:S1186{"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ãÆĞÂ8—Æª“õ0
+¤
+java:S1186€"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ö„˜şúÿÿÿÿ8—Æª“õ0
+¤
+java:S1186…"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(•ßçùÿÿÿÿ8˜Æª“õ0
+t
+java:S3776,"RRefactor this method to reduce its Cognitive Complexity from 45 to the 15 allowed.(Ä Ïúüÿÿÿÿ8ÔëÊ’õ0
+U
+java:S1854."8Remove this useless assignment to local variable "none".( “±¢8ÕëÊ’õ0
+U	java:S106-"9Replace this use of System.out or System.err by a logger.(ˆÎŸ²8ÖëÊ’õ0
+F
+java:S1481.")Remove this unused "none" local variable.( “±¢8ÖëÊ’õ0
+U	java:S1061"9Replace this use of System.out or System.err by a logger.(™¨ì¤8×ëÊ’õ0
+Z	java:S1063"9Replace this use of System.out or System.err by a logger.(€ï£éıÿÿÿÿ8×ëÊ’õ0
+T	java:S1064"9Replace this use of System.out or System.err by a logger.(úŸˆ#8ØëÊ’õ0
+Z	java:S1067"9Replace this use of System.out or System.err by a logger.(ªùçµüÿÿÿÿ8ÙëÊ’õ0
+U	java:S106<"9Replace this use of System.out or System.err by a logger.(¦²‚×8ÛëÊ’õ0
+Z	java:S106C"9Replace this use of System.out or System.err by a logger.(Ãµ´©üÿÿÿÿ8ßëÊ’õ0
+Z	java:S106F"9Replace this use of System.out or System.err by a logger.(ù½–şÿÿÿÿ8¢Æª“õ0
+U	java:S106I"9Replace this use of System.out or System.err by a logger.(…«’Ë8¤Æª“õ0
+Z	java:S106N"9Replace this use of System.out or System.err by a logger.(ËüŸÙıÿÿÿÿ8¥Æª“õ0
+U	java:S106_"9Replace this use of System.out or System.err by a logger.(Í¸à×8ÉÔ¾“õ0
+U	java:S106k"9Replace this use of System.out or System.err by a logger.(”Ñá·8ıåİ“õ0
+B
+java:S1128"%Remove this unused import 'java.awt'.(ï´µ©8ã¸–“õ0

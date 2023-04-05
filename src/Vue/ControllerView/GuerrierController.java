@@ -14,6 +14,8 @@ public class GuerrierController extends VueController {
     int attack = 0;
     private JLabel nom;
     private JLabel hp;
+    private JLabel txtExplicatif1;
+    private JLabel txtExplicatif2;
     private JLabel atk;
     /**
      * Controleur du Guerrier (layout de droite) qui permet de fournir les informations sur les guerriers notamment celui selectionné
@@ -35,6 +37,8 @@ public class GuerrierController extends VueController {
         }
         hp = new JLabel("HP : " + pdv + "/" +  pdvMax );
         atk = new JLabel("Dégat : " + attack);
+        txtExplicatif1 = new JLabel("Ceci est un guerrier, attaquez les");
+        txtExplicatif2 = new JLabel("ennemis pour défendre le royaume");
         JPanel contentPanel = new JPanel();
         contentPanel.setBackground(Color.lightGray);
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
@@ -42,6 +46,10 @@ public class GuerrierController extends VueController {
         contentPanel.add(hp);
         contentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
         contentPanel.add(atk);
+        contentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+        contentPanel.add(txtExplicatif1);
+        contentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+        contentPanel.add(txtExplicatif2);
         add(contentPanel, BorderLayout.CENTER);
 
         int delay = 100;

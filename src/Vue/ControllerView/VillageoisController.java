@@ -13,6 +13,8 @@ public class VillageoisController extends VueController {
     int pdvMax = 0;
     private JLabel nom;
     private JLabel hp;
+    private JLabel txtExplicatif1;
+    private JLabel txtExplicatif2;
 
     /**
      * Controleur du Villageois (layout de droite) qui permet de fournir les informations sur les villageois notamment celui selectionné
@@ -31,12 +33,18 @@ public class VillageoisController extends VueController {
             pdvMax = map.getActionner().getHpMax();
         }
         hp = new JLabel("HP : " + pdv + "/" +  pdvMax );
+        txtExplicatif1 = new JLabel("Ceci est un villageois, récoltez des ressource");
+        txtExplicatif2 = new JLabel("pour remplir les stocks du royaume");
         JLabel Info = new JLabel("");
         JPanel contentPanel = new JPanel();
         contentPanel.setBackground(Color.lightGray);
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
         contentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
         contentPanel.add(hp);
+        contentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+        contentPanel.add(txtExplicatif1);
+        contentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+        contentPanel.add(txtExplicatif2);
         add(contentPanel, BorderLayout.CENTER);
 
         int delay = 100;

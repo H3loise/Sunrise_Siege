@@ -1,0 +1,16 @@
+
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÉÆìùÿÿÿÿ
+{	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(™ÅË°øÿÿÿÿ8Ëúİ’õ0
+v	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(„“áš8‹¬áùñ0
+v	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(Ûê–Ò8Œ¬áùñ0
+{	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(’£µ¶ÿÿÿÿÿ8Œ¬áùñ0
+u
+java:S3008"XRename this field "health_points" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(…˜„î8Ëúİ’õ0
+u
+java:S3008"XRename this field "attack_points" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ëü†8Ëúİ’õ0
+T
+java:S2387"7"health_points" is the name of a field in "Personnage".(…˜„î8Ëúİ’õ0
+R
+java:S2696$"6Make the enclosing method "static" or remove this set.(¨¦œL8Ïúİ’õ0
+X
+java:S2696%"6Make the enclosing method "static" or remove this set.(ñÕèüÿÿÿÿÿ8ÏÙšô0

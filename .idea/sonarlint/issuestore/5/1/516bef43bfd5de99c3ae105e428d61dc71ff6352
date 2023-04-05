@@ -1,0 +1,23 @@
+
+r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(½¤ë÷øÿÿÿÿ8·×šô0
+f	java:S117?"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ë±²¶
+f	java:S117C"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ñ–¿ò
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÉÆìùÿÿÿÿ
+o	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(Ğ€šÄ
+t	java:S116"XRename this field "health_points" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ñˆ«8º×šô0
+l	java:S116"XRename this field "attack_points" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Â’‘Q
+T
+java:S5993"9Change the visibility of this constructor to "protected".(½¤ë÷øÿÿÿÿ
+j	java:S1001"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(éªö·8×Œö™ô0
+Z
+java:S28865"?Synchronize this method to match the synchronization on "setX".(şŸş¸ûÿÿÿÿ
+Z
+java:S28867"?Synchronize this method to match the synchronization on "setY".(Øª’ßûÿÿÿÿ
+c	java:S100V"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(–ª‹á
+o	java:S100Y"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(…ÿ§äıÿÿÿÿ8âüİ™ô0
+M
+java:S1128"+Remove this unused import 'java.awt.event'.(Ã®ÎÙÿÿÿÿÿ8ıÈˆšô0
+J
+java:S1128"(Remove this unused import 'javax.swing'.(Ìí¿Üüÿÿÿÿ8ıÈˆšô0
+W
+java:S1128":Remove this unused import 'java.awt.event.ActionListener'.(Ìä¹8ıÈˆšô0

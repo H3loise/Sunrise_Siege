@@ -17,13 +17,23 @@ w
 G.idea/sonarlint/issuestore/9/3/93a161fe0d805a1c4c8fd11eefcb84bcb8be7bbc,8\0\80cf39e1f5636e34646145939f9bb41dfe79025f
 w
 G.idea/sonarlint/issuestore/8/0/80cf39e1f5636e34646145939f9bb41dfe79025f,9\7\9793031d8739b204d6b9f20e2efd1284ff68cccf
-O
-src/Controller/ActionPanel.java,9\8\98a1adfe937a5914e7bc51efb7e7f9af28a91ade
-P
- src/Model/Batiments/Caserne.java,8\2\82f3f85e1fe54417ba1873a18be368709983dc29
 N
 src/Model/Batiments/Nexus.java,9\2\92c398097484c444638ba8f4361e0daf088602a2
-Q
-!src/Model/Batiments/Batiment.java,6\c\6c0038009ba6f10d9089dad6faebf570b12e4d00
 U
 %src/Model/Personnages/Villageois.java,2\2\2223a8dba893e0aec8e5d47f833f01d42c46a15b
+U
+%src/Model/Personnages/Personnage.java,5\1\516bef43bfd5de99c3ae105e428d61dc71ff6352
+Q
+!src/Model/Personnages/Ennemy.java,7\1\715573d8ee675fd75032ac8f9443de449fcbddad
+Q
+!src/Model/Personnages/Archer.java,f\4\f4b45ed4fff76d630788ce9ceb98bd3001dc6d63
+S
+#src/Model/Personnages/Guerrier.java,0\d\0d5c8c4c1646e23369c08572199fe899e9e8ff8a
+=
+src/Main.java,9\2\924f089edb4af5ee45c8a9d1129cd28e2b368138
+Y
+)src/Vue/ControllerView/VueController.java,b\e\be91cee889314a692224998611ed150dddf297db
+w
+G.idea/sonarlint/issuestore/9/7/9793031d8739b204d6b9f20e2efd1284ff68cccf,f\6\f6f7e45ad66b03d6abededef19bbec97ba9a5413
+`
+0src/Vue/ControllerView/VillageoisController.java,e\5\e520de9afbfc384a49911cb36a61212e266e3860

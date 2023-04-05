@@ -1,0 +1,18 @@
+
+0
+java:S1220""Move this file to a named package.
+R
+java:S1128"5Remove this unused import 'Model.Obstacles.Obstacle'.(óÖ°8ôÍÆ§ò0
+T
+java:S1128"7Remove this unused import 'Model.Personnages.Guerrier'.(ñëª˜8ôÍÆ§ò0
+b
+java:S1128	"@Remove this unused import 'Vue.ControllerView.ArcherController'.(õ›‡ÿÿÿÿÿ8ôÍÆ§ò0
+M
+java:S1128
+"0Remove this unused import 'Vue.ThreadAfficheur'.(ßà8õÍÆ§ò0
+I
+java:S1128"'Remove this unused import 'Vue.VueJeu'.(îõÈ¢øÿÿÿÿ8õÍÆ§ò0
+J
+java:S1128"(Remove this unused import 'javax.swing'.(Ìí¿Üüÿÿÿÿ8õÍÆ§ò0
+B
+java:S1128"%Remove this unused import 'java.awt'.(ï´µ©8õÍÆ§ò0

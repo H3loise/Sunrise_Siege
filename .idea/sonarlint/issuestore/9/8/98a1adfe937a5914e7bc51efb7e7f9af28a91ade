@@ -1,27 +1,0 @@
-
-o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(º›°Î
-œ
-java:S1186i"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(®î’×üÿÿÿÿ
-—
-java:S1186n"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ãÆĞÂ
-œ
-java:S1186s"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ö„˜şúÿÿÿÿ
-œ
-java:S1186x"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(•ßçùÿÿÿÿ
-m
-java:S3776"RRefactor this method to reduce its Cognitive Complexity from 45 to the 15 allowed.(Ä Ïúüÿÿÿÿ
-N
-java:S1854"8Remove this useless assignment to local variable "none".( “±¢
-N	java:S106"9Replace this use of System.out or System.err by a logger.(ˆÎŸ²
-?
-java:S1481")Remove this unused "none" local variable.( “±¢
-N	java:S106""9Replace this use of System.out or System.err by a logger.(™¨ì¤
-Z	java:S106$"9Replace this use of System.out or System.err by a logger.(€ï£éıÿÿÿÿ8ñ¼ä–ô0
-M	java:S106%"9Replace this use of System.out or System.err by a logger.(úŸˆ#
-S	java:S106("9Replace this use of System.out or System.err by a logger.(ªùçµüÿÿÿÿ
-Z	java:S106-"9Replace this use of System.out or System.err by a logger.(ªùçµüÿÿÿÿ8ö¼ä–ô0
-U	java:S106N"9Replace this use of System.out or System.err by a logger.(Í¸à×8ú¼ä–ô0
-U	java:S106X"9Replace this use of System.out or System.err by a logger.(”Ñá·8û¼ä–ô0
-V	java:S125`"<This block of commented-out lines of code should be removed.(©¢Òïşÿÿÿÿ
-;
-java:S1128"%Remove this unused import 'java.awt'.(ï´µ©

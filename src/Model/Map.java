@@ -864,7 +864,10 @@ public class Map {
 
     private void moveEnnemies(){
         for(Ennemy ennemi : this.ennemies){
-            deplacementPerso(ennemi,closestNexusPoint(ennemi).x,closestNexusPoint(ennemi).y);
+            //deplacementPerso(ennemi,closestNexusPoint(ennemi).x,closestNexusPoint(ennemi).y);
+            Point p_ennemy = new Point(ennemi.getX(),ennemi.getY());
+            Point closest = getClosestPoint(p_ennemy,getPerimeterOfNexus());
+            deplacementPerso(ennemi,closest.x,closest.y);
         }
     }
 
@@ -897,20 +900,42 @@ public class Map {
         return res;
     }
 
+    private int calculateDistanceBetweenTwoPoints(Point p1, Point p2){
+        return (int)Math.sqrt((p2.getY() - p1.getY()) * (p2.getY() - p1.getY()) + (p2.getX() - p1.getX()) * (p2.getX()-p1.getX()));
+    }
+
+    private ArrayList<Point> getPerimeterOfNexus(){
+        Point nexus_point = new Point(getNexus().getX(),getNexus().getY());
+        ArrayList<Point> res = new ArrayList<>();
+        res.add(new Point((int)nexus_point.getX(),(int)nexus_point.getY()-20)); // coin haut gauche
+        res.add(new Point((int)nexus_point.getX(),nexus_point.y+getNexus().getTaille()+20)); // coin bas gauche
+        res.add(new Point((int)nexus_point.getX()-10,(int)nexus_point.getY())); //
+        res.add(new Point(nexus_point.x+getNexus().getTaille()+20,(int)nexus_point.getY()));
+        for (int i = 1; i <= getNexus().getTaille(); i++) {
+            res.add(new Point((int)nexus_point.getX()+i,(int)nexus_point.getY()-20)); // barre du haut
+            res.add(new Point((int)nexus_point.getX()+i,nexus_point.y+getNexus().getTaille()+20)); // barre du bas
+            res.add(new Point((int)nexus_point.getX()-10,(int)nexus_point.getY()+i)); // barre de gauche
+            res.add(new Point(nexus_point.x+getNexus().getTaille()+20,(int)nexus_point.getY()+i));  // barre de droite
+        }
+        return res;
+    }
+
+    private Point getClosestPoint(Point p1, ArrayList<Point> points_array){
+        int min = calculateDistanceBetweenTwoPoints(p1,points_array.get(0));
+        Point res = new Point(0,0);
+        for(Point temp_point : points_array){
+            if(calculateDistanceBetweenTwoPoints(p1,temp_point) < min){
+                min = calculateDistanceBetweenTwoPoints(p1,temp_point);
+                res = temp_point;
+            }
+        }
+        return res;
+    }
+
     /** ------------------------------------------------------------------
      *                                              BAGARRE
      *  ------------------------------------------------------------------
      */
-
-    /*public boolean scanFightRange(Personnage perso, Personnage ennemi){
-        double diam = Math.sqrt((perso.getX() - ennemi.getX()) * (perso.getX() - ennemi.getX()) + (perso.getY() - ennemi.getY()) * (perso.getY() - ennemi.getY()));
-        int r1 = perso.getRayon();
-        int r2 = ennemi.getRayon();
-        if(diam <= r1-r2 || diam <= r2-r1 || diam < r1+r2 || diam == r1+r2){
-            return true;
-        }
-        return false;
-    }*/
 
     /**
      * Lorsque la zone du perso touche le centre de "ennemi" la fonction renvoie true
@@ -945,8 +970,10 @@ public class Map {
         }
         else {
             rendreCasePossibleBatiment(caserne);
-            //generateEnnemies();
+            generateEnnemies();
             moveEnnemies();
+            //System.out.println(getPerimeterOfNexus());
+            Point p_ennemy = new Point(this.ennemies.get(0).getX(),this.ennemies.get(0).getY());
         }
     }
 

@@ -1,6 +1,7 @@
 package Vue;
 
 import Model.Batiments.Batiment;
+import Model.Batiments.Nexus;
 import Model.Map;
 import Model.Node;
 import Model.Obstacles.Obstacle;
@@ -169,19 +170,30 @@ public class VueJeu extends JPanel {
                 g.setColor(Color.GREEN);
                 g.fillRect(e.getX()+Personnage.taille/4+1, e.getY()-8, hpWidth,5);
                 if (e.isMoving()) {
-                    g.drawImage(BanqueImage.gifGoblinWalk.get(frameIndexEMarche).getImage(), e.getX(), e.getY(), Personnage.taille, Personnage.taille, null);
+                    g.drawImage(BanqueImage.gifGoblinWalk.get(frameIndexEMarche).getImage(), e.getX(), e.getY(), Personnage.taille+10, Personnage.taille, null);
                 }else if(e.isAttacking()){
-                    g.drawImage(BanqueImage.gifGuerrierAttack.get(frameIndexEAttaque).getImage(), e.getX(), e.getY(), Personnage.taille, Personnage.taille, null);
+                    g.drawImage(BanqueImage.gifGoblinAtk.get(frameIndexEAttaque).getImage(), e.getX(), e.getY(), Personnage.taille+10, Personnage.taille, null);
                 } else {
-                    g.drawImage(BanqueImage.gifGoblinWalk.get(1).getImage(), e.getX(), e.getY(), Personnage.taille, Personnage.taille, null);
+                    g.drawImage(BanqueImage.gifGoblinWalk.get(1).getImage(), e.getX(), e.getY(), Personnage.taille, Personnage.taille+10, null);
                 }
             }
         }
-        }
+    }
 
     public void paintBatiments(Graphics g) {
         for (Batiment b : map.getBatiments()) {
-            //g.drawImage(BanqueImage.imgNexus1,b.getX(),b.getY(),150,150,null);
+            if (b instanceof Nexus) {
+                int hpMax = b.getPvMax(); // récupère les hpMax
+                int hpCurrent = b.getPv(); // récupère les hp actuel
+                double ratio = (double) hpCurrent / hpMax; // calcule le ratio des hps (entre 0 et 1)
+                int hpWidth = (int) (ratio * (map.getNexus().getTaille() / 2)); // calcule la largeur du rectangle représentant la progression
+                g.setColor(Color.BLACK);
+                g.drawRect(b.getX() + map.getNexus().getTaille() / 4, b.getY() - 9, map.getNexus().getTaille() / 2 + 1, 6);
+                g.setColor(Color.RED);
+                g.fillRect(b.getX() + map.getNexus().getTaille() / 4 + 1, b.getY() - 8, map.getNexus().getTaille()/2, 5);
+                g.setColor(Color.GREEN);
+                g.fillRect(b.getX() + map.getNexus().getTaille() / 4 + 1, b.getY() - 8, hpWidth, 5);
+            }
             if (b.getLevel() == 1) {
                 g.drawImage(BanqueImage.imgNexus1, b.getX(), b.getY(), map.getNexus().getTaille(), map.getNexus().getTaille(), null);
             }

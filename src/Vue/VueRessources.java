@@ -13,6 +13,7 @@ public class VueRessources extends JPanel {
     private final int hauteur = 30;
     private final int longueur = Map.taille;
 
+
     private int widthBarre = 200;
     /**
      * Création d'un Vue.Affichage pour les ressources (bois,blé,pierre).
@@ -37,6 +38,7 @@ public class VueRessources extends JPanel {
         paintRocks(g);
         paintAstre(g);
         timerRect(g);
+        paintScore(g);
     }
 
     /**
@@ -109,5 +111,11 @@ public class VueRessources extends JPanel {
             g.setColor(Color.RED);
         }
         g.fillRect(map.taille/2+40, 5, barWidth, 20);
+    }
+
+    private void paintScore(Graphics g) {
+        g.setColor(Color.BLACK);
+        long score = map.getScore();
+        g.drawString("Score : " + score, 800, 20);
     }
 }

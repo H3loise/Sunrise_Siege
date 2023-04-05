@@ -112,7 +112,7 @@ public class Map {
     boolean goalReached = false;
     private Caserne caserne;
 
-    private int delaiJourNuit = 25000;
+    private int delaiJourNuit = 10000;
 
     private long startTime = 0;
     public Map(){
@@ -187,6 +187,10 @@ public class Map {
         startTime = millis;
     }
 
+    public long getScore(){
+        return score;
+    }
+
     /**
      * Donne les ressources liées à l'obstacle passé en param, l'obstacle est alors remove de l'ArrayList obstacles
      * @param o
@@ -205,7 +209,7 @@ public class Map {
      * Procédure permettant d'incrémenter le score, ici on a choisi 150, mais on changera
      */
     public void upScore(){
-        this.score +=150;
+        this.score +=50;
     }
 
     /**
@@ -248,7 +252,7 @@ public class Map {
      */
     private void generateNewObstacles(){
         Random random = new Random();
-        int n = random.nextInt((score%150) + 4);
+        int n = random.nextInt((score%50) + 4);
         for (int i = 0; i < n; i++) {
             int x = random.nextInt(0,taille);
             int y = random.nextInt(0,taille);
@@ -289,7 +293,7 @@ public class Map {
             food -= n * nexus.getLevel();
             stone -= n * nexus.getLevel();
             nexus.upgrade();
-            score += 400;
+            score += 50;
             System.out.println("Bravo le nexus a été amélioré, voici ses stats actuelles : ");
             System.out.println(nexus.toString());
         }else{
@@ -305,14 +309,21 @@ public class Map {
     public void healingNexus() {
         int n = nexus.getMinimumOfEach();
         if (wood >= n * (nexus.getLevel()-1) && food >= n * (nexus.getLevel()-1) && stone >= n * (nexus.getLevel()-1)) {
-            nexus.setPv(nexus.getPvMax());
-            wood -= n * (nexus.getLevel()-1);
-            food -= n * (nexus.getLevel()-1);
-            stone -= n * (nexus.getLevel()-1);
-            System.out.println(nexus.toString());
-
-        }
-        else{
+            if(nexus.getLevel() == 1){
+                if(wood >= 4 && food >= 4 && stone >= 4) {
+                    wood -= 4;
+                    food -= 4;
+                    stone -= 4;
+                    nexus.setPv(nexus.getPvMax());
+                }
+            }else {
+                nexus.setPv(nexus.getPvMax());
+                wood -= n * (nexus.getLevel() - 1);
+                food -= n * (nexus.getLevel() - 1);
+                stone -= n * (nexus.getLevel() - 1);
+                System.out.println(nexus.toString());
+            }
+        } else{
             System.out.println("Pas assez d'argent pour réparer le Nexus");
         }
     }
@@ -763,7 +774,7 @@ public class Map {
      */
     private void generateEnnemies(){
         Random random = new Random();
-        int ennemy_number = random.nextInt((score%150+1))+1;
+        int ennemy_number = random.nextInt((score%50+1))+1;
         int x_or_y = random.nextInt(2);
         for (int i = 0; i < ennemy_number; i++) {
             if (x_or_y == 0) {
@@ -797,13 +808,13 @@ public class Map {
      * @return
      */
     private Point closestNexusPoint(Ennemy ennemi){
-        double max = 100;
+        double max = 150;
         Point middleNexus = new Point(nexus.getX() + nexus.getTaille()/2, nexus.getY()+nexus.getTaille()/2);
         ArrayList<Point> res_array = new ArrayList<>();
         for (Node[] n : nodes) {
             for (Node res : n) {
                 if(!res.isSolid()){
-                    if(Math.hypot((middleNexus.getX()-res.getRow()),(middleNexus.getY()- res.getCol())) < max){
+                    if(Math.hypot((middleNexus.getX()-res.getRow()),(middleNexus.getY()- res.getCol())) < max && (res.getRow()!=0 && res.getCol()!=0)){
                         res_array.add(new Point(res.getRow(),res.getCol()));
                         System.out.println(res.isSolid());
                     }
@@ -826,11 +837,12 @@ public class Map {
         double min = 10000;
         for(Point p : points){
             if(min > Math.hypot((ennemi.getX()-p.x),(ennemi.getY()- p.y))){
-                res = p;
-                min = Math.hypot((ennemi.getX()-p.y),(ennemi.getY()- p.x));
+                if(!nodes[p.x][p.y].isSolid())
+                    res = p;
+                min = Math.hypot((ennemi.getX()-p.x),(ennemi.getY()- p.y));
             }
         }
-        //System.out.println(res);
+        System.out.println(res);
         System.out.println(nodes[(int) res.getX()][(int) res.getY()].isSolid());
         return res;
     }

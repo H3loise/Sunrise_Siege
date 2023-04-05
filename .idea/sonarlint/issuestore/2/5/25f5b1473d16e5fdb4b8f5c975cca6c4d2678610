@@ -3,10 +3,10 @@ f
 java:S1104"PMake card a static final constant or non-public and provide accessors if needed.(Ø”Üß
 t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(èî“–øÿÿÿÿ
 V	java:S125"<This block of commented-out lines of code should be removed.(ä§Œ©þÿÿÿÿ
-Q	java:S1250"<This block of commented-out lines of code should be removed.(öÝŒ’
-V	java:S125:"<This block of commented-out lines of code should be removed.(ú³Ççûÿÿÿÿ
+Q	java:S1254"<This block of commented-out lines of code should be removed.(öÝŒ’
+V	java:S125>"<This block of commented-out lines of code should be removed.(ú³Ççûÿÿÿÿ
 ^
-java:S3252G"IUse static access with "javax.swing.WindowConstants" for "EXIT_ON_CLOSE".(ºÀœx
+java:S3252K"IUse static access with "javax.swing.WindowConstants" for "EXIT_ON_CLOSE".(ºÀœx
 J
 java:S1128"4Remove this unused import 'Model.Batiments.Caserne'.(ˆ¾â‰
 P

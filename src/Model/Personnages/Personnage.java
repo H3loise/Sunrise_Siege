@@ -17,7 +17,7 @@ public abstract class Personnage {
     protected int hpMax = health_points;
     private final int attack_points;
     protected int level;
-    public static final int taille = 60;
+    public static final int taille = 50;
     private boolean moving = false;
     private boolean attacking = false;
     private ThreadDeplacement thread_deplacement = null;
@@ -101,9 +101,7 @@ public abstract class Personnage {
         this.y = new_y;
     }
 
-    public void heal(){
-        health_points = hpMax;
-    }
+
 
     public int getLevel(){
         return this.level;
@@ -120,4 +118,11 @@ public abstract class Personnage {
     public boolean isAttacking(){return this.attacking;}
 
     public void setAttacking(boolean attacking){this.attacking = attacking;}
+
+    /**
+     * Fonction permettant de régenerer les points de vie du personnage
+     */
+    public void heal(){
+        health_points = hpMax;
+    }
 }

@@ -11,7 +11,7 @@ public class Archer extends Personnage {
 
     private static int health_points = 1000;
 
-    private static int attack_points = 5;
+    private static int attack_points = 100;
 
     private static final int rayon = 200;
 

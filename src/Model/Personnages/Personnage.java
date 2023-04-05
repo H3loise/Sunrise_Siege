@@ -1,27 +1,38 @@
 package Model.Personnages;
 
-import java.awt.event.*;
+import Model.Map;
+import Model.ThreadDeplacement;
+import Model.ThreadScanEnnemies;
 
-import javax.swing.*;
-import java.awt.event.ActionListener;
-
+/**
+ * Classe Personnage permettant de modéliser un personnage,  classe abstraite ne pouvant être instancier,
+ * elle permet la défintion des sous-classes Ennemy,Archer, Guerrier et Villageois.
+ */
 public abstract class Personnage {
     private int x;
     private int y;
+    private final int rayon;
     private boolean isAlive = true;
     protected int health_points;
     protected int hpMax = health_points;
-    private final Object lock = new Object();
+    private final int attack_points;
     protected int level;
     public static final int taille = 60;
-
-    private int attack_points = 50;
-
     private boolean moving = false;
-    public Personnage(int health_points, int x, int y){
+    private boolean attacking = false;
+    private ThreadDeplacement thread_deplacement = null;
+
+    public Personnage(int health_points, int x, int y, int rayon, int attack_points, Map map){
         this.health_points = health_points;
         this.x = x;
         this.y = y;
+        this.rayon = rayon;
+        this.attack_points = attack_points;
+        new ThreadScanEnnemies(map,this).start();
+    }
+
+    public int getAttack_points(){
+        return this.attack_points;
     }
 
 
@@ -29,13 +40,22 @@ public abstract class Personnage {
      * perso qui se fait attaquer
      * @param damage
      */
-    public void attackedPersonnage(int damage){
+    public void receivesDamage(int damage){
         if(this.health_points <= 0){
             this.isAlive = false;
         }
         else{
             this.health_points -= damage;
         }
+    }
+
+    /**
+     * Méthode permet
+     * @param perso
+     */
+    public void attack(Personnage perso){
+        this.attacking = true;
+        perso.receivesDamage(this.getAttack_points());
     }
 
     /**
@@ -46,6 +66,14 @@ public abstract class Personnage {
         return this.isAlive;
     }
 
+    public void setThread_deplacement(ThreadDeplacement thread_dep){
+        this.thread_deplacement = thread_dep;
+    }
+
+    public ThreadDeplacement getThread_deplacement(){
+        return this.thread_deplacement;
+    }
+
     public int getHealth_points(){return this.health_points;}
 
     public int getHpMax(){return this.hpMax;}
@@ -53,11 +81,12 @@ public abstract class Personnage {
     public int getX(){return this.x;}
 
     public int getY(){return this.y;}
+
+    public int getRayon(){return this.rayon;}
+
     public void setPosition(int x, int y) {
-        synchronized (lock) {
-            setX(x);
-            setY(y);
-        }
+        setX(x);
+        setY(y);
     }
 
     public synchronized  void  setX(int new_x){
@@ -83,10 +112,8 @@ public abstract class Personnage {
     public boolean isMoving(){
         return this.moving;
     }
-    public int getAttack_points(){
-            return this.attack_points;
-    }
-    protected void setAttack_points(int atk) {
-        this.attack_points = atk;
-    }
+
+    public boolean isAttacking(){return this.attacking;}
+
+    public void setAttacking(boolean attacking){this.attacking = attacking;}
 }

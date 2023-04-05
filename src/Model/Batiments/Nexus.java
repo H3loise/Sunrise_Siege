@@ -8,7 +8,7 @@ public class Nexus extends Batiment {
     //Canon qui attaque
     private int attack;
     private final int minimumOfEach = 5;
-    private final double range = 100;
+    private final double range = 300;
 
     /**
      * Création d'un Nexus, appel au super constructeur
@@ -53,15 +53,7 @@ public class Nexus extends Batiment {
         setPv(pvMax);
     }
 
-    /**
-     * fonction développeur, permet de cheat, sera utile pour les tests
-     * @param level
-     */
-    public void cheat(int level){
-        setPv(level * 100);
-        setAttack(50*level);
-        setLevel(level);
-    }
+
 
     public int getMinimumOfEach() {
         return minimumOfEach;
@@ -78,5 +70,22 @@ public class Nexus extends Batiment {
                 " points de vie, niveau :" + getLevel();
     }
 
+
+    /**---------------------------------------------------------------------------------------
+     * Vestiges :
+     -----------------------------------------------------------------------------------------*/
+
+
+
+
+    /**
+     * fonction développeur, permet de cheat, sera utile pour les tests
+     * @param level
+     */
+    public void cheat(int level){
+        setPv(level * 100);
+        setAttack(50*level);
+        setLevel(level);
+    }
 
 }

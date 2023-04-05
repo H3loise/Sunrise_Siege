@@ -15,6 +15,11 @@ public class ThreadAttackNexusAuto extends Thread{
         this.y = m.getNexus().getY();
     }
 
+    /**
+     * Le thread calcule en boucle un ennemi proche, et le mitraille jusqu'à que mort s'en suive, ou que
+     * le nexus meurt. On calcule la distance grâce à Math.abs.
+     * Un sleep de 300 ms est effectué pour ne pas faire attaquer trop vite
+     */
     @Override
     public void run() {
         Ennemy target = null;
@@ -28,7 +33,7 @@ public class ThreadAttackNexusAuto extends Thread{
                 }
             }
             if(target !=null){
-                target.attackedPersonnage(map.getNexus().getAttack());
+                target.receivesDamage(map.getNexus().getAttack());
             }
             try {
                 sleep(cooldown);

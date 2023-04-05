@@ -355,6 +355,16 @@ public abstract class BanqueImage {
         }
     }
 
+    public final static BufferedImage imgEnnemy;
+
+    static {
+        try {
+            imgEnnemy = ImageIO.read(new File("src/Images/ennemy.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     /**
      * Image du Soleil et de la Lune
      */

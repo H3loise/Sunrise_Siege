@@ -141,22 +141,8 @@ public class Obstacle {
     }
     private final int taille = 50;
 
-    /**
-     * Permet d'augmenter la taille de l'obstacle, pourra être utile prochainement
-     */
-    public void upgrade(){
-        switch (size){
-            case Small -> {
-                size = Taille.Average;
-                ressource =medium;
-            }
-            case Average ->{
-                size = Taille.Big;
-                ressource = many;
 
-            }
-        }
-    }
+
     /**
      * Permet d'affiche les informations liées à l'obstacle, sera utile pour l'affichage swing
      * @return String
@@ -171,5 +157,25 @@ public class Obstacle {
 
     public int getTaille() {
         return taille;
+    }
+
+
+
+    /**
+     * Permet d'augmenter la taille de l'obstacle, pourra être utile prochainement
+     * nonused
+     */
+    public void upgrade(){
+        switch (size){
+            case Small -> {
+                size = Taille.Average;
+                ressource =medium;
+            }
+            case Average ->{
+                size = Taille.Big;
+                ressource = many;
+
+            }
+        }
     }
 }

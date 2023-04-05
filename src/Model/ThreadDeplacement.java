@@ -22,7 +22,7 @@ public class ThreadDeplacement extends Thread {
         this.p = p;
         this.points = points;
         if(this.p instanceof Ennemy){
-            this.delai = 10;
+            this.delai = 25;
         }
     }
 

@@ -17,7 +17,8 @@ public class VueJeu extends JPanel {
     private Map map;
     private int frameIndexGAMarche = 0;
     private int frameIndexV = 0;
-    private int frameIndexZ = 0;
+    private int frameIndexEMarche = 0;
+    private int frameIndexEAttaque = 0;
     private int frameIndexAAttaque = 0;
     private int frameIndexGAttaque = 0;
 
@@ -36,7 +37,8 @@ public class VueJeu extends JPanel {
         frameIndexAAttaque = (frameIndexAAttaque + 1) % 23;
         frameIndexGAttaque = (frameIndexGAttaque + 1) % 9;
         frameIndexV = (frameIndexV + 1) % 8;
-        frameIndexZ = (frameIndexZ + 1) % 11;
+        frameIndexEMarche = (frameIndexEMarche + 1) % 4;
+        frameIndexEAttaque = (frameIndexEAttaque + 1) % 5;
         repaint();
     }
 
@@ -167,9 +169,11 @@ public class VueJeu extends JPanel {
                 g.setColor(Color.GREEN);
                 g.fillRect(e.getX()+Personnage.taille/4+1, e.getY()-8, hpWidth,5);
                 if (e.isMoving()) {
-                    g.drawImage(BanqueImage.gifZombieWalk.get(frameIndexZ).getImage(), e.getX(), e.getY(), Personnage.taille, Personnage.taille, null);
+                    g.drawImage(BanqueImage.gifGoblinWalk.get(frameIndexEMarche).getImage(), e.getX(), e.getY(), Personnage.taille+10, Personnage.taille, null);
+                }else if(e.isAttacking()){
+                    g.drawImage(BanqueImage.gifGoblinAtk.get(frameIndexEAttaque).getImage(), e.getX(), e.getY(), Personnage.taille+10, Personnage.taille, null);
                 } else {
-                    g.drawImage(BanqueImage.gifZombieWalk.get(5).getImage(), e.getX(), e.getY(), Personnage.taille, Personnage.taille, null);
+                    g.drawImage(BanqueImage.gifGoblinWalk.get(1).getImage(), e.getX(), e.getY(), Personnage.taille, Personnage.taille+10, null);
                 }
             }
         }

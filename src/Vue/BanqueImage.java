@@ -388,4 +388,41 @@ public abstract class BanqueImage {
             throw new RuntimeException(e);
         }
     }
+    /**
+     * GIF ennemie marche
+     */
+
+    public static final List<ImageIcon> gifGoblinWalk;
+
+    static {
+        try {
+            // Charger les images du GIF
+            gifGoblinWalk = new ArrayList<>();
+            for (int i = 1; i <= 4; i++) {
+                ImageIcon gifFrame = new ImageIcon("src/GIF/goblin_marche/goblin-walk" + i + ".png");
+                gifGoblinWalk.add(gifFrame);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * GIF ennemie marche
+     */
+
+    public static final List<ImageIcon> gifGoblinAtk;
+
+    static {
+        try {
+            // Charger les images du GIF
+            gifGoblinAtk = new ArrayList<>();
+            for (int i = 1; i <= 5; i++) {
+                ImageIcon gifFrame = new ImageIcon("src/GIF/goblin_attaque/goblin-atk" + i + ".png");
+                gifGoblinAtk.add(gifFrame);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

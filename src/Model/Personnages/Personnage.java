@@ -121,6 +121,8 @@ public abstract class Personnage {
 
     public void attackNexus(Nexus nexus){
         if(this instanceof Ennemy) {
+            System.out.println("boum");
+            this.attacking = true;
             nexus.receivesDamage(this.attack_points);
         }
     }

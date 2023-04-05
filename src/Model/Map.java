@@ -425,7 +425,7 @@ public class Map {
 
     public void addEnnemy(Ennemy e){
         this.ennemies.add(e);
-        //new ThreadScanEnnemies(this,e).start();
+        new ThreadScanEnnemies(this,e).start();
     }
 
     /**
@@ -803,7 +803,7 @@ public class Map {
      * @param ennemi
      * @return
      */
-    private Point closestNexusPoint(Ennemy ennemi){
+    private Point closestNexusPoint(Personnage ennemi){
         double max = 150;
         Point middleNexus = new Point(nexus.getX() + nexus.getTaille()/2, nexus.getY()+nexus.getTaille()/2);
         ArrayList<Point> res_array = new ArrayList<>();
@@ -812,7 +812,6 @@ public class Map {
                 if(!res.isSolid()){
                     if(Math.hypot((middleNexus.getX()-res.getRow()),(middleNexus.getY()- res.getCol())) < max && (res.getRow()!=0 && res.getCol()!=0)){
                         res_array.add(new Point(res.getRow(),res.getCol()));
-                        System.out.println(res.isSolid());
                     }
                 }
             }
@@ -828,7 +827,7 @@ public class Map {
      * @param ennemi
      * @return
      */
-    private Point searchMinDistArray(ArrayList<Point> points, Ennemy ennemi){
+    private Point searchMinDistArray(ArrayList<Point> points, Personnage ennemi){
         Point res = new Point();
         double min = 10000;
         for(Point p : points){
@@ -838,8 +837,6 @@ public class Map {
                 min = Math.hypot((ennemi.getX()-p.x),(ennemi.getY()- p.y));
             }
         }
-        System.out.println(res);
-        System.out.println(nodes[(int) res.getX()][(int) res.getY()].isSolid());
         return res;
     }
 
@@ -861,10 +858,17 @@ public class Map {
         return false;
     }
 
-    public boolean scanFightNexusRange(Personnage ennemi) {
-        double distance = Math.sqrt((ennemi.getX() - this.nexus.getMiddleX()) * (ennemi.getX() - this.nexus.getMiddleX()) + (ennemi.getY() - this.nexus.getMiddleY()) * (ennemi.getY() - this.nexus.getMiddleY()));
-        double sumRadius = ennemi.getRayon() + this.nexus.getRange();
-        if (distance < ennemi.getRayon() || distance <= sumRadius - this.nexus.getRange()) {
+    /**
+     * Lorsque ennemi est arrivé au Nexus (avec une marge d'erreur de 5 pixels a cause des conversions de double en int..etc) retourne true
+     * sinon false
+     * @param ennemi
+     * @return
+     */
+    public boolean ennemyArrivedToNexus(Personnage ennemi){
+        Point ennemy_arrival_point = closestNexusPoint(ennemi);
+        int subX= ennemy_arrival_point.x - ennemi.getX();
+        int subY = ennemy_arrival_point.y - ennemi.getY();
+        if ((-5<=subX && subX <=5)  && (-5<=subY && subY<=5)){
             return true;
         }
         return false;

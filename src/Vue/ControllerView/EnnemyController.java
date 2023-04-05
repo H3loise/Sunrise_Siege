@@ -7,7 +7,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GuerrierController extends VueController {
+public class EnnemyController extends VueController {
+
     Map map;
     int pdv = 0;
     int pdvMax = 0;
@@ -16,10 +17,10 @@ public class GuerrierController extends VueController {
     private JLabel hp;
     private JLabel atk;
     /**
-     * Controleur du Guerrier (layout de droite) qui permet de fournir les informations sur les guerriers notamment celui selectionné
+     * Controleur des Ennemies (layout de droite) qui permet de fournir les informations sur les ennemies notamment celui selectionné
      * @param map
      */
-    public GuerrierController(Map map) {
+    public EnnemyController(Map map) {
         super(map);
         this.map = map;
 
@@ -55,7 +56,7 @@ public class GuerrierController extends VueController {
     }
 
     /**
-     * Permet d'actualiser les statistiques du guerrier selectionnée
+     * Permet d'actualiser les statistiques de l'ennemie selectionnée
      */
     private void updateContent() {
         if (map.getActionner() != null) {
@@ -63,7 +64,6 @@ public class GuerrierController extends VueController {
             pdvMax = map.getActionner().getHpMax();
             attack = map.getActionner().getAttack_points();
         }
-
     }
     @Override
     public void paint(Graphics g) {

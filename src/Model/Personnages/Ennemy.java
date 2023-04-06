@@ -9,8 +9,8 @@ import Model.ThreadScanEnnemies;
  * Un ennemy est non controlable
  */
 public class Ennemy extends Personnage {
-    private static final int health_points = 100000;
-    private static final int attack_points = 150;
+    private static final int health_points = 1000;
+    private static final int attack_points = 50;
     private static final int rayon = 50;
 
 

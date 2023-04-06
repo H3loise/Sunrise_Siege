@@ -12,9 +12,9 @@ import java.util.*;
 import static java.lang.Thread.sleep;
 
 public class Map {
-    private ArrayList<Obstacle> obstacles;
+    private final ArrayList<Obstacle> obstacles;
     private ArrayList<Personnage> characters;
-    private ArrayList<Batiment> batiments;
+    private final ArrayList<Batiment> batiments;
     public static final int taille=1000;
     //a enlever
     private Nexus nexus;
@@ -22,7 +22,6 @@ public class Map {
 
     private int score = 0;
 
-    //private int food;
 
     private int food;
     private int stone;
@@ -33,25 +32,7 @@ public class Map {
     private int xActionner;
     private int yActionner;
 
-    public void setxActionner(int x){
-        this.xActionner=x;
-    }
 
-    public int getxActionner(){
-        return this.xActionner;
-    }
-
-    public void setyActionner(int y){
-        this.yActionner=y;
-    }
-
-    public int getyActionner(){
-        return this.yActionner;
-    }
-
-    public void setActionner(Personnage actionner) {
-        this.actionner = actionner;
-    }
 
     public int getActionnerHealth_Points(){
         return this.actionner.getHealth_points();
@@ -65,57 +46,21 @@ public class Map {
 
     private final ArrayList<Ennemy> ennemies = new ArrayList<>();
 
-    public ArrayList<Obstacle> getObstacles() {
-        return obstacles;
-    }
 
-    public ArrayList<Batiment> getBatiments() {
-        return batiments;
-    }
 
-    public ArrayList<Personnage> getPersonnages() {
-        return characters;
-    }
 
-    public int getScore() {
-        return score;
-    }
-
-    public int getFood() {
-        return food;
-    }
-
-    public int getStone() {
-        return stone;
-    }
-
-    public int getWood() {
-        return wood;
-    }
-
-    public boolean getDay(){
-        return day;
-    }
-
-    public void setDay(boolean d){
-        this.day=d;
-    }
-
-    public Nexus getNexus() {
-        return nexus;
-    }
 
     //Pour le calcul des chemins:
-    private int maxCol = taille;
-    private int maxRow = taille;
-    private Node[][] nodes = new Node[maxCol][maxRow];
+    private final int maxCol = taille;
+    private final int maxRow = taille;
+    private final Node[][] nodes = new Node[maxCol][maxRow];
     private Node startNode,goalNode,currentNode;
     private ArrayList<Node> openList = new ArrayList<>();
     private ArrayList<Node> checkedList = new ArrayList<>();
     boolean goalReached = false;
     private Caserne caserne;
 
-    private int delaiJourNuit = 25000;
+    private final int delaiJourNuit = 25000;
 
     private long startTime = 0;
     public Map(){
@@ -125,7 +70,8 @@ public class Map {
         Nexus chateau = new Nexus( 50,400);
         this.nexus = chateau;
         batiments.add(chateau);
-
+        Archer a = new Archer(5,5);
+        addCharacter(a);
         this.obstacles.add(new Obstacle(500, 500));
        this.obstacles.add(new Obstacle(600,500));
         this.food = 5;
@@ -149,23 +95,74 @@ public class Map {
         this.characters =c;
     }
 
-    /**
-     * Fonction permettant d'initialiser tout les noeuds, on leur transmet leur position.
-     */
-    private void initializeNodes() {
-        int col = 0;
-        int row =0;
-        while (col < maxCol && row < maxRow) {
-            nodes[col][row] = new Node(col, row);
-            col++;
-            if (col == maxCol) {
-                col = 0;
-                row++;
-            }
-        }
+    /**-------------------------------------------------------------------------------------------------
+     * Getter/Setters
+     *-----------------------------------------------------------------------------------------------------*/
+
+     public int getScore() {
+     return score;
+     }
+
+     public int getFood() {
+     return food;
+     }
+
+     public int getStone() {
+     return stone;
+     }
+
+     public int getWood() {
+     return wood;
+     }
+
+     public boolean getDay(){
+     return day;
+     }
+
+     public void setDay(boolean d){
+     this.day=d;
+     }
+
+     public Nexus getNexus() {
+     return nexus;
+     }
+
+    public ArrayList<Obstacle> getObstacles() {
+        return obstacles;
+    }
+
+    public ArrayList<Batiment> getBatiments() {
+        return batiments;
+    }
+
+    public ArrayList<Personnage> getPersonnages() {
+        return characters;
+    }
+
+    public void setxActionner(int x){
+        this.xActionner=x;
     }
 
 
+    public void setyActionner(int y){
+        this.yActionner=y;
+    }
+
+
+    public void setActionner(Personnage actionner) {
+        this.actionner = actionner;
+    }
+
+    public ArrayList<Ennemy> getEnnemies () {
+        return ennemies;
+    }
+
+
+
+
+    public Personnage getActionner(){
+        return this.actionner;
+    }
 
     /**
      * Getter du delaiJourNuit
@@ -190,81 +187,38 @@ public class Map {
         startTime = millis;
     }
 
-    /**
-     * Donne les ressources liées à l'obstacle passé en param, l'obstacle est alors remove de l'ArrayList obstacles
-     * @param o
+    public Caserne getCaserne() {
+        return this.caserne;
+    }
+
+
+    /** ------------------------------------------------------------------
+     *                                              DEPLACEMENT
+     *  ------------------------------------------------------------------
      */
-    public void obstacleMined(Obstacle o){
-        switch (o.getType()) {
-            case Rock -> stone += o.getRessource();
-            case Tree -> wood += o.getRessource();
-            case Wheat -> food += o.getRessource();
+
+    /**
+     * Fonction permettant d'initialiser tout les noeuds, on leur transmet leur position.
+     */
+    private void initializeNodes() {
+        int col = 0;
+        int row =0;
+        while (col < maxCol && row < maxRow) {
+            nodes[col][row] = new Node(col, row);
+            col++;
+            if (col == maxCol) {
+                col = 0;
+                row++;
+            }
         }
-        obstacles.remove(o);
-        System.out.println("Vous avez récupéré " + o.getRessource() + " " + o.getType());
     }
 
     /**
-     * Procédure permettant d'incrémenter le score, ici on a choisi 150, mais on changera
-     */
-    public void upScore(){
-        this.score +=150;
-    }
-
-    /**
-     * Fonction permettant de calculer si le point a et b sont voisins à près, on pourra la modifier jusqu'a n proche
-     * pour les archers par exemple
+     * Vérifie est-ce que une case est solide aux environs du nexus, pour la hitbox notamment
      * @param x
      * @param y
-     * @param x2
-     * @param y2
-     * @return boolean
+     * @return
      */
-    private boolean voisin(int x, int y,int x2, int y2){
-        return (x2>= x-1 || x2<= x+1) && (y2>=y-1 || y2<=y +1);
-    }
-
-    /**
-     * Procédure qui se lance au moment de l'update, elle permet de vider l'ArrayList characters des personnages morts
-     */
-    public void eraseDeadPeople(){
-        characters.removeIf(p -> !p.getIsAlive());
-    }
-
-    public void eraseMonsters(){
-        this.ennemies.removeIf(ennemy -> !ennemy.getIsAlive());
-    }
-    /**
-
-
-    /**
-     * Fonction calculant si la partie est perdu, autrement dit si le nexus a été détruit.
-     * @return boolean
-     */
-    public boolean testLoose(){
-        return nexus.getPv() <= 0;
-    }
-
-    /**
-     * On génère de nouveaux obstacles aléatoires, bien sûr leur nombre varie selon la nuit à laquelle nous sommes
-     * puisque le jeu est sensé devenir de plus en plus dur
-     */
-    private void generateNewObstacles(){
-        Random random = new Random();
-        int n = random.nextInt((score%150))+ 3;
-        for (int i = 0; i < n; i++) {
-            int x = random.nextInt(0,taille);
-            int y = random.nextInt(0,taille);
-            while(isOneSolid(x,y)){
-                 x = random.nextInt(0,taille);
-                y = random.nextInt(0,taille);
-            }
-            Obstacle o = new Obstacle(x,y);
-            this.obstacles.add(o);
-            rendreCaseImpossibleObstacles(o);
-        }
-    }
-
     private boolean isOneSolid(int x,int y){
         for(int i = x;i< x+ nexus.getTaille() + 5;i++){
             if(i<1000) {
@@ -279,56 +233,6 @@ public class Map {
         }
         return false;
     }
-
-    /**
-     * Procédure permettant d'améliorer le nexus, on vérifie que la personne a les matériaux necessaire, on
-     * les déduis puis on l'upgrade, le score est alors augmenté de 400
-     */
-
-    public void upgradeNexus(){
-        int n = nexus.getMinimumOfEach();
-        if(wood >= n * nexus.getLevel() && food >= n * nexus.getLevel() && stone >= n * nexus.getLevel()){
-            wood -= n * nexus.getLevel();
-            food -= n * nexus.getLevel();
-            stone -= n * nexus.getLevel();
-            nexus.upgrade();
-            score += 50;
-            System.out.println("Bravo le nexus a été amélioré, voici ses stats actuelles : ");
-            System.out.println(nexus.toString());
-        }else{
-            System.out.println("t'as pas assez clochard va, au travail !!!!!");
-        }
-    }
-
-
-    /**
-     * Procédure permettant de remettre les pv du Nexus au pvMax, cela déduit des ressources liés au cout de la reparation
-     * Le cout pour le réparer est enfait le prix que le Nexus a couté pour être amélioré à son niveau actuel
-     */
-    public void healingNexus() {
-        int n = nexus.getMinimumOfEach();
-        if (wood >= n * (nexus.getLevel()-1) && food >= n * (nexus.getLevel()-1) && stone >= n * (nexus.getLevel()-1)) {
-            if(nexus.getLevel() == 1){
-                if(wood >= 4 && food >= 4 && stone >= 4) {
-                    wood -= 4;
-                    food -= 4;
-                    stone -= 4;
-                    nexus.setPv(nexus.getPvMax());
-                }
-            }else {
-                nexus.setPv(nexus.getPvMax());
-                wood -= n * (nexus.getLevel() - 1);
-                food -= n * (nexus.getLevel() - 1);
-                stone -= n * (nexus.getLevel() - 1);
-                System.out.println(nexus.toString());
-            }
-        } else{
-            System.out.println("Pas assez d'argent pour réparer le Nexus");
-        }
-    }
-
-
-
 
     /**
      * Je prends en compte la taille du batiment ainsi que la hitbox du joueur, et je rends les cases corresepondantes
@@ -412,35 +316,15 @@ public class Map {
 
 
 
-    /** ------------------------------------------------------------------
-     *                                              ADD
-     *  ------------------------------------------------------------------
-     */
-
     /**
-     * Pour ajouter un personnage depuis l'exterieur, fonction utilisée notamment dans le main pour des test
+     * Deplace le personnage si celui-ci n'est pas déjà en mouvement.
+     * On calcule le chemin le plus court et on envoie le chemin au Thread qui se charge de l'animation.
+     *
      * @param p
+     * @param x
+     * @param y
      */
-    public void addCharacter(Personnage p ){
-        characters.add(p);
-        //new ThreadScanEnnemies(this,p).start();
-    }
-
-    public void addEnnemy(Ennemy e){
-        this.ennemies.add(e);
-        new ThreadScanEnnemies(this,e).start();
-    }
-
-    /**
-     * same
-     * @param o
-     */
-    public void addObstacle(Obstacle o){
-        obstacles.add(o);
-    }
-
-
-    public void deplacementPerso(Personnage p ,int x,int y){
+    public synchronized void  deplacementPerso(Personnage p ,int x,int y){
         if(!p.isMoving()) {
             ArrayList<Point> points = cheminLePluscourt(p, x, y);
             ThreadDeplacement thread_dep = new ThreadDeplacement(this, p, points);
@@ -448,39 +332,6 @@ public class Map {
             p.setThread_deplacement(thread_dep);
             resetNoeudsAprèsUtilisation();
             thread_dep.start();
-        }
-    }
-
-    /**
-     * Après utilisation, les champs Checked,Open,Start,Goal doivent etre remis à 0 et ce pour chaque neouds, on parcourt
-     * donc tout les noeuds et on reset chacun d'entre eux
-     */
-    private void resetNoeudsAprèsUtilisation(){
-        int col = 0;
-        int row =0;
-        while (col < maxCol && row < maxRow) {
-            nodes[col][row].resetState();
-            col++;
-            if (col == maxCol) {
-                col =0;
-                row++;
-            }
-        }
-    }
-
-    /**
-     * Pour miner un Obstacle il nous faut un obstacle,
-     * @param p
-     * @param o
-     */
-    public void deplacementPersoMiner(Personnage p ,Obstacle o ){
-        if(!p.isMoving()) {
-            p.setMoving(true);
-            rendreCasePossibleObstacles(o);
-            ArrayList<Point> points = cheminLePluscourt(p, o.getX(), o.getY());
-            resetNoeudsAprèsUtilisation();
-            new ThreadMining(this, p, o, points).start();
-            System.out.println("coucou");
         }
     }
 
@@ -527,21 +378,6 @@ public class Map {
         yDistance = Math.abs(node.getRow()  -goalNode.getRow());
         node.sethCost( xDistance + yDistance);
         node.setfCost(node.getgCost() + node.gethCost());
-    }
-
-
-    /**
-     * Permet d'attribuer à chaque Noeud son cout, on parcourt donc tout le double tableau nodes et on lance
-     * getCost pour chacun Noeud
-     */
-    private void setCostOnNodes(){
-        for (Node[] n:
-                nodes) {
-            for (Node res:
-                    n) {
-                getCost(res);
-            }
-        }
     }
 
     public ArrayList<Node> recherche(Personnage p,int x,int y){
@@ -615,10 +451,6 @@ public class Map {
         }
     }
 
-    public Node[][] getNodes() {
-        return nodes;
-    }
-
     /**
      * On récupère le path jusqu'au GoalNode, on doit retourner la liste car on par du GoalNode pour aller jusqu'au StartNode
      * @return
@@ -636,36 +468,137 @@ public class Map {
         return res;
     }
 
-    public void setFood(int food) {
-        this.food += food;
-    }
 
-    public void setStone(int stone) {
-        this.stone += stone;
-    }
 
-    public void setWood(int wood) {
-        this.wood += wood;
+    /**
+     * Permet d'attribuer à chaque Noeud son cout, on parcourt donc tout le double tableau nodes et on lance
+     * getCost pour chacun Noeud
+     */
+    private void setCostOnNodes(){
+        for (Node[] n:
+                nodes) {
+            for (Node res:
+                    n) {
+                getCost(res);
+            }
+        }
     }
 
     /**
-     *  On fait revenir chacun des guerriers/archer à la caserne, on rendre la caserne tangible le temps de calculer le
-     *  chemin, puis on déplace chacun des guerrier/archer
+     * Pour miner un Obstacle il nous faut un obstacle,
+     * @param p
+     * @param o
      */
-    private void resetPositionWarriors(){
-        rendreCasePossibleBatiment(caserne);
-        for (Personnage p:
-                characters) {
-            if(p instanceof Guerrier || p instanceof Archer){
-                System.out.println("oui");
-                deplacementPerso(p, caserne.getX(), caserne.getY());
-            }
+    public void deplacementPersoMiner(Personnage p ,Obstacle o ){
+        if(!p.isMoving()) {
+            p.setMoving(true);
+            rendreCasePossibleObstacles(o);
+            ArrayList<Point> points = cheminLePluscourt(p, o.getX(), o.getY());
+            resetNoeudsAprèsUtilisation();
+            new ThreadMining(this, p, o, points).start();
+        }
+    }
 
+    /**
+     * Après utilisation, les champs Checked,Open,Start,Goal doivent etre remis à 0 et ce pour chaque neouds, on parcourt
+     * donc tout les noeuds et on reset chacun d'entre eux
+     */
+    private void resetNoeudsAprèsUtilisation(){
+        int col = 0;
+        int row =0;
+        while (col < maxCol && row < maxRow) {
+            nodes[col][row].resetState();
+            col++;
+            if (col == maxCol) {
+                col =0;
+                row++;
+            }
+        }
+    }
+
+    /**
+     * Procédure permettant d'incrémenter le score, ici on a choisi 150, mais on changera
+     */
+    public void upScore(){
+        this.score +=150;
+    }
+
+    /**
+     * Procédure qui se lance au moment de l'update, elle permet de vider l'ArrayList characters des personnages morts
+     */
+    public void eraseDeadPeople(){
+        characters.removeIf(p -> !p.getIsAlive());
+    }
+
+    public void eraseMonsters(){
+        this.ennemies.removeIf(ennemy -> !ennemy.getIsAlive());
+    }
+    /**
+
+
+    /**
+     * Fonction calculant si la partie est perdu, autrement dit si le nexus a été détruit.
+     * @return boolean
+     */
+    public boolean testLoose(){
+        return nexus.getPv() <= 0;
+    }
+
+    /**
+     * On génère de nouveaux obstacles aléatoires, bien sûr leur nombre varie selon la nuit à laquelle nous sommes
+     * puisque le jeu est sensé devenir de plus en plus dur
+     */
+    private void generateNewObstacles(){
+        Random random = new Random();
+        int n = random.nextInt((score%150) + 1)+ 3;
+        for (int i = 0; i < n; i++) {
+            int x = random.nextInt(0,taille);
+            int y = random.nextInt(0,taille);
+            while(isOneSolid(x,y)){
+                 x = random.nextInt(0,taille);
+                y = random.nextInt(0,taille);
+            }
+            Obstacle o = new Obstacle(x,y);
+            this.obstacles.add(o);
+            rendreCaseImpossibleObstacles(o);
         }
     }
 
 
 
+
+
+    /**
+     * Procédure permettant de remettre les pv du Nexus au pvMax, cela déduit des ressources liés au cout de la reparation
+     * Le cout pour le réparer est enfait le prix que le Nexus a couté pour être amélioré à son niveau actuel
+     */
+    public void healingNexus() {
+        int n = nexus.getMinimumOfEach();
+        if (wood >= n * (nexus.getLevel()-1) && food >= n * (nexus.getLevel()-1) && stone >= n * (nexus.getLevel()-1)) {
+            if(nexus.getLevel() == 1){
+                if(wood >= 4 && food >= 4 && stone >= 4) {
+                    wood -= 4;
+                    food -= 4;
+                    stone -= 4;
+                    nexus.setPv(nexus.getPvMax());
+                }
+            }else {
+                nexus.setPv(nexus.getPvMax());
+                wood -= n * (nexus.getLevel() - 1);
+                food -= n * (nexus.getLevel() - 1);
+                stone -= n * (nexus.getLevel() - 1);
+                System.out.println(nexus.toString());
+            }
+        } else{
+            System.out.println("Pas assez d'argent pour réparer le Nexus");
+        }
+    }
+
+
+    /** ------------------------------------------------------------------
+     *                                              GESTION  RESSOURCES
+     *  ------------------------------------------------------------------
+     */
 
     /**
      * Procedure pour acheter des villageois, les villageois ont un coût, on  déduit alors les ressources corresepondantes
@@ -705,6 +638,23 @@ public class Map {
     }
 
     /**
+     * On peut acheter des archers, ils ont un coût, une fois acheté l'archer spawn sur la caserne.
+     */
+    public void acheterArcher(){
+        if (wood >= Archer.woodPrice && stone > Archer.stonePrice && food >= Archer.wheatPrice) {
+            stone -= Archer.stonePrice;
+            wood -= Archer.woodPrice;
+            food -= Archer.wheatPrice;
+            Archer p = new Archer(caserne.getX(), caserne.getY());
+            addCharacter(p);
+        }
+        else{
+            System.out.println("Vous n'avez pas assez de ressources");
+        }
+    }
+
+
+    /**
      * On peut acheter des guerriers, ils ont un coût, une fois acheté le guerrier spawn sur la caserne.
      */
     public void acheterGuerrier(){
@@ -718,26 +668,80 @@ public class Map {
             }
             addCharacter(p);
         }
-            else{
-                System.out.println("Vous n'avez pas assez de ressources");
-            }
-    }
-
-    /**
-     * On peut acheter des archers, ils ont un coût, une fois acheté l'archer spawn sur la caserne.
-     */
-    public void acheterArcher(){
-        if (wood >= Archer.woodPrice && stone > Archer.stonePrice && food >= Archer.wheatPrice) {
-            stone -= Archer.stonePrice;
-            wood -= Archer.woodPrice;
-            food -= Archer.wheatPrice;
-            Archer p = new Archer(caserne.getX(), caserne.getY(),this);
-            addCharacter(p);
-        }
         else{
             System.out.println("Vous n'avez pas assez de ressources");
         }
     }
+
+    /**
+     * Donne les ressources liées à l'obstacle passé en param, l'obstacle est alors remove de l'ArrayList obstacles
+     * @param o
+     */
+    public void obstacleMined(Obstacle o){
+        switch (o.getType()) {
+            case Rock -> stone += o.getRessource();
+            case Tree -> wood += o.getRessource();
+            case Wheat -> food += o.getRessource();
+        }
+        obstacles.remove(o);
+        System.out.println("Vous avez récupéré " + o.getRessource() + " " + o.getType());
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /** ------------------------------------------------------------------
+     *                                              ADD
+     *  ------------------------------------------------------------------
+     */
+
+    /**
+     * Pour ajouter un personnage depuis l'exterieur, fonction utilisée notamment dans le main pour des test
+     * @param p
+     */
+    public void addCharacter(Personnage p ){
+        characters.add(p);
+        new ThreadScanEnnemies(this,p).start();
+    }
+
+    public void addEnnemy(Ennemy e){
+        this.ennemies.add(e);
+        new ThreadScanEnnemies(this,e).start();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * Procédure pour soigner tout les guerriers au levé du jour, on parcourt l'arraylist de personnage et on
@@ -749,16 +753,7 @@ public class Map {
         }
     }
 
-    public ArrayList<Ennemy> getEnnemies () {
-        return ennemies;
-    }
 
-
-
-
-    public Personnage getActionner(){
-        return this.actionner;
-    }
 
     /** ------------------------------------------------------------------
      *                                              ENNEMIES
@@ -815,7 +810,6 @@ public class Map {
                 if(!res.isSolid()){
                     if(Math.hypot((middleNexus.getX()-res.getRow()),(middleNexus.getY()- res.getCol())) < max && (res.getRow()!=0 && res.getCol()!=0)){
                         res_array.add(new Point(res.getRow(),res.getCol()));
-                        System.out.println(res.isSolid());
                     }
                 }
             }
@@ -856,10 +850,7 @@ public class Map {
     public boolean scanFightRange(Personnage perso, Personnage ennemi) {
         double distance = Math.sqrt((perso.getX() - ennemi.getX()) * (perso.getX() - ennemi.getX()) + (perso.getY() - ennemi.getY()) * (perso.getY() - ennemi.getY()));
         double sumRadius = perso.getRayon() + ennemi.getRayon();
-        if (distance < perso.getRayon() || distance <= sumRadius - ennemi.getRayon()) {
-            return true;
-        }
-        return false;
+        return distance < perso.getRayon() || distance <= sumRadius - ennemi.getRayon();
     }
 
     /**
@@ -872,10 +863,7 @@ public class Map {
         Point ennemy_arrival_point = closestNexusPoint(ennemi);
         int subX= ennemy_arrival_point.x - ennemi.getX();
         int subY = ennemy_arrival_point.y - ennemi.getY();
-        if ((-5<=subX && subX <=5)  && (-5<=subY && subY<=5)){
-            return true;
-        }
-        return false;
+        return (-5 <= subX && subX <= 5) && (-5 <= subY && subY <= 5);
     }
 
 
@@ -903,6 +891,22 @@ public class Map {
         }
     }
 
+
+    /**
+     *  On fait revenir chacun des guerriers/archer à la caserne, on rendre la caserne tangible le temps de calculer le
+     *  chemin, puis on déplace chacun des guerrier/archer
+     */
+    private void resetPositionWarriors(){
+        rendreCasePossibleBatiment(caserne);
+        for (Personnage p:
+                characters) {
+            if(p instanceof Guerrier || p instanceof Archer){
+                deplacementPerso(p, caserne.getX(), caserne.getY());
+            }
+
+        }
+    }
+
     /**
      * On upgrade la caserne, faisant en sorte d'upgrade tout les Archer et Guerrier ayant été créee jusque là,
      * de plus cela nous coûte des ressources, donc nous soustrayons les ressources si cela est possible avec un if
@@ -917,16 +921,14 @@ public class Map {
                 stone -= n * caserne.getLevel();
                 caserne.upgrade();
                 for (Personnage p : characters) {
-                    if (p instanceof Guerrier) {
-                        Guerrier g = (Guerrier) p;
+                    if (p instanceof Guerrier g) {
                         for (int i = 1; i < caserne.getLevel(); i++) {
                             if(g.getLevel()<caserne.getLevel()) {
                                 g.upgrade();
 
                             }
                         }
-                    } else if (p instanceof Archer) {
-                        Archer a = (Archer) p;
+                    } else if (p instanceof Archer a) {
                         for (int i = 1; i < caserne.getLevel(); i++) {
                             if(a.getLevel()<caserne.getLevel()) {
                                 a.upgrade();
@@ -939,9 +941,27 @@ public class Map {
         }
     }
 
-    public Caserne getCaserne() {
-        return this.caserne;
+    /**
+     * Procédure permettant d'améliorer le nexus, on vérifie que la personne a les matériaux necessaire, on
+     * les déduis puis on l'upgrade, le score est alors augmenté de 400
+     */
+
+    public void upgradeNexus(){
+        int n = nexus.getMinimumOfEach();
+        if(wood >= n * nexus.getLevel() && food >= n * nexus.getLevel() && stone >= n * nexus.getLevel()){
+            wood -= n * nexus.getLevel();
+            food -= n * nexus.getLevel();
+            stone -= n * nexus.getLevel();
+            nexus.upgrade();
+            score += 50;
+            System.out.println("Bravo le nexus a été amélioré, voici ses stats actuelles : ");
+            System.out.println(nexus.toString());
+        }else{
+            System.out.println("t'as pas assez clochard va, au travail !!!!!");
+        }
     }
+
+
 
 
     /**

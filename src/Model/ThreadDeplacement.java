@@ -2,6 +2,7 @@ package Model;
 
 import Model.Personnages.Ennemy;
 import Model.Personnages.Personnage;
+import Model.Personnages.Villageois;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class ThreadDeplacement extends Thread {
         this.p = p;
         this.points = points;
         if(this.p instanceof Ennemy){
-            this.delai = 5;
+            this.delai = 25;
         }
     }
 
@@ -41,6 +42,10 @@ public class ThreadDeplacement extends Thread {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+                }
+                if(!m.getDay() && p instanceof Villageois){
+                    p.setMoving(false);
+                    interrupt();
                 }
                 this.p.setMoving(true);
                 p.setPosition((int) point.getX(), (int) point.getY());

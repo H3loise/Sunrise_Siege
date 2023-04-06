@@ -13,8 +13,6 @@ public class ThreadMining extends Thread {
 
     private Map m;
     private Personnage p;
-    private int finalX;
-    private int finalY;
     private Obstacle o;
     private final int delai = 10;
     ArrayList<Point> points;
@@ -24,8 +22,6 @@ public class ThreadMining extends Thread {
         this.points = points;
         this.m = m;
         this.p = p;
-        this.finalX = o.getX();
-        this.finalY = o.getY();
         this.o = o;
     }
 

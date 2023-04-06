@@ -40,9 +40,6 @@ public class Node {
         checked =true;
     }
 
-    public Node getParent() {
-        return parent;
-    }
 
     public int getCol() {
         return col;
@@ -98,9 +95,6 @@ public class Node {
         gCost = i;
     }
 
-    public void setAsNonGoal() {
-        this.goal = false;
-    }
 
     /**
      * Méthode permettant de réinitialiser le noeud, utilisée notammentn après son utilisaiton dans Map pour

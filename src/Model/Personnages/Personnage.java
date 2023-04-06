@@ -70,9 +70,6 @@ public abstract class Personnage {
         this.thread_deplacement = thread_dep;
     }
 
-    public ThreadDeplacement getThread_deplacement(){
-        return this.thread_deplacement;
-    }
 
     public int getHealth_points(){return this.health_points;}
 

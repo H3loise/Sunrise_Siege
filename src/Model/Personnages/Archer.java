@@ -20,7 +20,7 @@ public class Archer extends Personnage {
     public static final int stonePrice = 0;
 
 
-    public Archer(int x, int y, Map map) {
+    public Archer(int x, int y) {
         super(health_points,x,y,rayon,attack_points);
         this.hpMax = this.getHealth_points();
         level = 1;

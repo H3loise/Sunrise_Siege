@@ -21,8 +21,6 @@ public abstract class Personnage {
     public static final int taille = 50;
     private boolean moving = false;
     private boolean attacking = false;
-    private ThreadDeplacement thread_deplacement = null;
-
     public Personnage(int health_points, int x, int y, int rayon, int attack_points){
         this.health_points = health_points;
         this.x = x;
@@ -64,10 +62,6 @@ public abstract class Personnage {
      */
     public boolean getIsAlive(){
         return this.isAlive;
-    }
-
-    public void setThread_deplacement(ThreadDeplacement thread_dep){
-        this.thread_deplacement = thread_dep;
     }
 
 

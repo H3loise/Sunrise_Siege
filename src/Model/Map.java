@@ -329,7 +329,6 @@ public class Map {
             ArrayList<Point> points = cheminLePluscourt(p, x, y);
             ThreadDeplacement thread_dep = new ThreadDeplacement(this, p, points);
             p.setMoving(true);
-            p.setThread_deplacement(thread_dep);
             resetNoeudsAprèsUtilisation();
             thread_dep.start();
         }

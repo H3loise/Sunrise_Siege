@@ -57,7 +57,7 @@ public class Map {
     private Node startNode,goalNode,currentNode;
     private ArrayList<Node> openList = new ArrayList<>();
     private ArrayList<Node> checkedList = new ArrayList<>();
-    boolean goalReached = false;
+    private boolean goalReached = false;
     private Caserne caserne;
 
     private final int delaiJourNuit = 25000;

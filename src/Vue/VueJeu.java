@@ -12,6 +12,7 @@ import Model.Personnages.*;
 import javax.swing.*;
 import java.awt.*;
 
+
 public class VueJeu extends JPanel {
     private int largeur;
     private int hauteur;

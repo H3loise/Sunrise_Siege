@@ -104,7 +104,6 @@ public class CaserneController extends VueController {
         acheterArchers.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Achete archer");
                 map.acheterArcher();
             }
         });
@@ -112,7 +111,6 @@ public class CaserneController extends VueController {
         acheterGuerriers.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Achete Guerrier");
                 map.acheterGuerrier();
             }
         });
@@ -120,7 +118,6 @@ public class CaserneController extends VueController {
         upgrade.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("change le Caserne");
                 map.upgradeCaserne();
             }
         });

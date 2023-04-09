@@ -18,6 +18,5 @@ public class Main {
         affichage.addMouseListener(actionPanel);
         new TimeChanger(map).start();
         new ThreadWipeDeadCharacters(map).start();
-        //System.out.println(Math.hypot(map.getNexus().getX(),));
     }
 }

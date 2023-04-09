@@ -101,21 +101,18 @@ public class NexusController extends VueController {
         healNexus.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Nexus soigné mon gâté");
                 map.healingNexus();
             }
         });
         acheterVillageois.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Achete Villageois");
                 map.acheterVillageois();
             }
         });
         upgrade.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("change le nexus");
                 map.upgradeNexus();
             }
         });

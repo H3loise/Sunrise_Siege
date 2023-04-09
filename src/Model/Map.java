@@ -344,17 +344,14 @@ public class Map {
      */
     public  ArrayList<Point> cheminLePluscourt(Personnage p, int x, int y){
         if(nodes[x][y].isSolid()){
-            System.out.println("solide");
             return new ArrayList<>();
 
         }
         if(p.getY() == y && p.getX() == x){
-            System.out.println("Vous êtes déjà sur cette case");
             return new ArrayList<>();
         }
         ArrayList<Point>res = new ArrayList<>();
         ArrayList<Node> chemin = recherche(p,x,y);
-        System.out.println(chemin);
         for (Node n : chemin){
             res.add(new Point(n.getCol(),n.getRow()));
         }
@@ -586,10 +583,7 @@ public class Map {
                 wood -= n * (nexus.getLevel() - 1);
                 food -= n * (nexus.getLevel() - 1);
                 stone -= n * (nexus.getLevel() - 1);
-                System.out.println(nexus.toString());
             }
-        } else{
-            System.out.println("Pas assez d'argent pour réparer le Nexus");
         }
     }
 
@@ -631,9 +625,6 @@ public class Map {
             p.setPosition(x,y);
             addCharacter(p);
         }
-        else{
-            System.out.println("Vous n'avez pas assez de ressources");
-        }
     }
 
     /**
@@ -646,9 +637,6 @@ public class Map {
             food -= Archer.wheatPrice;
             Archer p = new Archer(caserne.getX(), caserne.getY());
             addCharacter(p);
-        }
-        else{
-            System.out.println("Vous n'avez pas assez de ressources");
         }
     }
 
@@ -667,9 +655,6 @@ public class Map {
             }
             addCharacter(p);
         }
-        else{
-            System.out.println("Vous n'avez pas assez de ressources");
-        }
     }
 
     /**
@@ -683,7 +668,6 @@ public class Map {
             case Wheat -> food += o.getRessource();
         }
         obstacles.remove(o);
-        System.out.println("Vous avez récupéré " + o.getRessource() + " " + o.getType());
     }
 
 
@@ -953,19 +937,16 @@ public class Map {
             stone -= n * nexus.getLevel();
             nexus.upgrade();
             score += 50;
-            System.out.println("Bravo le nexus a été amélioré, voici ses stats actuelles : ");
-            System.out.println(nexus.toString());
-        }else{
-            System.out.println("t'as pas assez clochard va, au travail !!!!!");
+
         }
     }
 
 
 
 
-    /**
-     * Code non utilisé
-     */
+    /**----------------------------------------------------------------------------------------------/
+     * Code non utilisé                                                                              /
+     *----------------------------------------------------------------------------------------------*/
 
     /**
      * Procédure permettant de miner une ressource, le matériau est récupéré et le minerai est détruit.
@@ -1055,8 +1036,6 @@ public class Map {
             food -= Guerrier.wheatPrice * g.getLevel();
             wood -= Guerrier.woodPrice * g.getLevel();
             g.upgrade();
-        }else{
-            System.out.println("Vous n'avez pas assez de ressources");
         }
     }
 
@@ -1071,8 +1050,6 @@ public class Map {
             food -= Archer.wheatPrice * g.getLevel();
             wood -= Archer.woodPrice * g.getLevel();
             g.upgrade();
-        }else{
-            System.out.println("Vous n'avez pas assez de ressources");
         }
     }
 }

@@ -7,7 +7,7 @@ package Model.Batiments;
 public class Nexus extends Batiment {
     //Canon qui attaque
     private int attack;
-    private final int minimumOfEach = 5;
+    private final int minimumOfEach = 10;
     private final double range = 300;
 
     /**

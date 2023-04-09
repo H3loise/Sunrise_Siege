@@ -18,8 +18,7 @@ public class Obstacle {
     private final int few = 3;
     private final int medium = 5;
     private final int many = 10;
-    private final Image imageJour = null;
-    private final Image imageNuit = null;
+    private final int taille = 50;
     private Type type;
 
     /**
@@ -128,18 +127,11 @@ public class Obstacle {
         return many;
     }
 
-    public Image getImageJour() {
-        return imageJour;
-    }
-
-    public Image getImageNuit() {
-        return imageNuit;
-    }
 
     public Type getType() {
         return type;
     }
-    private final int taille = 50;
+
 
 
 
@@ -163,7 +155,7 @@ public class Obstacle {
 
     /**
      * Permet d'augmenter la taille de l'obstacle, pourra être utile prochainement
-     * nonused
+     * unused
      */
     public void upgrade(){
         switch (size){

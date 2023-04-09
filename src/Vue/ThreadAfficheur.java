@@ -1,8 +1,7 @@
 package Vue;
 
 public class ThreadAfficheur extends Thread{
-    VueJeu vue;
-    private Thread gifThread;
+    private VueJeu vue;
 
     public ThreadAfficheur(VueJeu v){
         this.vue=v;

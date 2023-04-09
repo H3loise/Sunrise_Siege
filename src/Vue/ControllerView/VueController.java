@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public abstract class VueController extends JPanel{
-    private Map map;
+    protected Map map;
 
 
     public VueController(Map m){

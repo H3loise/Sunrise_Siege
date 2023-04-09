@@ -9,12 +9,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class NexusController extends VueController {
-    private Map map;
-    int pdv = 0;
-    int pdvMax = 0;
-    int level = 0;
-    int attack = 0;
-    int n;
+    private  int pdv = 0;
+    private int pdvMax = 0;
+    private int level = 0;
+    private  int attack = 0;
+    private int n;
     private JLabel hp;
     private JLabel lvl;
     private JLabel atk;

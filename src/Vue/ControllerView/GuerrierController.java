@@ -8,10 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GuerrierController extends VueController {
-    Map map;
-    int pdv = 0;
-    int pdvMax = 0;
-    int attack = 0;
+    private int pdv = 0;
+    private int pdvMax = 0;
+    private int attack = 0;
     private JLabel nom;
     private JLabel hp;
     private JLabel txtExplicatif1;
